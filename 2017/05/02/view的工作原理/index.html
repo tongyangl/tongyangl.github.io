@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><meta name="keywords" content="佟杨,长春大学,Android开发,学生"><title>view的工作原理 | 佟杨个人博客</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.3.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=1.3.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">view的工作原理</h1><a id="logo" href="/.">佟杨个人博客</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">view的工作原理</h1><div class="post-meta">May 2, 2017<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-thread-key="2017/05/02/view的工作原理/" href="/2017/05/02/view的工作原理/#comments" class="ds-thread-count"></a><div class="post-content"><p>ViewRoot是对应ViewRootImpl类，他是连接windowmangager和DecorView的纽带。</p>
+<p>view的三大绘制流程都是从viewroot开始的，在ActivityThread中，activity对象被创建完成后，会把decorview添加到window中。同时创建vIewrootImpl对象。</p>
+<p>view的绘制从viewroot的performTraversals方法开始分别对应 measure，layout，和draw，分别对应</p>
+<ul>
+<li><p>测量宽高</p>
+</li>
+<li><p>确定view在父容器中的位置</p>
+</li>
+<li><p>绘制</p>
+<p>​</p>
+</li>
+</ul>
+<p>performTraversals会依次调用perfromMeasure，performLayout,performDraw 方法，这三个方法会完成顶级view的 三个绘制过程，其中的performMeasure会调用measure ，然后再调用onmeasure</p>
+<p>然后再onmeasure方法中会继续对子view进行measure过程，这样就遍历了整个view树。</p>
+<p>其他两个方法也是类似</p>
+<p>DecorView作为顶级的view其实包含一个linearlayout，分为两个部分，一个titlebar和content，所以我们的oncreate方法中是setcontentview而不是setview</p>
+<h1 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h1><p>measureSpec会根据view的layoutparams和父容器施加的规则转换而来</p>
+<p>MeasureSpec是一个32位的int值，前两位代表测量模式SpecMode，后面代代表SpecSize测量大小</p>
+<p>SpecMode分为三种</p>
+<ul>
+<li><p>UNSPECIFIED 父容器对view的宽高没有任何的限制，要多打给多大，一般出现在系统内部</p>
+</li>
+<li><p>EXACTLY 精确大小，表示view的大小就是spceSize， 如match_parent，或者精确的一个数值</p>
+</li>
+<li><p>AT_MOST 父容器给顶了一个大小，view的大小不能超过它，比如wrap_contet</p>
+<p>​</p>
+</li>
+</ul>
+<p>最顶级的view decorview的大小是由他自己的layoutparams和窗口的尺寸决定，而其他的view都是父容器的规则和自身的layoutparams决定。</p>
+<p>MeasureSpec一旦确定后 onMeasure就可以确定view的最终宽高</p>
+<p>padding代表父容器已经占用的大小，所以实际可用大小为父容器大小减去padding。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int size=Math.max(0,specSize-padding);</div></pre></td></tr></table></figure>
+<h1 id="view的工作流程"><a href="#view的工作流程" class="headerlink" title="view的工作流程"></a>view的工作流程</h1><p>———–Measure————layout———–draw</p>
+<h3 id="measure"><a href="#measure" class="headerlink" title="measure"></a>measure</h3><p>如果是viewgroup则除了测量自己的大小，还要去遍历调用字view 的measure的方法如果是view则只调用measure</p>
+<p>view的measure方法是一个final方法，不能被重写而在measrue方法中会调用onMseasure方法。</p>
+<h5 id="viewgroup的measure过程"><a href="#viewgroup的measure过程" class="headerlink" title="viewgroup的measure过程"></a>viewgroup的measure过程</h5><p>viewgroup是抽象类没有实现onMeasure，但是有一个measureChildren方法。</p>
+<p>之所以它没有实现测量方法，是因为他需要子类去实现这个方法如linearlayout等，因为每个的布局特性导致他们的测量方法不同。</p>
+<p>记住 view的onMeasure过程不是和acitvity同步的，所以在oncreate和onstart或者onresume中无法获取到真正的宽高</p>
+<p>所以要使用如下方法调用是比较正确的</p>
+<ul>
+<li>通过onWindowFocusChanged方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public void onWindowFocusChanged(boolean hasFocus)&#123;</div><div class="line">  surper.onWindowFocusChanged(hasFocus);</div><div class="line">  if(hasFocus)&#123;</div><div class="line">    int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>通过view.post方法</p>
+<p>post一个runable投入到消息队列，然后等待Looper调用runable的时候view已经初始化好了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">view.post(new runable()&#123;</div><div class="line">  @Override</div><div class="line">  public void run()&#123;</div><div class="line">  </div><div class="line">  // 获取宽高</div><div class="line">   int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>通过ViewTreeObserver的回调方法</p>
+</li>
+<li><p>通过view.measure(int WidthMeasureSpec,int HeightMeasureSpec)</p>
+<p> match_parent  直接放弃，无法获取</p>
+<p>具体的数值 </p>
+</li>
+</ul>
+<p>​        warp_content</p>
+<h3 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h3><p>ViewGroup调用layout方法确定自己的位置，当自己的位置确定后他会调用onlayout方法遍历子元素的laout方法，然后子元素在去调用layout方法 </p>
+<p>layout方法确定本身的位置，onlayout确定子元素的位置</p>
+<p>layout方法会通过 setfrme 确定view的四个顶点位置mLeft，mRight,mTop,mbottom.四个点确定了位置也就确定了然后调用onlayout方法 ，它和onmeasure方法一样，viewgroup没有具体的实现，</p>
+<h3 id="draw"><a href="#draw" class="headerlink" title="draw"></a>draw</h3><p>draw的过程遵循四步骤</p>
+<ul>
+<li><p>绘制背景</p>
+</li>
+<li><p>绘制自己（onDraw）</p>
+</li>
+<li><p>绘制children（dispatchDraw）</p>
+</li>
+<li><p>绘制装饰（onDrawScrollBars）</p>
+</li>
+</ul>
+<p>View的特殊方法 ——–setWillNotDraw</p>
+<p>表示一个view如果不需要绘制则可以设置为ture，这样系统会进行优化。viewgroup会默认的开启这个方法，如果我们的自定义view需要onDraw方法来绘制东西，则我们需要关闭这个方法</p>
+</div><div class="tags"><a href="/tags/view/">view</a></div><div class="post-nav"><a href="/2017/04/28/希尔排序/" class="next">希尔排序</a></div><div data-thread-key="2017/05/02/view的工作原理/" data-title="view的工作原理" data-url="http://yoursite.com/2017/05/02/view的工作原理/" class="ds-share flat"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0);" class="ds-more">分享到:</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul><div class="ds-share-icons-more"></div></div></div><div id="comments"><div data-thread-key="2017/05/02/view的工作原理/" data-title="view的工作原理" data-url="http://yoursite.com/2017/05/02/view的工作原理/" data-author-key="1" class="ds-thread"></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="widget"><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="请输入关键字..."/></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/Android/" style="font-size: 15px;">Android</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/view/" style="font-size: 15px;">view</a> <a href="/tags/toolbar的搜索框/" style="font-size: 15px;">toolbar的搜索框</a> <a href="/tags/svg/" style="font-size: 15px;">svg</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/android/" style="font-size: 15px;">android</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-fei"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/05/02/view的工作原理/">view的工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/希尔排序/">希尔排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/排序（冒泡排序，插入排序）/">排序（冒泡排序，插入排序）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/27/排序（选择排序）/">排序（选择排序）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/22/java8-行为参数传递代码/">java8-行为参数传递代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/handler和messsage/">handler和messsage</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/17/bitmap上写字/">bitmap上写字</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/14/自定义view（1）/">自定义view（1）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/svg/">svg</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/算法基础/">算法基础</a></li></ul></div><div class="widget"><div class="comments-title"><i class="fa fa-commt"> 最近评论</i></div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div></div></div></div><a id="totop" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.3.0" async></script><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |<a href="/atom.xml">订阅本站</a> |<span>联系博主：<a href="mailto:1778480884@qq.com" target="_blank" class="fa fa-email"> </a><a href="http://weibo.com/u/1100412270?refer_flag=1001030102_&amp;is_hot=1" target="_blank" class="fa fa-weibo"></a><a href="https://github.com/tongyangl" target="_blank" class="fa fa-github"> </a></span></p><p><span> Copyright &copy;<a href="/." rel="nofollow">佟杨</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span><span><a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> Theme </a>by<a rel="nofollow" target="_blank" href="https://github.com/chaooo"> Charles.</a></span></p></div></div></div><script>var duoshuoQuery = {short_name:'tycoding'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    document.getElementsByTagName('body')[0].appendChild(ds);
+})();
+</script><script type="text/javascript" src="/js/search.json.js?v=1.3.0"></script></body></html>
