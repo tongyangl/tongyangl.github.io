@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JAVA FIle的排序]]></title>
+    <url>%2F2017%2F07%2F19%2FJAVA-FIle%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%9C%E8%A5%BF%2F</url>
+    <content type="text"><![CDATA[之前搞了一个Android 的播放器，里面涉及到了好多关于java file文件的东西。 其中就有一个关于file的排序问题。 自己天真的以为用TreeSet就可以了。。但是发现是可以了，但是他是分大小写的，我们平常都是不分大小写的，所以自己鼓捣了一会发现 12Collections.sort();这个方法 123456789101112131415private List&lt;File&gt; sortFileList(List&lt;File&gt; list) &#123; Collections.sort(list, new Comparator&lt;File&gt;() &#123; @Override public int compare(File o1, File o2) &#123; if (o1.isDirectory() &amp;&amp; o2.isFile()) return -1; if (o1.isFile() &amp;&amp; o2.isDirectory()) return 1; return o1.getName().compareToIgnoreCase(o2.getName()); &#125; &#125;); return list; &#125; 实现 Comparator接口。就可以实现排序了 同样对于filelist这个方法也有一个FileFilter的接口传入，比如一些隐藏文件我们可以直接让他不显示 1234567891011121314file.listFiles(new FileFilter() &#123; @Override public boolean accept(File pathname) &#123; if(pathname.getName().startsWith(&quot;.&quot;))&#123; return false; &#125;else&#123; return true; &#125; &#125;&#125;); 这样就可以了。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[测试]]></title>
     <url>%2F2017%2F07%2F15%2F%E6%B5%8B%E8%AF%95%2F</url>
     <content type="text"></content>
