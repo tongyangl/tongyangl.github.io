@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Broadcas/</loc>
+        <lastmod>2017-07-20T10:15:10.873Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Activity/</loc>
+        <lastmod>2017-07-20T08:04:06.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2017/07/19/JAVA-FIle%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%9C%E8%A5%BF/</loc>
         <lastmod>2017-07-19T06:55:01.402Z</lastmod>
         <changefreq>weekly</changefreq>

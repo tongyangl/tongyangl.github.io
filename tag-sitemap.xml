@@ -23,13 +23,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/Android/</loc>
-        <lastmod>2017-04-19T05:35:03.782Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/</loc>
         <lastmod>2017-04-29T04:23:00.931Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -74,6 +67,13 @@
     <url>
         <loc>http://yoursite.com/tags/java/</loc>
         <lastmod>2017-07-19T06:55:01.402Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/Android/</loc>
+        <lastmod>2017-07-20T10:15:10.873Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

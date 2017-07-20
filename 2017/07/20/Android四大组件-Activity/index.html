@@ -126,49 +126,72 @@
   <div id="content-inner">
     
 <article id="post">
-  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-2.png)" >
-  <h2>downloadmangager的使用</h2>
+  <div class="post-page-title" style="background-color:#26A69A;background-image:url(http://image.baidu.com/search/detail?ct=503316480&amp;z=&amp;tn=baiduimagedetail&amp;ipn=d&amp;word=Android&amp;step_word=&amp;ie=utf-8&amp;in=&amp;cl=2&amp;lm=-1&amp;st=-1&amp;cs=3575306531,4004779095&amp;os=3240215283,1582658592&amp;simid=3511584405,288921304&amp;pn=1&amp;rn=1&amp;di=195277385271&amp;ln=1971&amp;fr=&amp;fmq=1500532890482_R&amp;ic=0&amp;s=undefined&amp;se=&amp;sme=&amp;tab=0&amp;width=&amp;height=&amp;face=undefined&amp;is=0,0&amp;istype=2&amp;ist=&amp;jit=&amp;bdtype=0&amp;spn=0&amp;pi=0&amp;gsm=0&amp;objurl=http%3A%2F%2Fcdn.youmian.me%2FPublic%2Fupload%2Fimage%2F20160517%2F1463481839906742.jpg&amp;rpstart=0&amp;rpnum=0&amp;adpicid=0)" >
+  <h2>Android四大组件-Activity</h2>
     
-  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-03-29T06:59:36.000Z">
-          2017-03-29
+  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-07-20T05:33:07.000Z">
+          2017-07-20
     </time>
   </p>
     
   </div>
   <div class="post-page-content">
-  <h4 id="downloadmangager"><a href="#downloadmangager" class="headerlink" title="downloadmangager"></a>downloadmangager</h4><p>这是一个Android 2.3自带的一个下载api，它非常的方便，自动帮你写好了下载，暂停，和下载失败等等需要我们自己写的东西。</p>
-<h4 id="简单的使用"><a href="#简单的使用" class="headerlink" title="简单的使用"></a>简单的使用</h4><ul>
-<li><p>调用downloadmanger的requset方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DownloadManager.Request request = new DownloadManager.Request (Uri.parse(&quot;http://7xstld.com1.z0.glb.clouddn.com/kechengbiao.apk&quot;));</div><div class="line">// 字符串网址</div></pre></td></tr></table></figure>
+  <p>Activity作为Android四大组件之一想必重要性不用多说。</p>
+<p>Activity可以理解为Android程序我们看到的界面都是承载在Activity上。</p>
+<h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="" alt="http://img.blog.csdn.net/20160717151833576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
+<p>  正常Activity的启动经历以下过程</p>
+<ul>
+<li><p>onCreat</p>
+<p>Activity的创建，做一切初始化的操作，这个时候Activity还不可见。</p>
 </li>
-<li><p>request方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setAllowedNetworkTypes\\设置允许下载的网络类型</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setNotificationVisibility \\设置下载在下拉菜单是否可见 (DownloadManager.Request.VISIBILITY_VISIBLE)</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setTitle  设置标题</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setDescription 设置描述</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setAllowedOverRoaming   设置是否可以被移除</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setDestinationInExternalFilesDir 设置下载地址 因人而异</div><div class="line"></div><div class="line">(SettingActivity.this, Environment.DIRECTORY_DOWNLOADS, &quot;kbdown&quot;)；</div></pre></td></tr></table></figure>
+<li><p>onStart</p>
+<p>Activity已经展现在前台页面，但是还是不可以交互。</p>
 </li>
-<li><p>​</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);</div></pre></td></tr></table></figure>
+<li><p>onResume</p>
+<p>Activity可见，并且可以交互。可以做一些onPause或者onStop释放资源的的回收操作</p>
 </li>
-<li><p>enqueue</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">long id = downloadManager.enqueue(request);</div><div class="line">// 返回一个id ，可以用这个id来查询下载信息</div></pre></td></tr></table></figure>
-<p>下载成功后会发出一个<strong>DownloadManager.ACTION_DOWNLOAD_COMPLETE</strong>这个广播并传递downloadId作为参数。通过接受广播我们可以打开对下载完成的内容进行操作</p>
+<li><p>Activity进入运行状态</p>
 </li>
-<li><p>取消删除下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">downloadManager.remove(REFERENCE_1, REFERENCE_2, REFERENCE_3);</div></pre></td></tr></table></figure>
+<li><p>onPause</p>
+<p>Activity进入后台之前可见的时候做一些回收工作，只有当前Activity的onpause方法执行完事之后下个Activity的onResume方法才会执行</p>
 </li>
-<li><p>查询状态</p>
-<p>你可以通过查询Download Manager来获得下载任务的状态，进度，以及各种细节，通过query方法返回一个包含了下载任务细节的Cursor。</p>
-<p>query方法传递一个DownloadManager.Query对象作为参数，通过DownloadManager.Query对象的setFilterById方法可以筛选我们希望查询的下</p>
-<p>载任务的ID。也可以使用setFilterByStatus方法筛选我们希望查询的某一种状态的下载任务，传递的参数是DownloadManager.STATUS_*常量，可以指定</p>
-<p>正在进行、暂停、失败、完成四种状态。</p>
-<p>Download Manager包含了一系列COLUMN_*静态String常量，可以用来查询Cursor中的结果列索引。我们可以查询到下载任务的各种细节，包括状态，</p>
-<p>文件大小，已经下载的字节数，标题，描述，URI，本地文件名和URI，媒体类型以及Media Provider download URI</p>
-<p> 对于暂停和失败的下载，我们可以通过查询COLUMN_REASON列查询出原因的整数码。对于STATUS<em>PAUSED状态的下载，可以通过DownloadManager.PAUSED</em><em>静态常量来翻译出原因的整数码，进而判断出下载是由于等待网络连接还是等待WiFi连接还是准备重新下载三种原因而暂停。对于STATUS<em>FAILED状态的下载，我们可以通过DownloadManager.ERROR</em></em>来判断失败的原因，可能是错误码（失败原因）包括没有存储设备，存储空间不足，重复的文件名，或者HTTP errors。</p>
+<li><p>onStop</p>
+<p>Activity不可见。回收操作，不能太过于耗时。</p>
+</li>
+<li><p>onDestory</p>
+<p>Activity销毁，可以做一些大量的回收操作</p>
+<p>​</p>
 </li>
 </ul>
+<p>如果ACtivity在进入onStop方法后未被销毁，而又被展现到前台页面则会调用onRestart()方法</p>
+<p>onCreate的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中savedInstanceState是一个Bundle类型的参数，会在onPause()或onStop()之前执行，在她和map差不多，都是键值对形式，我们可以在Activity快被销毁的时候储存一些东西</p>
+<p>调用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onSaveInstanceState(Bundle outState) &#123;</div><div class="line">    super.onSaveInstanceState(outState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里进行存储。</p>
+<p>onRestoreInstanceState</p>
+<p>这个方法会在Activity真正被销毁的时候才会执行。比如按下bcak键。</p>
+<h3 id="Activity的四种LaunchMode"><a href="#Activity的四种LaunchMode" class="headerlink" title="Activity的四种LaunchMode"></a>Activity的四种LaunchMode</h3><ul>
+<li>standard 模式</li>
+</ul>
+<p>这是默认模式，每次激活Activity时都会创建Activity实例，并放入任务栈中。使用场景：大多数Activity。</p>
+<ul>
+<li>singleTop 模式</li>
+</ul>
+<p>如果在任务的栈顶正好存在该Activity的实例，就重用该实例( 会调用实例的 onNewIntent() )，否则就会创建新的实例并放入栈顶，即使栈中已经存在该Activity的实例，只要不在栈顶，都会创建新的实例。使用场景如新闻类或者阅读类App的内容页面。</p>
+<ul>
+<li>singleTask 模式</li>
+</ul>
+<p>如果在栈中已经有该Activity的实例，就重用该实例(会调用实例的 onNewIntent() )。重用时，会让该实例回到栈顶，因此在它上面的实例将会被移出栈。如果栈中不存在该实例，将会创建新的实例放入栈中。使用场景如浏览器的主界面。不管从多少个应用启动浏览器，只会启动主界面一次，其余情况都会走onNewIntent，并且会清空主界面上面的其他页面。</p>
+<ul>
+<li>singleInstance 模式</li>
+</ul>
+<p>在一个新栈中创建该Activity的实例，并让多个应用共享该栈中的该Activity实例。一旦该模式的Activity实例已经存在于某个栈中，任何应用再激活该Activity时都会重用该栈中的实例( 会调用实例的 onNewIntent() )。其效果相当于多个应用共享一个应用，不管谁激活该 Activity 都会进入同一个应用中。使用场景如闹铃提醒，将闹铃提醒与闹铃设置分离。singleInstance不要用于中间页面，如果用于中间页面，跳转会有问题，比如：A -&gt; B (singleInstance) -&gt; C，完全退出后，在此启动，首先打开的是B。</p>
+<p>如何判断一个Activity加载完毕。使用onResume方法？  错。。这个不知道为啥就是错误的，</p>
+<p>因为之前做过一个播放器，里面的mediaController是一个自定义的Popuwindow，需要加载玩Activity就显示，但是我放在onResume里面总是报错，显示窗口泄露，找不到Activity于是高了半天才发现这个方法。这个方法表示Activity加载完毕，可以做一些加载完毕就做得事情，如popuwindow的展示，测量加载完毕的View长度，如果在其他方法里面测量的话会导致长度错误或者为0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onConfigurationChanged(Configuration newConfig) &#123;</div><div class="line">    super.onConfigurationChanged(newConfig);</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个方法是屏幕的旋转。当屏幕旋转的时候可以在这个方法进行操作。</p>
 
   </div>
   <!--评论块-->
@@ -178,7 +201,7 @@
 <nav class="post-nav">
   <!-- Prev Nav -->
     
-  <a href="/2017/03/30/发布了人生第一款应用/" id="post_nav-newer" class="post-nav-content prev-content">
+  <a href="/2017/07/20/Android四大组件-Broadcas/" id="post_nav-newer" class="post-nav-content prev-content">
       新篇
   </a>
     
@@ -186,7 +209,7 @@
 
   <!-- Next Nav -->
     
-  <a href="/2017/03/28/RecyclerView的使用/" id="post_nav-older" class="post-nav-content next-content">
+  <a href="/2017/07/19/JAVA-FIle的一些东西/" id="post_nav-older" class="post-nav-content next-content">
       旧篇
   </a>
     
@@ -194,7 +217,7 @@
 <div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
 <div class="post-toc-none"><p>(无)</p></div>
 <div class="post-toc-box">
-    <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#downloadmangager"><span class="post-toc-number">1.</span> <span class="post-toc-text">downloadmangager</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简单的使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">简单的使用</span></a></li></ol>
+    <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Activity的生命周期"><span class="post-toc-number">1.</span> <span class="post-toc-text">Activity的生命周期</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Activity的四种LaunchMode"><span class="post-toc-number">2.</span> <span class="post-toc-text">Activity的四种LaunchMode</span></a></li></ol>
 </div>
 <!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
 <script type="text/javascript">
