@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2017/08/02/Fragment%E6%87%92%E5%8A%A0%E8%BD%BD/</loc>
+        <lastmod>2017-08-02T03:59:00.530Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/2017/07/27/%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AAHandler/</loc>
+        <lastmod>2017-07-29T03:45:26.113Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2017/07/23/handler%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</loc>
         <lastmod>2017-07-23T05:54:36.099Z</lastmod>
         <changefreq>weekly</changefreq>

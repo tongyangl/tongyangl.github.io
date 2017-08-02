@@ -126,49 +126,31 @@
   <div id="content-inner">
     
 <article id="post">
-  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-16.png)" >
-  <h2>downloadmangager的使用</h2>
+  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-11.png)" >
+  <h2>Fragment懒加载</h2>
     
-  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-03-29T06:59:36.000Z">
-          2017-03-29
+  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-08-02T03:21:37.000Z">
+          2017-08-02
     </time>
   </p>
     
   </div>
   <div class="post-page-content">
-  <h4 id="downloadmangager"><a href="#downloadmangager" class="headerlink" title="downloadmangager"></a>downloadmangager</h4><p>这是一个Android 2.3自带的一个下载api，它非常的方便，自动帮你写好了下载，暂停，和下载失败等等需要我们自己写的东西。</p>
-<h4 id="简单的使用"><a href="#简单的使用" class="headerlink" title="简单的使用"></a>简单的使用</h4><ul>
-<li><p>调用downloadmanger的requset方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DownloadManager.Request request = new DownloadManager.Request (Uri.parse(&quot;http://7xstld.com1.z0.glb.clouddn.com/kechengbiao.apk&quot;));</div><div class="line">// 字符串网址</div></pre></td></tr></table></figure>
-</li>
-<li><p>request方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setAllowedNetworkTypes\\设置允许下载的网络类型</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setNotificationVisibility \\设置下载在下拉菜单是否可见 (DownloadManager.Request.VISIBILITY_VISIBLE)</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setTitle  设置标题</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setDescription 设置描述</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setAllowedOverRoaming   设置是否可以被移除</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setDestinationInExternalFilesDir 设置下载地址 因人而异</div><div class="line"></div><div class="line">(SettingActivity.this, Environment.DIRECTORY_DOWNLOADS, &quot;kbdown&quot;)；</div></pre></td></tr></table></figure>
-</li>
-<li><p>​</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);</div></pre></td></tr></table></figure>
-</li>
-<li><p>enqueue</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">long id = downloadManager.enqueue(request);</div><div class="line">// 返回一个id ，可以用这个id来查询下载信息</div></pre></td></tr></table></figure>
-<p>下载成功后会发出一个<strong>DownloadManager.ACTION_DOWNLOAD_COMPLETE</strong>这个广播并传递downloadId作为参数。通过接受广播我们可以打开对下载完成的内容进行操作</p>
-</li>
-<li><p>取消删除下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">downloadManager.remove(REFERENCE_1, REFERENCE_2, REFERENCE_3);</div></pre></td></tr></table></figure>
-</li>
-<li><p>查询状态</p>
-<p>你可以通过查询Download Manager来获得下载任务的状态，进度，以及各种细节，通过query方法返回一个包含了下载任务细节的Cursor。</p>
-<p>query方法传递一个DownloadManager.Query对象作为参数，通过DownloadManager.Query对象的setFilterById方法可以筛选我们希望查询的下</p>
-<p>载任务的ID。也可以使用setFilterByStatus方法筛选我们希望查询的某一种状态的下载任务，传递的参数是DownloadManager.STATUS_*常量，可以指定</p>
-<p>正在进行、暂停、失败、完成四种状态。</p>
-<p>Download Manager包含了一系列COLUMN_*静态String常量，可以用来查询Cursor中的结果列索引。我们可以查询到下载任务的各种细节，包括状态，</p>
-<p>文件大小，已经下载的字节数，标题，描述，URI，本地文件名和URI，媒体类型以及Media Provider download URI</p>
-<p> 对于暂停和失败的下载，我们可以通过查询COLUMN_REASON列查询出原因的整数码。对于STATUS<em>PAUSED状态的下载，可以通过DownloadManager.PAUSED</em><em>静态常量来翻译出原因的整数码，进而判断出下载是由于等待网络连接还是等待WiFi连接还是准备重新下载三种原因而暂停。对于STATUS<em>FAILED状态的下载，我们可以通过DownloadManager.ERROR</em></em>来判断失败的原因，可能是错误码（失败原因）包括没有存储设备，存储空间不足，重复的文件名，或者HTTP errors。</p>
-</li>
-</ul>
+  <p>说真的！！网上的博客好多都是在别人那直接copy过来的！昨天看算法就是，百度第一页的所有博客几乎都一样而且不是一个人写的，最重要的是他妈的是错的！！！逻辑混乱，代码错误，挫的都一样。真的佩服。今天看懒加载又是这样。。不得不自己琢磨了</p>
+<h3 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h3><p>大家都知道懒加载为了什么有事时候Viewpager 可能加载十多个Fragment ，一下子全加载了对用户体验很不好。而且viewpage的setOffscreenPageLimit方法看源码就知道了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private static final int DEFAULT_OFFSCREEN_PAGES = 1;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void setOffscreenPageLimit(int limit) &#123;</div><div class="line">    if (limit &lt; DEFAULT_OFFSCREEN_PAGES) &#123;</div><div class="line">        Log.w(TAG, &quot;Requested offscreen page limit &quot; + limit + &quot; too small; defaulting to &quot;</div><div class="line">                + DEFAULT_OFFSCREEN_PAGES);</div><div class="line">        limit = DEFAULT_OFFSCREEN_PAGES;</div><div class="line">    &#125;</div><div class="line">    if (limit != mOffscreenPageLimit) &#123;</div><div class="line">        mOffscreenPageLimit = limit;</div><div class="line">        populate();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你无论怎么设置它都至少加载下一页的体验很差！尤其每个fragment都有大量的网络请求和绘制的时候</p>
+<p>所以懒加载诞生了。最重要的就是setUserVisibleHint这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public void setUserVisibleHint(boolean isVisibleToUser) &#123;</div><div class="line">    super.setUserVisibleHint(isVisibleToUser);</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当fragment可见的时候isVisibleToUser为true，反之亦然。但是这里要注意了，它是在oncreateview之前调用的，所以直接在这里请求绘制控件的话会空指针的！</p>
+<p>所以我们封装一个BaseFragment</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package rxjavatest.tycoding.com.iv2ex.ui.fragment;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.annotation.Nullable;</div><div class="line">import android.support.v4.app.Fragment;</div><div class="line">import android.view.View;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/1.</div><div class="line"> */</div><div class="line"></div><div class="line">public abstract class BaseFragment extends Fragment &#123;</div><div class="line"></div><div class="line">    protected boolean isVisable;</div><div class="line">    protected boolean isprepared = false;</div><div class="line">    protected boolean isdateInit=false;</div><div class="line">    @Override</div><div class="line">    public void setUserVisibleHint(boolean isVisibleToUser) &#123;</div><div class="line">        super.setUserVisibleHint(isVisibleToUser);</div><div class="line">        isVisable=isVisibleToUser;</div><div class="line">        prepareFetchData(false);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onActivityCreated(@Nullable Bundle savedInstanceState) &#123;</div><div class="line">        super.onActivityCreated(savedInstanceState);</div><div class="line">        isprepared=true;</div><div class="line">        prepareFetchData(false);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">   protected  void prepareFetchData(boolean force)&#123;</div><div class="line"></div><div class="line">       if (isVisable &amp;&amp; isprepared &amp;&amp; (!isdateInit || force)) &#123;</div><div class="line">           loadData();</div><div class="line">           isdateInit = true;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">   &#125;</div><div class="line"></div><div class="line">    protected abstract void loadData( );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>分别讲一下上面意思</p>
+<p>首先三个boolean值分别是frag是否可见，view是否初始化，fragment是否加载过数据</p>
+<p> protected abstract void loadData( );</p>
+<p>这个抽象方法就是在子类中需要实现的，在这里进行数据加载。</p>
+<p>prepareFetchData(boolean force)的参数用来我们子类执行是否每次都加载的操作</p>
 
   </div>
   <!--评论块-->
@@ -178,15 +160,11 @@
 <nav class="post-nav">
   <!-- Prev Nav -->
     
-  <a href="/2017/03/30/发布了人生第一款应用/" id="post_nav-newer" class="post-nav-content prev-content">
-      新篇
-  </a>
-    
 
 
   <!-- Next Nav -->
     
-  <a href="/2017/03/28/RecyclerView的使用/" id="post_nav-older" class="post-nav-content next-content">
+  <a href="/2017/07/27/自己写一个Handler/" id="post_nav-older" class="post-nav-content next-content">
       旧篇
   </a>
     
@@ -194,7 +172,7 @@
 <div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
 <div class="post-toc-none"><p>(无)</p></div>
 <div class="post-toc-box">
-    <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#downloadmangager"><span class="post-toc-number">1.</span> <span class="post-toc-text">downloadmangager</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简单的使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">简单的使用</span></a></li></ol>
+    <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#懒加载"><span class="post-toc-number">1.</span> <span class="post-toc-text">懒加载</span></a></li></ol>
 </div>
 <!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
 <script type="text/javascript">
