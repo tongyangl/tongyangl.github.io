@@ -5,9 +5,7 @@
     <entry>
       <title><![CDATA[计算机网络复习]]></title>
       <url>/2017/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/</url>
-      <content type="html"><![CDATA[<ul>
-<li><p>分组交换和电路交换</p>
-<ul>
+      <content type="html"><![CDATA[<h3 id="分组交换和电路交换"><a href="#分组交换和电路交换" class="headerlink" title="分组交换和电路交换"></a>分组交换和电路交换</h3><ul>
 <li><p>分组交换</p>
 <ul>
 <li><p>资源不会被保留</p>
@@ -33,7 +31,7 @@
 </ul>
 </li>
 </ul>
-</li>
+<ul>
 <li><p>分组交换的时延</p>
 <p>处理时延+排队时延+传播时延+传输时延</p>
 <ul>
@@ -72,12 +70,12 @@
 <li>数据的传输采用存储转发，延时不可估计</li>
 <li>数据中必须包含地址域</li>
 <li>接收到的分组不一定按序，可能还需重组</li>
-<li>适合传输文本型数据</li>
-</ul>
+<li><p>适合传输文本型数据</p>
+<h3 id="因特网的分层"><a href="#因特网的分层" class="headerlink" title="因特网的分层"></a>因特网的分层</h3></li>
+<li><p>应用层: 支持网络应用</p>
 </li>
-<li><p>因特网的分层</p>
-<ul>
-<li><p>应用层: 支持网络应用<br>FTP、HTTP、DNS、SMTP、DHCP等</p>
+</ul>
+<p>FTP、HTTP、DNS、SMTP、DHCP等</p>
 <ul>
 <li><p>FTP：文件传输协议，FTP是因特网上使用得最广泛的文件传送协议。FTP提供交互式的访问，允许客户指明文件类型与格式，并允许文件具有存取权限。FTP其于TCP。</p>
 </li>
@@ -97,6 +95,8 @@
 </li>
 </ul>
 </li>
+</ul>
+<ul>
 <li><p>运输层: 主机到主机数据传输<br>TCP, UDP</p>
 <ul>
 <li><p>TCP：</p>
@@ -170,8 +170,6 @@
 <p>​    C类 　　192.168.0.0–192.168.255.255</p>
 </li>
 </ul>
-</li>
-</ul>
 <pre><code>- ARP:地址解析协议，即ARP（Address Resolution Protocol）,
 
   ARP协议的主要功能是将32位IP地址转换为48位物理地址。
@@ -180,9 +178,9 @@
 
 - ICMP:ICMP是（Internet Control Message Protocol）Internet控制[报文](https://baike.baidu.com/item/%E6%8A%A5%E6%96%87)协议。它是[TCP/IP协议族](https://baike.baidu.com/item/TCP%2FIP%E5%8D%8F%E8%AE%AE%E6%97%8F)的一个子协议，用于在IP[主机](https://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA)、[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)器之间传递控制消息。控制消息是指[网络通](https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E9%80%9A)不通、[主机](https://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA)是否可达、[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)是否可用等网络本身的消息。这些控制消息虽然并不传输用户数据，但是对于用户数据的传递起着重要的作用。
 
-- OSPF:OSPF(Open Shortest Path First[开放式最短路径优先](https://baike.baidu.com/item/%E5%BC%80%E6%94%BE%E5%BC%8F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88)）是一个[内部网关协议](https://baike.baidu.com/item/%E5%86%85%E9%83%A8%E7%BD%91%E5%85%B3%E5%8D%8F%E8%AE%AE)(Interior Gateway Protocol，简称IGP），用于在单一[自治系统](https://baike.baidu.com/item/%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F)（autonomous system,AS）内决策[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)。是对[链路状态路由协议](https://baike.baidu.com/item/%E9%93%BE%E8%B7%AF%E7%8A%B6%E6%80%81%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE)的一种实现，隶属内部网关协议（IGP）
+- OSPF:OSPF(Open Shortest Path First[开放式最短路径优先]是一个[内部网关协议](Interior Gateway Protocol，简称IGP），用于在单一[自治系统]（autonomous system,AS）内决策[路由]。是对[链路状态路由协议]的一种实现，隶属内部网关协议（IGP）
 
-- BGP:边界网关协议（BGP）是运行于 TCP 上的一种[自治系统](https://baike.baidu.com/item/%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F)的[路由协议](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE)。 BGP 是唯一一个用来处理像因特网大小的网络的协议，也是唯一能够妥善处理好不相关[路由域](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1%E5%9F%9F)间的多路连接的协议
+- BGP:边界网关协议（BGP）是运行于 TCP 上的一种[自治系统]的[路由协议]。 BGP 是唯一一个用来处理像因特网大小的网络的协议，也是唯一能够妥善处理好不相关[路由域]间的多路连接的协议
 
 - RIP:路由信息协议
 
@@ -192,9 +190,9 @@
 </code></pre><ul>
 <li><p>数据链路层: 在邻近网元之间传输数据<br>ALOHA、CSMA或CSMA/CD、TDMA、FDMA、CDMA</p>
 </li>
-<li><p>物理层: “在线上”的比特<br>任何一种调制解调体制</p>
-<p>以二进制数据形式在物理媒体上传输数据 ISO2110，IEEE802，IEEE802.2</p>
-<p>​</p>
+<li><p>物理层: “在线上”的比特<br>  任何一种调制解调体制</p>
+<p>  以二进制数据形式在物理媒体上传输数据 ISO2110，IEEE802，IEEE802.2</p>
+<p>  ​</p>
 </li>
 </ul>
 <h4 id="MAC地址和IP地址有什么本质区别？"><a href="#MAC地址和IP地址有什么本质区别？" class="headerlink" title="MAC地址和IP地址有什么本质区别？"></a><strong>MAC地址和IP地址有什么本质区别？</strong></h4><p>　　MAC地址是数据链路层地址，IP地址是网络层地址；<br>　　MAC地址没有结构性涵义，IP地址有结构性涵义，表示计算机与网络之间的连接关系。<br>　　IP地址就是给每个连接在因特网上的主机（或路由器）分配一个在全世界范围内是唯一的32位的标识符，从而把整个因特网看成是一个单一的，抽象的网络；在实际网络的链路上传输数据帧时，最终还是要用到物理地址；<br>　　MAC地址在一定程度属于硬件一致，基于物理层。能标识具体的链路通信对象，IP地址给予逻辑域的划分，不受硬件控制；</p>
@@ -203,6 +201,83 @@
 <p>路由器：网络层的中间设备。作用是在互连网中完成路由选择的功能。</p>
 <p>网关：网络层以上的中间系统。作用是在高层进行协议的转换以连接两个不兼容的系统。</p>
 <h4 id="C-S模式和P2P模式的区别"><a href="#C-S模式和P2P模式的区别" class="headerlink" title="C/S模式和P2P模式的区别"></a><strong>C/S模式和P2P模式的区别</strong></h4><p>①：C/S结构是一种客户端/服务器结构，客户端与服务器之间是主从关系，是一种一对多的模式。它的信息和数据需要保存在服务器上，若用户要浏览和下载信息，必须先访问服务器，才能浏览和下载信息，而且客户机之间没有交互的能力。相反，P2P模式不分提供信息服务器和索取信息的客户端，每一台电脑都是信息的发布者和索取者，对等点之间能交互，无需使用服务器。<br>②：C/S模式中信息的存储和管理比较集中、稳定，服务器只公布用户想公布的信息，并且会在服务器中稳定地保存一段时间，该服务器通常也不间断的运行在网络间。而P2P缺乏安全机制，P2P是能给用户带来方便，但也会带来大量垃圾信息，而且各个对等点可以随便进入或者退出网络，会造成网络的不稳定。<br>③：从安全的角度来说，因为系统会出现漏洞，而C/S模式采用集中管理模式，客户端只能被动地从服务器获取信息，所以一旦客户端出了差错，并不会影响整个系统。<br>④：C/S模式的管理软件更新的较快，要跟上技术，必须花费大量精力和金钱在软件的更新换代上，而且工作人员要维护服务器和数据库，也要耗费大量资金。相反的P2P不需要服务器，也就不必耗费大量资金，而且每个对等点都可以在网络上发布和分享信息，这使得闲散资源得以充分的利用。</p>
+<h3 id="osi"><a href="#osi" class="headerlink" title="osi"></a>osi</h3><table>
+<thead>
+<tr>
+<th>OSI的层</th>
+<th style="text-align:left">功能</th>
+<th>TCP/IP协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td style="text-align:left">文件传输，电子邮件，文件服务，虚拟终端</td>
+<td>TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet</td>
+</tr>
+<tr>
+<td>表示层</td>
+<td style="text-align:left">数据格式化，代码转换，数据加密</td>
+<td>无</td>
+</tr>
+<tr>
+<td>会话层</td>
+<td style="text-align:left">解除或建立与别的接点的联系</td>
+<td>无</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td style="text-align:left">提供端对端的接口</td>
+<td>TCP，UDP</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td style="text-align:left">为数据包选择路由</td>
+<td>IP，ICMP，RIP，OSPF，BGP，IGMP</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td style="text-align:left">传输有地址的帧以及错误检测功能</td>
+<td>SLIP，CSLIP，PPP，ARP，RARP，MTU</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td style="text-align:left">以二进制数据形式在物理媒体上传输数据</td>
+<td>ISO2110，IEEE802，IEEE802.2</td>
+</tr>
+</tbody>
+</table>
+<p>TCP/IP五层协议</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>网络设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td>也就是用户使用的应用了。</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>四层交换机、也有工作在四层的路由器</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>路由器、三层交换机</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td>网桥（现已很少使用）、以太网交换机（二层交换机）、网卡（其实网卡是一半工作在物理层、一半工作在数据链路层）</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>网卡，光纤，CAT-5线，中继器、集线器、还有我们通常说的双绞线也工作在物理层</td>
+</tr>
+</tbody>
+</table>
 ]]></content>
       
         <categories>
