@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <meta name="keywords" content="佟杨">
+  <meta name="description" content="佟杨个人博客">
+  
+  <title>TongYang</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/materialize.min.css">
+    
+      <link rel="stylesheet" href="/css/main.min.css">
+    
+  
+  <style type="text/css">
+      html{
+          font-family: sans-serif;
+          font-weight: 300;
+      }
+      @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: url(/fonts/MaterialIcons-Regular.eot);
+          src: url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+          url(/fonts/MaterialIcons-Regular.woff) format('woff'),
+          url(/fonts/MaterialIcons-Regular.ttf) format('truetype')
+      }
+  </style>
+</head>
+<body>
+<div id="menu-box"><a href="javascript:void(0)" id="menu" data-activates="slide-out" class="button-collapse menu" ><span class="nav-btn"></span></a></div>
+<div id="menu-outer">
+  <div id="menu-inner">
+      <ul id="slide-out" class="side-nav" >
+    <div class="nav-header"  style="background-image: url(/images/header-bg.png);background-color:#26A69A">
+    <div class="header-box"><img src="/images/header.jpg" ondragstart="return false;"></div>
+    <p>Tong Yang</p>
+    <div class="nav-link">
+        
+        
+        <a  href="https://github.com/tongyangl" target="_blank"><div class="link-box github"></div></a>
+        
+        
+        <a href="mailto:1778480884@qq.com"><div class="link-box email"></div></a>
+        
+        
+        <a href="http://weibo.com/u/1100412270?refer_flag=1001030102_&amp;is_hot=1" target="_blank"><div class="link-box weibo"></div></a>
+        
+        
+    </div>
+    <div class="nav-search">
+        <form id="search-form"> <!-- 搜索框相关 -->
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..." class="search form-control" autocomplete="off" autocorrect="off"/>
+            <div class="nav-search-img"><i class="material-icons">search</i></div>
+        </form>
+        <div id="local-search-result"></div> <!-- 搜索结果区 -->
+        <p class='no-result'>无搜索结果</p>
+    </div>
+</div>
+    <!--Homepage-->
+
+<li class="nav-list">
+    <a href="/" target="_self">
+        <div class="nav-ico"><i class="material-icons">home</i> </div><p>主页</p>
+    </a>
+</li>
+
+<!--archives-->
+
+<li class="nav-list dropdown-btn">
+    <a  class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">assignment</i></div><p>归档</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="archive-link" href="/archives/2017/08/">八月 2017<span class="archive-count">4</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/07/">七月 2017<span class="archive-count">7</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/05/">五月 2017<span class="archive-count">4</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/04/">四月 2017<span class="archive-count">12</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/03/">三月 2017<span class="archive-count">5</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/11/">十一月 2016<span class="archive-count">1</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/10/">十月 2016<span class="archive-count">1</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/06/">六月 2016<span class="archive-count">1</span></a>
+    </li>
+</ul>
+<!--categories-->
+
+<li class="nav-list dropdown-btn">
+    <a   class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">dashboard</i></div><p>分类</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="category-link" href="/categories/Android/">Android<span class="category-count">5</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/java/">java<span class="category-count">2</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/技术/">技术<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/数据结构/">数据结构<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/计算机网络/">计算机网络<span class="category-count">1</span></a>
+    </li>
+</ul>
+<!--tags-->
+
+<li class="nav-list">
+    <a href="/archives" target="_self">
+        <div class="nav-ico"><i class="material-icons">bookmark</i> </div><p>标签</p>
+    </a>
+</li>
+
+<!--photo-->
+
+<!--friends-->
+
+<!--about-->
+
+<li class="nav-list">
+    <a href="/about" target="_self">
+        <div class="nav-ico"><i class="material-icons">copyright</i> </div><p>关于</p>
+    </a>
+</li>
+
+
+</ul>
+
+  </div>
+</div>
+
+<div id="content-outer">
+  <div id="content-inner">
+    
+<article id="post">
+  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-1.png)" >
+  <h2>八大排序java实现</h2>
+    
+  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-08-05T03:34:13.000Z">
+          2017-08-05
+    </time>
+  </p>
+    
+  </div>
+  <div class="post-page-content">
+  <p>总结整理下八大排序的算法，用java实现。毕竟都是一些面试，平时使用都要用到的算法</p>
+<ul>
+<li><p>冒泡排序</p>
+<ol>
+<li>冒泡排序：一趟一趟的比较，比较相邻元素的大小，每趟有一个元素沉入最后面的位置 </li>
+<li>属于交换类排序 </li>
+<li>稳定的排序算法  </li>
+<li>平均时间复杂度O(n*n) </li>
+<li>最坏时间复杂度O(n*n) </li>
+<li>空间复杂度O(1) </li>
+<li>n较小时适用 </li>
+</ol>
+<p>​</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public static void bubbleSort(int[] array) &#123;</div><div class="line">       System.out.println(&quot;BubbleSort()&quot;);</div><div class="line">       for (int i = 0; i &lt; array.length; i++) &#123;//第i趟比较</div><div class="line"></div><div class="line">           for (int j = i + 1; j &lt; array.length; j++) &#123;</div><div class="line"></div><div class="line">               if (array[j] &lt; array[i]) &#123;</div><div class="line"></div><div class="line">                   swap(array,j,i);</div><div class="line">               &#125;</div><div class="line"></div><div class="line">           &#125;</div><div class="line"></div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">private static void swap(int[] array, int a, int b) &#123;</div><div class="line">    int t = array[a];</div><div class="line">    array[a] = array[b];</div><div class="line">    array[b] = t;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>选择排序<ol>
+<li>​     *直接选择排序：第i轮选择剩余最小的元素放入到第i的位置上 </li>
+<li>​     * 属于选择类排序 </li>
+<li>​     * 不稳定的排序算法 ：如58529第一轮选择交换5和2，破换了原来两个5的顺序 </li>
+<li>​     <em> 平均时间复杂度O(n</em>n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * 当n较小时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public static void xuanze(int[] array)</div><div class="line">&#123;</div><div class="line">    for (int i=0;i&lt;arr.length-1;i++)&#123;</div><div class="line">        int min=i;</div><div class="line"></div><div class="line">        for (int j=i+1;j&lt;arr.length;j++)&#123;</div><div class="line">              if (arr[j]&lt;arr[min])&#123;</div><div class="line">                  min=j;</div><div class="line">              &#125;</div><div class="line">        &#125;</div><div class="line">       swap(arr,min,i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>插入排序<ol>
+<li>​     *直接插入排序：每一轮第i个元素跟前面的i-1个元素从后向前比较，一直比较到合适插入的位置 </li>
+<li>​     * 属于插入类排序 </li>
+<li>​     * 稳定的排序算法  </li>
+<li>​     <em> 平均时间复杂度O(n</em>n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * 大部分有序时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public  static  void insertSort(int []array)&#123;</div><div class="line">     int current,j;</div><div class="line"></div><div class="line">     for (int i=1;i&lt;array.length;i++)&#123;</div><div class="line">            current=array[i];</div><div class="line">         for ( j=i-1;j&gt;=0&amp;&amp;array[j]&gt;current;j--)&#123;</div><div class="line"></div><div class="line">             array[j+1]=array[j];</div><div class="line"></div><div class="line">         &#125;</div><div class="line">         array[j+1]=current;</div><div class="line"></div><div class="line">     &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>快速排序<ol>
+<li>​    通过递归和分治的思想，先确定一个值一般为第一个，然后从右向前遍历一旦后面的小，则第一个和这个数字交换位置，然后从左向右遍历。直到两个指针指向同一个位置。</li>
+<li>​     <em> 平均时间复杂度O(n</em>log2n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * n较大 时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">public static void sort(int[] data, int left, int right) &#123;</div><div class="line">    // 枢纽元，一般以第一个元素为基准进行划分</div><div class="line">    int leftCurrent = left;</div><div class="line">    int rightCurrent = right;</div><div class="line">    if (left &lt; right) &#123;</div><div class="line">        // 从数组两端交替地向中间扫描</div><div class="line">        int pivotKey = data[left];</div><div class="line">        System.out.println(&quot;---leftCurrent:&quot; + leftCurrent + &quot;--rightCurrent:&quot; + rightCurrent + &quot;--key:&quot; + pivotKey);</div><div class="line">        // leftCurrent从左往右扫描，rightCurrent从右往左扫描</div><div class="line">        while (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">            // 找到数组最右边比key小的值的下标</div><div class="line">            while (leftCurrent &lt; rightCurrent &amp;&amp; pivotKey &lt; data[rightCurrent]) &#123;</div><div class="line">                rightCurrent--;</div><div class="line">            &#125;</div><div class="line">            if (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">                // 把右边比key小的值往前挪</div><div class="line">                data[leftCurrent] = data[rightCurrent];</div><div class="line">                leftCurrent++;</div><div class="line">                System.out.println(&quot;a:&quot; + Arrays.toString(data));</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            // 找到左边比key大的值的下标</div><div class="line">            while (leftCurrent &lt; rightCurrent &amp;&amp; pivotKey &gt; data[leftCurrent]) &#123;</div><div class="line">                leftCurrent++;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">                // 把左边比key大的值往右挪</div><div class="line">                data[rightCurrent] = data[leftCurrent];</div><div class="line">                rightCurrent--;</div><div class="line">                System.out.println(&quot;b:&quot; + Arrays.toString(data));</div><div class="line">            &#125;</div><div class="line">        &#125;// end while</div><div class="line">        // 枢纽元素移动到正确位置</div><div class="line">        data[leftCurrent] = pivotKey;</div><div class="line">        System.out.println(&quot;---&quot; + Arrays.toString(data) + &quot;\n\n&quot;);</div><div class="line">        // 前半个子表递归排序</div><div class="line">        sort(data, left, leftCurrent - 1);</div><div class="line">        // 后半个子表递归排序</div><div class="line">        sort(data, leftCurrent + 1, right);</div><div class="line">    &#125;// end if</div><div class="line">&#125;//</div></pre></td></tr></table></figure>
+<p>可以这么理解 两个指针 j k分别从左向右和从右向左遍历，</p>
+<p>从左向右的一旦发现比key大的就给右边</p>
+<p>从右向左的一旦发现比key小的就放左边</p>
+<p>这样一直遍历到指针指向同一个位置，这个位置就是jk相同并且是key应该存在的位置</p>
+<ul>
+<li>希尔排序<ol>
+<li>​     *希尔排序：分组交换的思想，先分组，后交换排序 </li>
+<li>​     * 属于交换类排序 </li>
+<li>​     * 不稳定的排序算法 ：分组之后交换打破了稳定性 </li>
+<li>​     <em> 平均时间复杂度O(n</em>log2n) </li>
+<li>​     * 最坏时间复杂度O(n^s) 1&lt;s&lt;2 </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * n较大时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">public static void shellSort(int[] data) &#123;</div><div class="line">    int i,j,group;</div><div class="line">    int n=data.length;</div><div class="line">    for (group=n/2;group&gt;0;group=group/2)&#123;</div><div class="line"></div><div class="line">        for (i=0;i&lt;group;i++)&#123;</div><div class="line">            for (j=i+group;j&lt;n;j+=group)&#123;</div><div class="line"></div><div class="line">                if (data[j] &lt; data[j - group])</div><div class="line">                &#123;</div><div class="line">                    int temp = data[j];</div><div class="line">                    int k = j - group;</div><div class="line">                    while (k &gt;= 0 &amp;&amp; data[k] &gt; temp)</div><div class="line">                    &#123;</div><div class="line">                        data[k + group] = data[k];</div><div class="line">                        k -= group;</div><div class="line">                    &#125;</div><div class="line">                    data[k + group] = temp;</div><div class="line">                &#125;</div><div class="line"></div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>堆排序</p>
+<p>​</p>
+</li>
+</ul>
+<p>二叉堆是完全二叉树或者是近似完全二叉树。</p>
+<p>二叉堆满足二个特性：</p>
+<p>1．父结点的键值总是大于或等于（小于或等于）任何一个子节点的键值。</p>
+<p>2．每个结点的左子树和右子树都是一个二叉堆（都是最大堆或最小堆）。</p>
+<p>当父结点的键值总是大于或等于任何一个子节点的键值时为<strong>最大堆</strong>。当父结点的键值总是小于或等于任何一个子节点的键值时为<strong>最小堆</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/6.</div><div class="line"> */</div><div class="line">public class Template &#123;</div><div class="line"></div><div class="line">    public void CreatHeap(int a[], int n) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        int isfirst = (n -2) / 2;//第一个非叶子节点</div><div class="line"></div><div class="line">        for (; isfirst &gt;= 0; isfirst--) &#123;</div><div class="line"></div><div class="line">            AdjustHeapNode(a, isfirst, n);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void HeapSort(int a[], int n) &#123;</div><div class="line"></div><div class="line">        CreatHeap(a, n);</div><div class="line"></div><div class="line">        int temp;</div><div class="line">        for (int i = 0; i &lt; n - 1; i++) &#123;</div><div class="line">            temp = a[n - 1 - i];</div><div class="line">            a[n - 1 - i] = a[0];</div><div class="line">            a[0] = temp;</div><div class="line"></div><div class="line">            AdjustHeapNode(a, 0, n - 1 - i);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void AdjustHeapNode(int a[], int i, int n) &#123;</div><div class="line">        if (n == 1 || i &gt; (n - 2) / 2)  //i为叶子节点  (n-2)/2 最后一个非叶子节点的位置</div><div class="line">            return;</div><div class="line"></div><div class="line">        int iLeft = 2 * i + 1;</div><div class="line">        int iRight = 2 * i + 2;</div><div class="line"></div><div class="line"></div><div class="line">        if (iRight &lt;= n - 1)     //说明i有左右两个子节点         三个节点找最大值</div><div class="line">        &#123;</div><div class="line">            if (a[i] &gt;= a[iLeft] &amp;&amp; a[i] &gt;= a[iRight])      // i 最大 不用调整</div><div class="line">                return;</div><div class="line"></div><div class="line">            if (a[i] &lt; a[iLeft] &amp;&amp; a[iRight] &lt;= a[iLeft])  // iLeft 最大</div><div class="line">            &#123;</div><div class="line">                int temp = a[iLeft];</div><div class="line">                a[iLeft] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line">                AdjustHeapNode(a, iLeft, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (a[i] &lt; a[iRight] &amp;&amp; a[iLeft] &lt;= a[iRight]) // iRight 最大</div><div class="line">            &#123;</div><div class="line">                int temp = a[iRight];</div><div class="line">                a[iRight] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line"></div><div class="line">                AdjustHeapNode(a, iRight, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125; else &#123; // 说明i只有左节点   二个节点找最大值</div><div class="line">            //iLeft为最后一个节点</div><div class="line">            if (a[i] &gt;= a[iLeft])</div><div class="line">                return;</div><div class="line">            else &#123;</div><div class="line">                int temp = a[iLeft];</div><div class="line">                a[iLeft] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line">                AdjustHeapNode(a, iLeft, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+  </div>
+  <!--评论块-->
+    
+
+</article>
+<nav class="post-nav">
+  <!-- Prev Nav -->
+    
+  <a href="/2017/08/07/数据结构————栈/" id="post_nav-newer" class="post-nav-content prev-content">
+      新篇
+  </a>
+    
+
+
+  <!-- Next Nav -->
+    
+  <a href="/2017/08/02/Fragment懒加载/" id="post_nav-older" class="post-nav-content next-content">
+      旧篇
+  </a>
+    
+</nav>
+<div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
+<div class="post-toc-none"><p>(无)</p></div>
+<div class="post-toc-box">
+    
+</div>
+<!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
+<script type="text/javascript">
+    menu();
+</script>
+  </div>
+</div>
+<div id="bottom-outer">
+  <div id="bottom-inner">
+    <a  id="top-button" onfocus="this.blur();"><div class="up upinbody" style="background-color:#26A69A"><i class="material-icons material-up">vertical_align_top</i></div></a>
+
+
+<p >Copyright ©  2017  TongYang</p>
+<p >Powered by <a href="https://hexo.io/" target="_blank"> Hexo </a> & Theme - <a href="https://github.com/moumao/hexo-theme-Vateral" target="_blank">Vateral</a></p>
+<p style="font-size: 10px" id="footer-times" data-time="3/4/2016 16:12:00"></p>
+<script>
+    var beginTime=document.getElementById("footer-times").dataset.time
+    function show_date_time(){
+        var span=document.getElementById("footer-times")
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date(beginTime);//初始日期
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=Math.floor(e_hrsold);
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=Math.floor((e_hrsold-hrsold)*60);
+        seconds=Math.floor((e_minsold-minsold)*60);
+        span.innerHTML="本站已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+    show_date_time();
+</script>
+
+  </div>
+</div>
+
+<!--影集界面需要的资源-->
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+<script src="/js/materialize.min.js"></script>
+
+<script src="/js/main.min.js"></script>
+
+
+<script>
+    NProgress.start();
+    NProgress.done();
+    lazy();
+    links();
+    window.onpopstate = menu();
+    //pjax操作
+    $(document).pjax('a:not(.nopjax)', '#content-inner', {fragment:'#content-inner', timeout:8000});
+    $(document).on('pjax:start', NProgress.start).on('pjax:end', NProgress.done)
+        .on('pjax:end', () => {
+            dowmdiv();
+            lazy();
+            toc();
+            links();
+            menu();
+        });
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+</html>

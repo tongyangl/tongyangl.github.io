@@ -3,6 +3,353 @@
   
     
     <entry>
+      <title><![CDATA[计算机网络复习]]></title>
+      <url>/2017/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/</url>
+      <content type="html"><![CDATA[<ul>
+<li><p>分组交换和电路交换</p>
+<ul>
+<li><p>分组交换</p>
+<ul>
+<li><p>资源不会被保留</p>
+</li>
+<li><p>效率高</p>
+</li>
+<li><p>今天的因特网就是分组交换</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>电路交换</p>
+<ul>
+<li><p>资源会被保留</p>
+</li>
+<li><p>效率低</p>
+</li>
+<li><p>可以为一个通话保证特定数量的端到端宽带</p>
+</li>
+<li><p>频分多路复用分时多路复用</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分组交换的时延</p>
+<p>处理时延+排队时延+传播时延+传输时延</p>
+<ul>
+<li><p>传输时延和传播时延的区别</p>
+<ul>
+<li><p>传输时延:</p>
+<p>R= 链路带宽 (bps)<br>L= 分组长度 (比特)<br>发送比特进入链路的时间= L/R</p>
+</li>
+<li><p>传播时延:</p>
+<p>d = 物理链路的长度<br>s = 在媒体中传播的速度 (~2x108 m/sec)<br>传播时延 = d/s</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>传播时延指的是线路传播时延，只与传输介质有关。传输指的是一定数据从开始传输到传输结束的时间，与介质、比特率有关。传输时延=传播时延+数据量/比特率。</p>
+<p>传输是指我们接收或者发出文件或者数据；传输可以是非实时性的。</p>
+<p>传播是指我们把文件或者数据发出；传播只具有单向性，实时性。</p>
+<ul>
+<li><p>分组交换对比电路交换</p>
+<p>电路交换</p>
+<ul>
+<li>在数据传输前，必须建立端到端的连接</li>
+<li>一旦某个节点故障，必须重新建立连接</li>
+<li>连接建立后，数据的传输没有额外的延时</li>
+<li>数据中不必包含地址域，仅需较短的虚电路号</li>
+<li>数据按序传输，但信道的使用率较低</li>
+<li>适合长时间传输大批量的数据，如流数据</li>
+</ul>
+<p>分组交换</p>
+<ul>
+<li>在数据传输前，不必建立端到端的连接</li>
+<li>只要下一个节点空闲，即可传输</li>
+<li>信道的使用率较高</li>
+<li>数据的传输采用存储转发，延时不可估计</li>
+<li>数据中必须包含地址域</li>
+<li>接收到的分组不一定按序，可能还需重组</li>
+<li>适合传输文本型数据</li>
+</ul>
+</li>
+<li><p>因特网的分层</p>
+<ul>
+<li><p>应用层: 支持网络应用<br>FTP、HTTP、DNS、SMTP、DHCP等</p>
+<ul>
+<li><p>FTP：文件传输协议，FTP是因特网上使用得最广泛的文件传送协议。FTP提供交互式的访问，允许客户指明文件类型与格式，并允许文件具有存取权限。FTP其于TCP。</p>
+</li>
+<li><p>HTTP：超文本传输协议，是面向事务的应用层协议，它是万维网上能够可靠地交换文件的重要基础。http使用面向连接的TCP作为运输层协议，保证了数据的可靠传输。</p>
+</li>
+<li><p>DNS：域名系统，DNS是因特网使用的命名系统，用来把便于人们使用的机器名字转换为IP地址。</p>
+<p>现在顶级域名TLD分为三大类：国家顶级域名nTLD；通用顶级域名gTLD;基础结构域名</p>
+<p>域名服务器分为四种类型：根域名服务器；顶级域名服务器；本地域名服务器；权限域名服务器。</p>
+</li>
+<li><p>SMTP：电子邮件协议，即简单邮件传送协议。SMTP规定了在两个相互通信的SMTP进程之间应如何交换信息。SMTP通信的三个阶段：建立连接、邮件传送、连接释放。</p>
+</li>
+<li><p>POP3：邮件读取协议，协议通常被用来接收电子邮件</p>
+</li>
+<li><p>SNMP：简单网络管理协议。由三部分组成：SNMP本身、管理信息结构SMI和管理信息MIB。SNMP定义了管理站和代理之间所交换的分组格式。SMI定义了命名对象类型的通用规则，以及把对象和对象的值进行编码。MIB在被管理的实体中创建了命名对象，并规定类型。</p>
+</li>
+<li><p>Telnet：远程终端协议，telnet是一个简单的远程终端协议，它也是因特网的正式标准。又称为终端仿真协议。</p>
+</li>
+</ul>
+</li>
+<li><p>运输层: 主机到主机数据传输<br>TCP, UDP</p>
+<ul>
+<li><p>TCP：</p>
+<p>特点：点到点，可靠、有序，全双工，面向连接，流量控制，拥塞控制。</p>
+<p>连接时需要三次握手。</p>
+<p>断开连接时需要四次挥手</p>
+<p>TCP支持的应用协议主要有：Telnet、FTP、SMTP等。</p>
+<p>TCP提供IP下的数据可靠传输，它提供的服务包括数据流传送、可靠性、有效流控、全双工操作和多路复用。通过面向连接、端到端和可靠的数据包发送。</p>
+<p><strong>TCP协议采用了哪些机制保证数据的可靠传输？</strong></p>
+<ul>
+<li>连接时的 三次握手以及断开时的四次握手</li>
+<li>确认机制（超时、稍带确认）</li>
+<li>拥塞控制、流量控制</li>
+</ul>
+<p><strong>TCP中拥塞控制的方法：</strong></p>
+<ul>
+<li>加性增，乘性减</li>
+<li>慢启动</li>
+<li>对超时事件做出反应</li>
+</ul>
+<p>加性增：没有检测到拥塞的情况下，收到一个确认后就把拥塞窗口值增大一点（线性）</p>
+<p>乘性减：每发生一次丢包事件就将当前的拥塞窗口值减半</p>
+<p><strong>这里要特别注意拥塞控制、流量控制的区别</strong></p>
+<ul>
+<li>拥塞控制：防止过多的数据注入到网络中，这样可以使网络中的路由器不至于过载。拥塞控制的前提是：网络能够承受现有的网络负荷。</li>
+<li>流量控制：点对点通信量的控制。控制发送端的发送数据的速率。</li>
+</ul>
+<p><strong>这里要特别注意选择重传、回退N步的区别</strong></p>
+<ul>
+<li>选择重传：只重传出现差错的数据帧。但这时必须加大接收窗口，以便先收下发送序列号不连续但仍在接收窗口中的数据帧。等到所缺序号的数据帧收到后再一并交给主机。</li>
+<li>回退N步：当接收方检测出失序的数据帧后，要求发送方重发最后一个正确接收的信息之后所有未确认的帧；或者当发送方发了N个帧以后，发现N帧的前一帧在计时器超时后仍未返回其确认信息，则该帧被判超时或者出错，此时发送方不得不重新发送出错帧以及其后的帧。</li>
+</ul>
+</li>
+<li><p>UDP：</p>
+<p>​     是无连接的运输层协议</p>
+<p>UDP支持的应用层协议主要有：NFS（网络文件系统）、SNMP（简单网络管理协议）、DNS（主域名称系统）、TFTP（通用文件传输协议）等.</p>
+<p>而UDP则不为IP提供可靠性、流控或差错恢复功能，是非面向连接，不可靠的传输。</p>
+<p>  优点：</p>
+<ul>
+<li>应用层能够更好地控制要发送的数据和发送时间</li>
+<li>无需建立连接</li>
+<li>无连接状态</li>
+<li>分组首部开销小</li>
+</ul>
+<p>应用：</p>
+<ul>
+<li>常用于流式多媒体应用<ul>
+<li>丢包容忍</li>
+<li>速率敏感</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>DNS</li>
+<li>SNMP</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>网络层: 从源到目的地数据报的选路<br>ARP、IP、ICMP、OSPF、BGP等</p>
+<ul>
+<li><p>IP：网络之间互连的协议的外语（internet Protocol）缩写，中文缩写为“网协”.</p>
+<p>因特网的地址分配策略被称为无类别域间选路（CIRD）。在采用CIRD之前，IP地址被分为A,B,C,D,E五类，分别为：</p>
+<p><img src="https://ox.xizero.com/uploads/2017/08/7f34ab4373e42f75f9ff935bda594907.jpg" alt=""></p>
+</li>
+</ul>
+<p>不过在这之间，有几个私有地址，是不能够被使用的，包括：</p>
+<pre><code>A类 　　10.0.0.0 --10.255.255.255
+</code></pre><p>​    B类 　　172.16.0.0–172.31.255.255</p>
+<p>​    C类 　　192.168.0.0–192.168.255.255</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- ARP:地址解析协议，即ARP（Address Resolution Protocol）,
+
+  ARP协议的主要功能是将32位IP地址转换为48位物理地址。
+
+  工作过程：首先每台主机都会在缓冲区建立一个ARP列表，以表示IP与MAC的对应关系。当有数据包发送时，会先检查ARP列表中是否存在该IP对应的MAC地址，如果有，则直接将包发送到这个MAC地址，如果没有，就向本地网段发起一个ARP请求的广播包，网络中所有主机收到这个ARP包后，会先检查自己的IP是否与包中的IP地址一致，如果不一致则忽略，如果一致，则将发送端的MAC地址和IP地址添加到自己的ARP列表中（已存在的则覆盖），然后向发送端发送一个响应包，当发送方收到该响应包后,将接收方的IP与MAC添加到自己的ARP列表中。然后开始数据的传输
+
+- ICMP:ICMP是（Internet Control Message Protocol）Internet控制[报文](https://baike.baidu.com/item/%E6%8A%A5%E6%96%87)协议。它是[TCP/IP协议族](https://baike.baidu.com/item/TCP%2FIP%E5%8D%8F%E8%AE%AE%E6%97%8F)的一个子协议，用于在IP[主机](https://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA)、[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)器之间传递控制消息。控制消息是指[网络通](https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E9%80%9A)不通、[主机](https://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA)是否可达、[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)是否可用等网络本身的消息。这些控制消息虽然并不传输用户数据，但是对于用户数据的传递起着重要的作用。
+
+- OSPF:OSPF(Open Shortest Path First[开放式最短路径优先](https://baike.baidu.com/item/%E5%BC%80%E6%94%BE%E5%BC%8F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88)）是一个[内部网关协议](https://baike.baidu.com/item/%E5%86%85%E9%83%A8%E7%BD%91%E5%85%B3%E5%8D%8F%E8%AE%AE)(Interior Gateway Protocol，简称IGP），用于在单一[自治系统](https://baike.baidu.com/item/%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F)（autonomous system,AS）内决策[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)。是对[链路状态路由协议](https://baike.baidu.com/item/%E9%93%BE%E8%B7%AF%E7%8A%B6%E6%80%81%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE)的一种实现，隶属内部网关协议（IGP）
+
+- BGP:边界网关协议（BGP）是运行于 TCP 上的一种[自治系统](https://baike.baidu.com/item/%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F)的[路由协议](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE)。 BGP 是唯一一个用来处理像因特网大小的网络的协议，也是唯一能够妥善处理好不相关[路由域](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1%E5%9F%9F)间的多路连接的协议
+
+- RIP:路由信息协议
+
+- NAT（Network Address Translation，网络地址转换）是1994年提出的。当在专用网内部的一些主机本来已经分配到了本地IP地址（即仅在本专用网内使用的专用地址），但现在又想和因特网上的主机通信（并不需要加密）时，可使用NAT方法。
+
+-  RARP（Reverse Address Resolution Protocol）：逆向地址解析协议。
+</code></pre><ul>
+<li><p>数据链路层: 在邻近网元之间传输数据<br>ALOHA、CSMA或CSMA/CD、TDMA、FDMA、CDMA</p>
+</li>
+<li><p>物理层: “在线上”的比特<br>任何一种调制解调体制</p>
+<p>以二进制数据形式在物理媒体上传输数据 ISO2110，IEEE802，IEEE802.2</p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="MAC地址和IP地址有什么本质区别？"><a href="#MAC地址和IP地址有什么本质区别？" class="headerlink" title="MAC地址和IP地址有什么本质区别？"></a><strong>MAC地址和IP地址有什么本质区别？</strong></h4><p>　　MAC地址是数据链路层地址，IP地址是网络层地址；<br>　　MAC地址没有结构性涵义，IP地址有结构性涵义，表示计算机与网络之间的连接关系。<br>　　IP地址就是给每个连接在因特网上的主机（或路由器）分配一个在全世界范围内是唯一的32位的标识符，从而把整个因特网看成是一个单一的，抽象的网络；在实际网络的链路上传输数据帧时，最终还是要用到物理地址；<br>　　MAC地址在一定程度属于硬件一致，基于物理层。能标识具体的链路通信对象，IP地址给予逻辑域的划分，不受硬件控制；</p>
+<h4 id="作为中间系统。转发器、网桥、路由器和网关有何区别？"><a href="#作为中间系统。转发器、网桥、路由器和网关有何区别？" class="headerlink" title="作为中间系统。转发器、网桥、路由器和网关有何区别？"></a><strong>作为中间系统。转发器、网桥、路由器和网关有何区别？</strong></h4><p>转发器：是物理层中间设备。主要作用是在物理层中实现透明的二进制比特复制，以补偿信号衰减。</p>
+<p>网桥：是数据链路层的中间设备。主要作用是根据MAC帧的目的地址对收到的帧进行转发。网桥具有过滤帧的功能。</p>
+<p>路由器：网络层的中间设备。作用是在互连网中完成路由选择的功能。</p>
+<p>网关：网络层以上的中间系统。作用是在高层进行协议的转换以连接两个不兼容的系统。</p>
+<h4 id="C-S模式和P2P模式的区别"><a href="#C-S模式和P2P模式的区别" class="headerlink" title="C/S模式和P2P模式的区别"></a><strong>C/S模式和P2P模式的区别</strong></h4><p>①：C/S结构是一种客户端/服务器结构，客户端与服务器之间是主从关系，是一种一对多的模式。它的信息和数据需要保存在服务器上，若用户要浏览和下载信息，必须先访问服务器，才能浏览和下载信息，而且客户机之间没有交互的能力。相反，P2P模式不分提供信息服务器和索取信息的客户端，每一台电脑都是信息的发布者和索取者，对等点之间能交互，无需使用服务器。<br>②：C/S模式中信息的存储和管理比较集中、稳定，服务器只公布用户想公布的信息，并且会在服务器中稳定地保存一段时间，该服务器通常也不间断的运行在网络间。而P2P缺乏安全机制，P2P是能给用户带来方便，但也会带来大量垃圾信息，而且各个对等点可以随便进入或者退出网络，会造成网络的不稳定。<br>③：从安全的角度来说，因为系统会出现漏洞，而C/S模式采用集中管理模式，客户端只能被动地从服务器获取信息，所以一旦客户端出了差错，并不会影响整个系统。<br>④：C/S模式的管理软件更新的较快，要跟上技术，必须花费大量精力和金钱在软件的更新换代上，而且工作人员要维护服务器和数据库，也要耗费大量资金。相反的P2P不需要服务器，也就不必耗费大量资金，而且每个对等点都可以在网络上发布和分享信息，这使得闲散资源得以充分的利用。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 计算机网络 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 计算机网络 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[数据结构————栈]]></title>
+      <url>/2017/08/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E6%A0%88/</url>
+      <content type="html"><![CDATA[<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一种先入后出的数据结构</p>
+<h4 id="相关计算题"><a href="#相关计算题" class="headerlink" title="相关计算题"></a>相关计算题</h4><p>只用另一个栈和其他变量完成栈的排序</p>
+<p>思想：使用一个中间变量current，记第一个栈为stack，第二个辅助栈为lstake</p>
+<p>stack pop一个元素给current，和lstake的栈顶元素比较，当current小于栈顶元素直接push到栈顶，</p>
+<p>反之当大于栈顶元素时，一直pushlstake的元素到stake栈顶，直到lstake的栈顶元素大于current的值。</p>
+<p>一直重复直到stake的栈为空</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import java.util.Stack;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/7.</div><div class="line"> */</div><div class="line">public class test &#123;</div><div class="line"></div><div class="line">    public static void main(String args[]) &#123;</div><div class="line"></div><div class="line">        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();</div><div class="line">        stack.push(1);</div><div class="line">        stack.push(5);</div><div class="line">        stack.push(3);</div><div class="line">        stack.push(2);</div><div class="line">        stack.push(9);</div><div class="line">        stack.push(6);</div><div class="line">        stack.push(7);</div><div class="line">        int current;</div><div class="line">        Stack&lt;Integer&gt; lstake = new Stack&lt;&gt;();</div><div class="line">        lstake.push(stack.pop());</div><div class="line">        while (!stack.empty()) &#123;</div><div class="line">            current = stack.pop();</div><div class="line">            while (!lstake.empty()&amp;&amp;current&gt;lstake.peek())&#123;</div><div class="line">                stack.push(lstake.pop());</div><div class="line">            &#125;</div><div class="line">                lstake.push(current);</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (int a : lstake) &#123;</div><div class="line"></div><div class="line">            System.out.print(a + &quot;,&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据结构 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[八大排序java实现]]></title>
+      <url>/2017/08/05/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8Fjava%E5%AE%9E%E7%8E%B0/</url>
+      <content type="html"><![CDATA[<p>总结整理下八大排序的算法，用java实现。毕竟都是一些面试，平时使用都要用到的算法</p>
+<ul>
+<li><p>冒泡排序</p>
+<ol>
+<li>冒泡排序：一趟一趟的比较，比较相邻元素的大小，每趟有一个元素沉入最后面的位置 </li>
+<li>属于交换类排序 </li>
+<li>稳定的排序算法  </li>
+<li>平均时间复杂度O(n*n) </li>
+<li>最坏时间复杂度O(n*n) </li>
+<li>空间复杂度O(1) </li>
+<li>n较小时适用 </li>
+</ol>
+<p>​</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public static void bubbleSort(int[] array) &#123;</div><div class="line">       System.out.println(&quot;BubbleSort()&quot;);</div><div class="line">       for (int i = 0; i &lt; array.length; i++) &#123;//第i趟比较</div><div class="line"></div><div class="line">           for (int j = i + 1; j &lt; array.length; j++) &#123;</div><div class="line"></div><div class="line">               if (array[j] &lt; array[i]) &#123;</div><div class="line"></div><div class="line">                   swap(array,j,i);</div><div class="line">               &#125;</div><div class="line"></div><div class="line">           &#125;</div><div class="line"></div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">private static void swap(int[] array, int a, int b) &#123;</div><div class="line">    int t = array[a];</div><div class="line">    array[a] = array[b];</div><div class="line">    array[b] = t;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>选择排序<ol>
+<li>​     *直接选择排序：第i轮选择剩余最小的元素放入到第i的位置上 </li>
+<li>​     * 属于选择类排序 </li>
+<li>​     * 不稳定的排序算法 ：如58529第一轮选择交换5和2，破换了原来两个5的顺序 </li>
+<li>​     <em> 平均时间复杂度O(n</em>n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * 当n较小时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public static void xuanze(int[] array)</div><div class="line">&#123;</div><div class="line">    for (int i=0;i&lt;arr.length-1;i++)&#123;</div><div class="line">        int min=i;</div><div class="line"></div><div class="line">        for (int j=i+1;j&lt;arr.length;j++)&#123;</div><div class="line">              if (arr[j]&lt;arr[min])&#123;</div><div class="line">                  min=j;</div><div class="line">              &#125;</div><div class="line">        &#125;</div><div class="line">       swap(arr,min,i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>插入排序<ol>
+<li>​     *直接插入排序：每一轮第i个元素跟前面的i-1个元素从后向前比较，一直比较到合适插入的位置 </li>
+<li>​     * 属于插入类排序 </li>
+<li>​     * 稳定的排序算法  </li>
+<li>​     <em> 平均时间复杂度O(n</em>n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * 大部分有序时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public  static  void insertSort(int []array)&#123;</div><div class="line">     int current,j;</div><div class="line"></div><div class="line">     for (int i=1;i&lt;array.length;i++)&#123;</div><div class="line">            current=array[i];</div><div class="line">         for ( j=i-1;j&gt;=0&amp;&amp;array[j]&gt;current;j--)&#123;</div><div class="line"></div><div class="line">             array[j+1]=array[j];</div><div class="line"></div><div class="line">         &#125;</div><div class="line">         array[j+1]=current;</div><div class="line"></div><div class="line">     &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>快速排序<ol>
+<li>​    通过递归和分治的思想，先确定一个值一般为第一个，然后从右向前遍历一旦后面的小，则第一个和这个数字交换位置，然后从左向右遍历。直到两个指针指向同一个位置。</li>
+<li>​     <em> 平均时间复杂度O(n</em>log2n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * n较大 时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">public static void sort(int[] data, int left, int right) &#123;</div><div class="line">    // 枢纽元，一般以第一个元素为基准进行划分</div><div class="line">    int leftCurrent = left;</div><div class="line">    int rightCurrent = right;</div><div class="line">    if (left &lt; right) &#123;</div><div class="line">        // 从数组两端交替地向中间扫描</div><div class="line">        int pivotKey = data[left];</div><div class="line">        System.out.println(&quot;---leftCurrent:&quot; + leftCurrent + &quot;--rightCurrent:&quot; + rightCurrent + &quot;--key:&quot; + pivotKey);</div><div class="line">        // leftCurrent从左往右扫描，rightCurrent从右往左扫描</div><div class="line">        while (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">            // 找到数组最右边比key小的值的下标</div><div class="line">            while (leftCurrent &lt; rightCurrent &amp;&amp; pivotKey &lt; data[rightCurrent]) &#123;</div><div class="line">                rightCurrent--;</div><div class="line">            &#125;</div><div class="line">            if (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">                // 把右边比key小的值往前挪</div><div class="line">                data[leftCurrent] = data[rightCurrent];</div><div class="line">                leftCurrent++;</div><div class="line">                System.out.println(&quot;a:&quot; + Arrays.toString(data));</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            // 找到左边比key大的值的下标</div><div class="line">            while (leftCurrent &lt; rightCurrent &amp;&amp; pivotKey &gt; data[leftCurrent]) &#123;</div><div class="line">                leftCurrent++;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">                // 把左边比key大的值往右挪</div><div class="line">                data[rightCurrent] = data[leftCurrent];</div><div class="line">                rightCurrent--;</div><div class="line">                System.out.println(&quot;b:&quot; + Arrays.toString(data));</div><div class="line">            &#125;</div><div class="line">        &#125;// end while</div><div class="line">        // 枢纽元素移动到正确位置</div><div class="line">        data[leftCurrent] = pivotKey;</div><div class="line">        System.out.println(&quot;---&quot; + Arrays.toString(data) + &quot;\n\n&quot;);</div><div class="line">        // 前半个子表递归排序</div><div class="line">        sort(data, left, leftCurrent - 1);</div><div class="line">        // 后半个子表递归排序</div><div class="line">        sort(data, leftCurrent + 1, right);</div><div class="line">    &#125;// end if</div><div class="line">&#125;//</div></pre></td></tr></table></figure>
+<p>可以这么理解 两个指针 j k分别从左向右和从右向左遍历，</p>
+<p>从左向右的一旦发现比key大的就给右边</p>
+<p>从右向左的一旦发现比key小的就放左边</p>
+<p>这样一直遍历到指针指向同一个位置，这个位置就是jk相同并且是key应该存在的位置</p>
+<ul>
+<li>希尔排序<ol>
+<li>​     *希尔排序：分组交换的思想，先分组，后交换排序 </li>
+<li>​     * 属于交换类排序 </li>
+<li>​     * 不稳定的排序算法 ：分组之后交换打破了稳定性 </li>
+<li>​     <em> 平均时间复杂度O(n</em>log2n) </li>
+<li>​     * 最坏时间复杂度O(n^s) 1&lt;s&lt;2 </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * n较大时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">public static void shellSort(int[] data) &#123;</div><div class="line">    int i,j,group;</div><div class="line">    int n=data.length;</div><div class="line">    for (group=n/2;group&gt;0;group=group/2)&#123;</div><div class="line"></div><div class="line">        for (i=0;i&lt;group;i++)&#123;</div><div class="line">            for (j=i+group;j&lt;n;j+=group)&#123;</div><div class="line"></div><div class="line">                if (data[j] &lt; data[j - group])</div><div class="line">                &#123;</div><div class="line">                    int temp = data[j];</div><div class="line">                    int k = j - group;</div><div class="line">                    while (k &gt;= 0 &amp;&amp; data[k] &gt; temp)</div><div class="line">                    &#123;</div><div class="line">                        data[k + group] = data[k];</div><div class="line">                        k -= group;</div><div class="line">                    &#125;</div><div class="line">                    data[k + group] = temp;</div><div class="line">                &#125;</div><div class="line"></div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>堆排序</p>
+<p>​</p>
+</li>
+</ul>
+<p>二叉堆是完全二叉树或者是近似完全二叉树。</p>
+<p>二叉堆满足二个特性：</p>
+<p>1．父结点的键值总是大于或等于（小于或等于）任何一个子节点的键值。</p>
+<p>2．每个结点的左子树和右子树都是一个二叉堆（都是最大堆或最小堆）。</p>
+<p>当父结点的键值总是大于或等于任何一个子节点的键值时为<strong>最大堆</strong>。当父结点的键值总是小于或等于任何一个子节点的键值时为<strong>最小堆</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/6.</div><div class="line"> */</div><div class="line">public class Template &#123;</div><div class="line"></div><div class="line">    public void CreatHeap(int a[], int n) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        int isfirst = (n -2) / 2;//第一个非叶子节点</div><div class="line"></div><div class="line">        for (; isfirst &gt;= 0; isfirst--) &#123;</div><div class="line"></div><div class="line">            AdjustHeapNode(a, isfirst, n);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void HeapSort(int a[], int n) &#123;</div><div class="line"></div><div class="line">        CreatHeap(a, n);</div><div class="line"></div><div class="line">        int temp;</div><div class="line">        for (int i = 0; i &lt; n - 1; i++) &#123;</div><div class="line">            temp = a[n - 1 - i];</div><div class="line">            a[n - 1 - i] = a[0];</div><div class="line">            a[0] = temp;</div><div class="line"></div><div class="line">            AdjustHeapNode(a, 0, n - 1 - i);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void AdjustHeapNode(int a[], int i, int n) &#123;</div><div class="line">        if (n == 1 || i &gt; (n - 2) / 2)  //i为叶子节点  (n-2)/2 最后一个非叶子节点的位置</div><div class="line">            return;</div><div class="line"></div><div class="line">        int iLeft = 2 * i + 1;</div><div class="line">        int iRight = 2 * i + 2;</div><div class="line"></div><div class="line"></div><div class="line">        if (iRight &lt;= n - 1)     //说明i有左右两个子节点         三个节点找最大值</div><div class="line">        &#123;</div><div class="line">            if (a[i] &gt;= a[iLeft] &amp;&amp; a[i] &gt;= a[iRight])      // i 最大 不用调整</div><div class="line">                return;</div><div class="line"></div><div class="line">            if (a[i] &lt; a[iLeft] &amp;&amp; a[iRight] &lt;= a[iLeft])  // iLeft 最大</div><div class="line">            &#123;</div><div class="line">                int temp = a[iLeft];</div><div class="line">                a[iLeft] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line">                AdjustHeapNode(a, iLeft, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (a[i] &lt; a[iRight] &amp;&amp; a[iLeft] &lt;= a[iRight]) // iRight 最大</div><div class="line">            &#123;</div><div class="line">                int temp = a[iRight];</div><div class="line">                a[iRight] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line"></div><div class="line">                AdjustHeapNode(a, iRight, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125; else &#123; // 说明i只有左节点   二个节点找最大值</div><div class="line">            //iLeft为最后一个节点</div><div class="line">            if (a[i] &gt;= a[iLeft])</div><div class="line">                return;</div><div class="line">            else &#123;</div><div class="line">                int temp = a[iLeft];</div><div class="line">                a[iLeft] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line">                AdjustHeapNode(a, iLeft, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 算法 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Fragment懒加载]]></title>
       <url>/2017/08/02/Fragment%E6%87%92%E5%8A%A0%E8%BD%BD/</url>
       <content type="html"><![CDATA[<p>说真的！！网上的博客好多都是在别人那直接copy过来的！昨天看算法就是，百度第一页的所有博客几乎都一样而且不是一个人写的，最重要的是他妈的是错的！！！逻辑混乱，代码错误，挫的都一样。真的佩服。今天看懒加载又是这样。。不得不自己琢磨了</p>
