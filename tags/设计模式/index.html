@@ -124,82 +124,59 @@
 
 <div id="content-outer">
   <div id="content-inner">
-    
-<article id="post">
-  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-19.png)" >
-  <h2>Android性能优化</h2>
-    
-  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-05-11T05:43:34.000Z">
-          2017-05-11
-    </time>
-  </p>
-    
-  </div>
-  <div class="post-page-content">
-  <h3 id="布局优化"><a href="#布局优化" class="headerlink" title="布局优化"></a>布局优化</h3><p>尽量少用嵌套，能用linearLayout和frameLayout解决最好不要用RelativeLayout。</p>
-<p>因为view的绘制会花更多的时间。</p>
-<p>使用 <include> <merge>和ViewStub </merge></include></p>
-<ul>
-<li><p><include> 不用多说，大家应该很熟悉，可以指定一个布局文件到当前布局中，比如toolbar的设置，很多的app 中activity的toolbar都是相同的，没必要每个都写，这个标签是可以有id 的，并且可以设置宽高。其他的不行</include></p>
-</li>
-<li><p><merge> 它一般和<include>标签一起使用用来减少布局的层数</include></merge></p>
-</li>
-<li><p>ViewStub</p>
-<p>他继承于view，并且非常轻量级，宽高都是0，所以它本身不参与绘制过程。它的意义在于在需要的时候加载所需的布局文件。比如一些隐藏的布局，在需要的时候显示！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ViewStub   </div><div class="line">    android:inflateId=&quot;@id/inflateid&quot;</div><div class="line">    android:id=&quot;@+id/viewstub_demo_image&quot;  </div><div class="line">    android:layout_width=&quot;wrap_content&quot;  </div><div class="line">    android:layout_height=&quot;wrap_content&quot;  </div><div class="line">    android:layout_marginLeft=&quot;5dip&quot;  </div><div class="line">    android:layout_marginRight=&quot;5dip&quot;  </div><div class="line">    android:layout=&quot;@layout/viewstub_demo_image_layout&quot;/&gt;</div></pre></td></tr></table></figure>
-<p>inflateid是加载布局的根元素的id，viewstub_demo_image是viewStub的id，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">((viewstub)findviewbyId(R.id.viewstub_demo_image)).setVisibility(View.Visible);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">View myview=((ViewStub)findViewById(R.id.viewstub_demo_image)).infalte();</div></pre></td></tr></table></figure>
-<p>这时候布局会被替换掉，但是目前Viewstub不支持<merge>标签</merge></p>
-<p>​</p>
-</li>
-</ul>
-<h3 id="绘制优化"><a href="#绘制优化" class="headerlink" title="绘制优化"></a>绘制优化</h3><p> 尽量不要在onDraw方法中进行大量的运算，循环，创建性的布局对象（会频繁调用onDraw方法）</p>
-<h3 id="内存泄漏优化"><a href="#内存泄漏优化" class="headerlink" title="内存泄漏优化"></a>内存泄漏优化</h3><p>不要让静态变量持有禁用activity，会导致activity无法被销毁。或者progressDialog</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">private static ProgressDialog dialog;</div><div class="line"></div><div class="line">   dialog=new ProgressDialog(this);</div></pre></td></tr></table></figure>
-<p>这个this也对activity有引用，所以无法被销毁。</p>
-<p>单利对象— 因为单例模式的对象适合applicantion的生命周期是一样的，所以当有时候我们不去解除绑定的话，activity会一直持有这个单例对象，会导致无法被销毁</p>
-<p>属性动画在activity被销毁时要调用 animator.cancle()方法</p>
-<p>不要在主线程中去做过多复杂的操作，这些都尽量去异步的放在子线程中去执行。 不然很容易anr，如果产生anr 系统会在/data/anr 目录下创建一个traces.txt文件。通过分析这个文件我们就能分析出ANR产生的原因。</p>
-<h3 id="Listview"><a href="#Listview" class="headerlink" title="Listview"></a>Listview</h3><p>不要在getView方法中进行耗时操作。或者开启大量的异步任务。可以尝试开启硬件加速。和使用viewHolder减少findviewById方法。或者监听话筒状态比如，滑动的时候不要加载图片。分页加载等</p>
-<h3 id="线程的优化"><a href="#线程的优化" class="headerlink" title="线程的优化"></a>线程的优化</h3><p>尽量使用线程池，避免程序中存在大量的THread。线程池可以重用内部的线程，避免了创建和销毁的开销。而且还可以控制线程的最大并发数。避免线程强占系统资源导致阻塞。</p>
-<h3 id="杂七杂八"><a href="#杂七杂八" class="headerlink" title="杂七杂八"></a>杂七杂八</h3><p>不要创建过多的对象，不重要的对象可以使用 软引用和弱引用</p>
-<p>不要使用枚举</p>
-<p>常量使用 static final修饰</p>
-<p>使用Android 特有的数据结构。 SparesArray 和Pair等</p>
-<p>缓存采用三级缓存，内存，磁盘，网络</p>
-<p>使用静态内部类，不然由于内部类对外存在持有，导致外部类不会被销毁</p>
+    <div id="tag">
+    <div id="recent-posts">
+  
+      <div class="recent-post-item lazy" style="background-color:#26A69A"  data-original="/images/random/vateral-1.png"  >
+        <a class="recent-post-link" href="/2017/08/13/设计模式/">
+        <div class="post-hover">
+          <!--title-->
+          <p class="post-title"><a href="/2017/08/13/设计模式/" >设计模式</a></p>
 
-  </div>
-  <!--评论块-->
-    
+          <!--date-->
+          
+            <p class="post-time">Tong Yang &nbsp &nbsp 发布于:<time datetime="2017-08-13T09:48:35.000Z">
+              2017-08-13
+            </time>
+            </p>
+          
 
-</article>
-<nav class="post-nav">
-  <!-- Prev Nav -->
-    
-  <a href="/2017/07/15/测试/" id="post_nav-newer" class="post-nav-content prev-content">
-      新篇
-  </a>
-    
+          <!--tags-->
 
+          标签:
+            
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+            
+          <!--分类-->
 
-  <!-- Next Nav -->
-    
-  <a href="/2017/05/07/图片缓存与bitmap的加载/" id="post_nav-older" class="post-nav-content next-content">
-      旧篇
-  </a>
-    
+          分类:
+            
+            暂无分类
+            
+
+          <!--excerpt-->
+          <div class="post-excerpt">
+            <p>
+              摘要：
+              
+                MVCMVC是模型(Model)－视图(View)－控制器(Controller)的缩写，是设计模式中最常用的软件架构。
+
+视图（View）：用户界面。控制器（Con...
+              
+            </p>
+          </div>
+          <div class="post-more"><a href="/2017/08/13/设计模式/" >全文阅读</a></div>
+        </div>
+        </a>
+      </div>
+  
+  <nav class="paging">
+    <span class="page-number current">1</span>
 </nav>
-<div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
-<div class="post-toc-none"><p>(无)</p></div>
-<div class="post-toc-box">
-    <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#布局优化"><span class="post-toc-number">1.</span> <span class="post-toc-text">布局优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#绘制优化"><span class="post-toc-number">2.</span> <span class="post-toc-text">绘制优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内存泄漏优化"><span class="post-toc-number">3.</span> <span class="post-toc-text">内存泄漏优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Listview"><span class="post-toc-number">4.</span> <span class="post-toc-text">Listview</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程的优化"><span class="post-toc-number">5.</span> <span class="post-toc-text">线程的优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#杂七杂八"><span class="post-toc-number">6.</span> <span class="post-toc-text">杂七杂八</span></a></li></ol>
 </div>
-<!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
-<script type="text/javascript">
-    menu();
-</script>
+
+
+</div>
   </div>
 </div>
 <div id="bottom-outer">
