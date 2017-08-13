@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <meta name="keywords" content="佟杨">
+  <meta name="description" content="佟杨个人博客">
+  
+  <title>TongYang</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/materialize.min.css">
+    
+      <link rel="stylesheet" href="/css/main.min.css">
+    
+  
+  <style type="text/css">
+      html{
+          font-family: sans-serif;
+          font-weight: 300;
+      }
+      @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: url(/fonts/MaterialIcons-Regular.eot);
+          src: url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+          url(/fonts/MaterialIcons-Regular.woff) format('woff'),
+          url(/fonts/MaterialIcons-Regular.ttf) format('truetype')
+      }
+  </style>
+</head>
+<body>
+<div id="menu-box"><a href="javascript:void(0)" id="menu" data-activates="slide-out" class="button-collapse menu" ><span class="nav-btn"></span></a></div>
+<div id="menu-outer">
+  <div id="menu-inner">
+      <ul id="slide-out" class="side-nav" >
+    <div class="nav-header"  style="background-image: url(/images/header-bg.png);background-color:#26A69A">
+    <div class="header-box"><img src="/images/header.jpg" ondragstart="return false;"></div>
+    <p>Tong Yang</p>
+    <div class="nav-link">
+        
+        
+        <a  href="https://github.com/tongyangl" target="_blank"><div class="link-box github"></div></a>
+        
+        
+        <a href="mailto:1778480884@qq.com"><div class="link-box email"></div></a>
+        
+        
+        <a href="http://weibo.com/u/1100412270?refer_flag=1001030102_&amp;is_hot=1" target="_blank"><div class="link-box weibo"></div></a>
+        
+        
+    </div>
+    <div class="nav-search">
+        <form id="search-form"> <!-- 搜索框相关 -->
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..." class="search form-control" autocomplete="off" autocorrect="off"/>
+            <div class="nav-search-img"><i class="material-icons">search</i></div>
+        </form>
+        <div id="local-search-result"></div> <!-- 搜索结果区 -->
+        <p class='no-result'>无搜索结果</p>
+    </div>
+</div>
+    <!--Homepage-->
+
+<li class="nav-list">
+    <a href="/" target="_self">
+        <div class="nav-ico"><i class="material-icons">home</i> </div><p>主页</p>
+    </a>
+</li>
+
+<!--archives-->
+
+<li class="nav-list dropdown-btn">
+    <a  class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">assignment</i></div><p>归档</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="archive-link" href="/archives/2017/08/">八月 2017<span class="archive-count">6</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/07/">七月 2017<span class="archive-count">7</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/05/">五月 2017<span class="archive-count">4</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/04/">四月 2017<span class="archive-count">12</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/03/">三月 2017<span class="archive-count">5</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/11/">十一月 2016<span class="archive-count">1</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/10/">十月 2016<span class="archive-count">1</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/06/">六月 2016<span class="archive-count">1</span></a>
+    </li>
+</ul>
+<!--categories-->
+
+<li class="nav-list dropdown-btn">
+    <a   class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">dashboard</i></div><p>分类</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="category-link" href="/categories/Android/">Android<span class="category-count">5</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/java/">java<span class="category-count">2</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/rxjava/">rxjava<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/技术/">技术<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/数据结构/">数据结构<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/计算机网络/">计算机网络<span class="category-count">1</span></a>
+    </li>
+</ul>
+<!--tags-->
+
+<li class="nav-list">
+    <a href="/archives" target="_self">
+        <div class="nav-ico"><i class="material-icons">bookmark</i> </div><p>标签</p>
+    </a>
+</li>
+
+<!--photo-->
+
+<!--friends-->
+
+<!--about-->
+
+<li class="nav-list">
+    <a href="/about" target="_self">
+        <div class="nav-ico"><i class="material-icons">copyright</i> </div><p>关于</p>
+    </a>
+</li>
+
+
+</ul>
+
+  </div>
+</div>
+
+<div id="content-outer">
+  <div id="content-inner">
+    
+<article id="post">
+  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-13.png)" >
+  <h2>RxJava2.X学习</h2>
+    
+  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-08-11T08:13:49.000Z">
+          2017-08-11
+    </time>
+  </p>
+    
+  </div>
+  <div class="post-page-content">
+  <h3 id="Rxjava"><a href="#Rxjava" class="headerlink" title="Rxjava"></a>Rxjava</h3><p>rxjava是什么呢，简单来说就是一个异步框架</p>
+<p>下面贴出我们最开始学习的最简单的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">Observable.create(new ObservableOnSubscribe&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void subscribe(ObservableEmitter&lt;Object&gt; e) throws Exception &#123;</div><div class="line"></div><div class="line">                e.onNext(new Object());</div><div class="line">                e.onComplete();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;).subscribe(new Observer&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onSubscribe(Disposable d) &#123;</div><div class="line">                  </div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onNext(Object value) &#123;</div><div class="line">                </div><div class="line">                </div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onError(Throwable e) &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onComplete() &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<p>是不是很熟悉，非常基础的，也是最常使用的</p>
+<p>刚开始使用的时候一直好奇 e.onNext(new Object());中的对象是如何传递到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">         public void onNext(Object value) &#123;</div><div class="line">             </div><div class="line">             </div><div class="line">         &#125;</div></pre></td></tr></table></figure>
+<p>这个方法中的呢…今天我终于能静下心来好好分析其中的原因了。。。</p>
+<p>首先我们看Observable ，他是一个抽象类，嗯..有点长跳过</p>
+<p>然后是ObservableOnSubscribe的源码</p>
+<p>他是一个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public interface ObservableOnSubscribe&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Called for each Observer that subscribes.</div><div class="line">     * @param e the safe emitter instance, never null</div><div class="line">     * @throws Exception on error</div><div class="line">     */</div><div class="line">    void subscribe(ObservableEmitter&lt;T&gt; e) throws Exception;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>里面也有我们正要实现的方法</p>
+<p>void subscribe(ObservableEmitter<t> e)</t></p>
+<p>再看看ObservableEmitter</p>
+<p>他继承于Emitter ，并且添加了几个新的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">public interface ObservableEmitter&lt;T&gt; extends Emitter&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Sets a Disposable on this emitter; any previous Disposable</div><div class="line">     * or Cancellation will be unsubscribed/cancelled.</div><div class="line">     * @param d the disposable, null is allowed</div><div class="line">     */</div><div class="line">    void setDisposable(Disposable d);</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Sets a Cancellable on this emitter; any previous Disposable</div><div class="line">     * or Cancellation will be unsubscribed/cancelled.</div><div class="line">     * @param c the cancellable resource, null is allowed</div><div class="line">     */</div><div class="line">    void setCancellable(Cancellable c);</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Returns true if the downstream disposed the sequence.</div><div class="line">     * @return true if the downstream disposed the sequence</div><div class="line">     */</div><div class="line">    boolean isDisposed();</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Ensures that calls to onNext, onError and onComplete are properly serialized.</div><div class="line">     * @return the serialized ObservableEmitter</div><div class="line">     */</div><div class="line">    ObservableEmitter&lt;T&gt; serialize();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这几个东西大概是什么我们有了个大概的了解，然后看看最重要的create方法，毕竟我们需要的Observable对象实例就是create方法返回的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.NONE)</div><div class="line">public static &lt;T&gt; Observable&lt;T&gt; create(ObservableOnSubscribe&lt;T&gt; source) &#123;</div><div class="line">    ObjectHelper.requireNonNull(source, &quot;source is null&quot;);</div><div class="line">    return RxJavaPlugins.onAssembly(new ObservableCreate&lt;T&gt;(source));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>没错observable对象就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RxJavaPlugins.onAssembly(new ObservableCreate&lt;T&gt;(source));</div></pre></td></tr></table></figure>
+<p>这个方法返回的</p>
+<p>再来看看onAssembly方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public static &lt;T&gt; Observable&lt;T&gt; onAssembly(Observable&lt;T&gt; source) &#123;</div><div class="line">    Function&lt;Observable, Observable&gt; f = onObservableAssembly;</div><div class="line">    if (f != null) &#123;</div><div class="line">        return apply(f, source);</div><div class="line">    &#125;</div><div class="line">    return source;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们这里发现onAssembly 方法传入的是ObservableCreate，而非Observable对象</p>
+<p>所以我们看下ObservableCreate的源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public final class ObservableCreate&lt;T&gt; extends Observable&lt;T&gt; &#123;</div><div class="line">    final ObservableOnSubscribe&lt;T&gt; source;</div><div class="line"></div><div class="line">    public ObservableCreate(ObservableOnSubscribe&lt;T&gt; source) &#123;</div><div class="line">        this.source = source;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void subscribeActual(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">        CreateEmitter&lt;T&gt; parent = new CreateEmitter&lt;T&gt;(observer);</div><div class="line">        observer.onSubscribe(parent);</div><div class="line"></div><div class="line">        try &#123;</div><div class="line">            source.subscribe(parent);</div><div class="line">        &#125; catch (Throwable ex) &#123;</div><div class="line">            Exceptions.throwIfFatal(ex);</div><div class="line">            parent.onError(ex);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    .....</div><div class="line">    .....</div><div class="line">    .....</div><div class="line">    略</div></pre></td></tr></table></figure>
+<p>这只是一部分源码也是最重要的</p>
+<p>我们可以发现ObservableCreate是继承于observable的所以使用他的实例没有问题</p>
+<p>这也是最重要的两个方法，</p>
+<p>我们先看看他的构造方法，把我们create传入的ObservableOnSubscribe传到这个构造方法中</p>
+<p>最难理解的地方来了。</p>
+<p>下面那个方法是干嘛的呢？</p>
+<p> CreateEmitter<t> parent = new CreateEmitter<t>(observer);又是干嘛的呢</t></t></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CreateEmitter是ObservableCreate的一个静态内部类，并且final修饰，不可继承他实现了ObservableEmitter接口</div></pre></td></tr></table></figure>
+<p>前面已经做了介绍了ObservableEmitter实现了Emitter接口</p>
+<p>说到关联就不得不说observable的subscribe方法，他传入的是我们的    Observer对象</p>
+<p>再次做的关联，所以关联肯定是在这个方法完成的，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.NONE)</div><div class="line">@Override</div><div class="line">public final void subscribe(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">    ObjectHelper.requireNonNull(observer, &quot;observer is null&quot;);</div><div class="line">    try &#123;</div><div class="line">        observer = RxJavaPlugins.onSubscribe(this, observer);</div><div class="line"></div><div class="line">        ObjectHelper.requireNonNull(observer, &quot;Plugin returned null Observer&quot;);</div><div class="line"></div><div class="line">        subscribeActual(observer);</div><div class="line">    &#125; catch (NullPointerException e) &#123; // NOPMD</div><div class="line">        throw e;</div><div class="line">    &#125; catch (Throwable e) &#123;</div><div class="line">        Exceptions.throwIfFatal(e);</div><div class="line">        // can&apos;t call onError because no way to know if a Disposable has been set or not</div><div class="line">        // can&apos;t call onSubscribe because the call might have set a Subscription already</div><div class="line">        RxJavaPlugins.onError(e);</div><div class="line"></div><div class="line">        NullPointerException npe = new NullPointerException(&quot;Actually not, but can&apos;t throw other exceptions due to RS&quot;);</div><div class="line">        npe.initCause(e);</div><div class="line">        throw npe;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是subscribe方法的源码，还记得subscribeActual方法把，没错就是在这里做的回调</p>
+<p>但是你们可能直接点击返现subscribeActual是个抽象方法。但是我们具体调用的是ObservableCreate</p>
+<p>他实现了里面的抽象方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">static final class CreateEmitter&lt;T&gt;</div><div class="line">extends AtomicReference&lt;Disposable&gt;</div><div class="line">implements ObservableEmitter&lt;T&gt;, Disposable &#123;</div><div class="line"></div><div class="line"></div><div class="line">    private static final long serialVersionUID = -3434801548987643227L;</div><div class="line"></div><div class="line">    final Observer&lt;? super T&gt; observer;</div><div class="line"></div><div class="line">    CreateEmitter(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">        this.observer = observer;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNext(T t) &#123;</div><div class="line">        if (t == null) &#123;</div><div class="line">            onError(new NullPointerException(&quot;onNext called with null. Null values are generally not allowed in 2.x operators and sources.&quot;));</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        if (!isDisposed()) &#123;</div><div class="line">            observer.onNext(t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable t) &#123;</div><div class="line">        if (t == null) &#123;</div><div class="line">            t = new NullPointerException(&quot;onError called with null. Null values are generally not allowed in 2.x operators and sources.&quot;);</div><div class="line">        &#125;</div><div class="line">        if (!isDisposed()) &#123;</div><div class="line">            try &#123;</div><div class="line">                observer.onError(t);</div><div class="line">            &#125; finally &#123;</div><div class="line">                dispose();</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123;</div><div class="line">            RxJavaPlugins.onError(t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onComplete() &#123;</div><div class="line">        if (!isDisposed()) &#123;</div><div class="line">            try &#123;</div><div class="line">                observer.onComplete();</div><div class="line">            &#125; finally &#123;</div><div class="line">                dispose();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这是上面CreateEmitter 的类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source.subscribe(parent);</div></pre></td></tr></table></figure>
+<p>在这里做了关联究竟是怎么关联的已经走到了8 9分了</p>
+<p>我们可以发现source其实就是ObservableOnSubscribe对象。</p>
+<p>subscribe这个方法就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Observable.create(new ObservableOnSubscribe&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void subscribe(ObservableEmitter&lt;Object&gt; e) throws Exception &#123;</div><div class="line"></div><div class="line">                e.onNext(new Object());</div><div class="line">                e.onComplete();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;)</div></pre></td></tr></table></figure>
+<p>里的subscribe方法所以</p>
+<p>e.onNext(new Object())</p>
+<p>就是调用的CreateEmitter实例parent的onNext方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void onNext(T t) &#123;</div><div class="line">    if (t == null) &#123;</div><div class="line">        onError(new NullPointerException(&quot;onNext called with null. Null values are generally not allowed in 2.x operators and sources.&quot;));</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    if (!isDisposed()) &#123;</div><div class="line">        observer.onNext(t);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>onnext方法里面对传过来的T ，如果不为空并且继续传递则调用observer的onNext方法就完成了关联</p>
+<p>怎么样是不是很晕啊….没错我刚开始自己看的时候也是很晕，，但是仔细看几遍就好了。</p>
+<p>嗯既然思路弄清楚了就整理一下</p>
+<p>observable是如何和Observer关联的</p>
+<ul>
+<li><p>首先调用observable的create方法，返回一个observable对象实例，记住这个observable是他的实现类ObservableCreate</p>
+</li>
+<li><p>在ObservableCreate中对我们的ObservableOnSubscribe对象进行了传递并且他实现了observable的抽象方法subscribeActual</p>
+</li>
+<li><p>当我们的observable实例创建后就要调用subscribe和observer关联了，subscribeActual(observer);方法调用了上个步骤中实现的subscribeActual抽象方法，传入的就是我们的observer</p>
+</li>
+<li><p>subscribeActual方法中CreateEmitter<t> parent = new CreateEmitter<t>(observer);的CreateEmitter实现了ObservableEmitter<t>, Disposable两个接口，并且source.subscribe(parent);中的parent其实就是我们的ObservableEmitter，所以我们调用的e.onNext()就是调用的parent中的这个方法</t></t></t></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void onNext(T t) &#123;</div><div class="line">            if (t == null) &#123;</div><div class="line">                onError(new NullPointerException(&quot;onNext called with null. Null values are generally not allowed in 2.x operators and sources.&quot;));</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            if (!isDisposed()) &#123;</div><div class="line">                observer.onNext(t);</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>其中对T做了非空判断，如果传递的不为空则调用observer的onNext方法。就完成了一次传递！</p>
+<p>其实很简单的只要自己仔细思考。</p>
+<p>但是是不是觉得很奇怪，每个方法都有对!isDisposed()做了判断！</p>
+<p>没错我们只会执行一次onerror或者onComplete就是因为他</p>
+<p>我们发现在源码中都有个finalily的块调用dispose方法然后isDisposed就为false了也就不会继续执行另一个了</p>
+<p>​</p>
+<p>但这只是最简单的订阅关系，并未实现线程的切换，线程的切换我会在下一篇分析！</p>
+</li>
+</ul>
+
+  </div>
+  <!--评论块-->
+    
+
+</article>
+<nav class="post-nav">
+  <!-- Prev Nav -->
+    
+  <a href="/2017/08/12/Rxjava2.x学习之线程切换/" id="post_nav-newer" class="post-nav-content prev-content">
+      新篇
+  </a>
+    
+
+
+  <!-- Next Nav -->
+    
+  <a href="/2017/08/08/计算机网络复习/" id="post_nav-older" class="post-nav-content next-content">
+      旧篇
+  </a>
+    
+</nav>
+<div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
+<div class="post-toc-none"><p>(无)</p></div>
+<div class="post-toc-box">
+    <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Rxjava"><span class="post-toc-number">1.</span> <span class="post-toc-text">Rxjava</span></a></li></ol>
+</div>
+<!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
+<script type="text/javascript">
+    menu();
+</script>
+  </div>
+</div>
+<div id="bottom-outer">
+  <div id="bottom-inner">
+    <a  id="top-button" onfocus="this.blur();"><div class="up upinbody" style="background-color:#26A69A"><i class="material-icons material-up">vertical_align_top</i></div></a>
+
+
+<p >Copyright ©  2017  TongYang</p>
+<p >Powered by <a href="https://hexo.io/" target="_blank"> Hexo </a> & Theme - <a href="https://github.com/moumao/hexo-theme-Vateral" target="_blank">Vateral</a></p>
+<p style="font-size: 10px" id="footer-times" data-time="3/4/2016 16:12:00"></p>
+<script>
+    var beginTime=document.getElementById("footer-times").dataset.time
+    function show_date_time(){
+        var span=document.getElementById("footer-times")
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date(beginTime);//初始日期
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=Math.floor(e_hrsold);
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=Math.floor((e_hrsold-hrsold)*60);
+        seconds=Math.floor((e_minsold-minsold)*60);
+        span.innerHTML="本站已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+    show_date_time();
+</script>
+
+  </div>
+</div>
+
+<!--影集界面需要的资源-->
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+<script src="/js/materialize.min.js"></script>
+
+<script src="/js/main.min.js"></script>
+
+
+<script>
+    NProgress.start();
+    NProgress.done();
+    lazy();
+    links();
+    window.onpopstate = menu();
+    //pjax操作
+    $(document).pjax('a:not(.nopjax)', '#content-inner', {fragment:'#content-inner', timeout:8000});
+    $(document).on('pjax:start', NProgress.start).on('pjax:end', NProgress.done)
+        .on('pjax:end', () => {
+            dowmdiv();
+            lazy();
+            toc();
+            links();
+            menu();
+        });
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+</html>

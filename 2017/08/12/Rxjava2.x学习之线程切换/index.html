@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <meta name="keywords" content="佟杨">
+  <meta name="description" content="佟杨个人博客">
+  
+  <title>TongYang</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/materialize.min.css">
+    
+      <link rel="stylesheet" href="/css/main.min.css">
+    
+  
+  <style type="text/css">
+      html{
+          font-family: sans-serif;
+          font-weight: 300;
+      }
+      @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: url(/fonts/MaterialIcons-Regular.eot);
+          src: url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+          url(/fonts/MaterialIcons-Regular.woff) format('woff'),
+          url(/fonts/MaterialIcons-Regular.ttf) format('truetype')
+      }
+  </style>
+</head>
+<body>
+<div id="menu-box"><a href="javascript:void(0)" id="menu" data-activates="slide-out" class="button-collapse menu" ><span class="nav-btn"></span></a></div>
+<div id="menu-outer">
+  <div id="menu-inner">
+      <ul id="slide-out" class="side-nav" >
+    <div class="nav-header"  style="background-image: url(/images/header-bg.png);background-color:#26A69A">
+    <div class="header-box"><img src="/images/header.jpg" ondragstart="return false;"></div>
+    <p>Tong Yang</p>
+    <div class="nav-link">
+        
+        
+        <a  href="https://github.com/tongyangl" target="_blank"><div class="link-box github"></div></a>
+        
+        
+        <a href="mailto:1778480884@qq.com"><div class="link-box email"></div></a>
+        
+        
+        <a href="http://weibo.com/u/1100412270?refer_flag=1001030102_&amp;is_hot=1" target="_blank"><div class="link-box weibo"></div></a>
+        
+        
+    </div>
+    <div class="nav-search">
+        <form id="search-form"> <!-- 搜索框相关 -->
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..." class="search form-control" autocomplete="off" autocorrect="off"/>
+            <div class="nav-search-img"><i class="material-icons">search</i></div>
+        </form>
+        <div id="local-search-result"></div> <!-- 搜索结果区 -->
+        <p class='no-result'>无搜索结果</p>
+    </div>
+</div>
+    <!--Homepage-->
+
+<li class="nav-list">
+    <a href="/" target="_self">
+        <div class="nav-ico"><i class="material-icons">home</i> </div><p>主页</p>
+    </a>
+</li>
+
+<!--archives-->
+
+<li class="nav-list dropdown-btn">
+    <a  class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">assignment</i></div><p>归档</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="archive-link" href="/archives/2017/08/">八月 2017<span class="archive-count">6</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/07/">七月 2017<span class="archive-count">7</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/05/">五月 2017<span class="archive-count">4</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/04/">四月 2017<span class="archive-count">12</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2017/03/">三月 2017<span class="archive-count">5</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/11/">十一月 2016<span class="archive-count">1</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/10/">十月 2016<span class="archive-count">1</span></a></li><li class="nav-dropdown-list"><a class="archive-link" href="/archives/2016/06/">六月 2016<span class="archive-count">1</span></a>
+    </li>
+</ul>
+<!--categories-->
+
+<li class="nav-list dropdown-btn">
+    <a   class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">dashboard</i></div><p>分类</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="category-link" href="/categories/Android/">Android<span class="category-count">5</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/java/">java<span class="category-count">2</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/rxjava/">rxjava<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/技术/">技术<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/数据结构/">数据结构<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/算法/">算法<span class="category-count">1</span></a></li><li class="nav-dropdown-list"><a class="category-link" href="/categories/计算机网络/">计算机网络<span class="category-count">1</span></a>
+    </li>
+</ul>
+<!--tags-->
+
+<li class="nav-list">
+    <a href="/archives" target="_self">
+        <div class="nav-ico"><i class="material-icons">bookmark</i> </div><p>标签</p>
+    </a>
+</li>
+
+<!--photo-->
+
+<!--friends-->
+
+<!--about-->
+
+<li class="nav-list">
+    <a href="/about" target="_self">
+        <div class="nav-ico"><i class="material-icons">copyright</i> </div><p>关于</p>
+    </a>
+</li>
+
+
+</ul>
+
+  </div>
+</div>
+
+<div id="content-outer">
+  <div id="content-inner">
+    
+<article id="post">
+  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-1.png)" >
+  <h2>Rxjava线程切换</h2>
+    
+  <p>作者:Tong Yang &nbsp&nbsp 发布于:<time datetime="2017-08-12T09:41:53.000Z">
+          2017-08-12
+    </time>
+  </p>
+    
+  </div>
+  <div class="post-page-content">
+  <h3 id="线程切换的秘密"><a href="#线程切换的秘密" class="headerlink" title="线程切换的秘密"></a>线程切换的秘密</h3><p>rxjava最让人心动的就是他的链式的线程切换…十分简单，但是我们有没有想过他是为什么这么简单实现的线程切换呢？中间究竟有着什么不可告人的秘密呢！让我们一探究竟！</p>
+<p>下面贴出一段代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">Observable.create(new ObservableOnSubscribe&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void subscribe(ObservableEmitter&lt;Object&gt; e) throws Exception &#123;</div><div class="line"></div><div class="line">        e.onNext(new Object());</div><div class="line">        e.onComplete();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;).subscribeOn(Schedulers.newThread())</div><div class="line">        .observeOn(AndroidSchedulers.mainThread())</div><div class="line">        .subscribe(new Observer&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onSubscribe(Disposable d) &#123;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNext(Object value) &#123;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable e) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onComplete() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>是不是很简单也是非常常见的，他只比我们上一篇的多了一个线程切换的过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">subscribeOn(Schedulers.newThread())</div><div class="line">                .observeOn(AndroidSchedulers.mainThread())</div></pre></td></tr></table></figure>
+<p>所以嘛，在哪做的鬼就在那开起来，我们来看看subscribeOn方法的源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.CUSTOM)</div><div class="line">public final Observable&lt;T&gt; subscribeOn(Scheduler scheduler) &#123;</div><div class="line">    ObjectHelper.requireNonNull(scheduler, &quot;scheduler is null&quot;);</div><div class="line">    return RxJavaPlugins.onAssembly(new ObservableSubscribeOn&lt;T&gt;(this, scheduler));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>嗯…和之前的有点像啊！返回的还是Observable对象，但是对他做了处理了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RxJavaPlugins.onAssembly(new ObservableSubscribeOn&lt;T&gt;(this, scheduler))</div></pre></td></tr></table></figure>
+<p>这里的this就是我们的Observable对象，scheduler就是传入的线程</p>
+<p>继续往下看…现在该看ObservableSubscribeOn了</p>
+<p>点进去发现他继承于AbstractObservableWithUpstream</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public final class ObservableSubscribeOn&lt;T&gt; extends AbstractObservableWithUpstream&lt;T, T&gt;</div></pre></td></tr></table></figure>
+<p>而AbstractObservableWithUpstream又是继承于Observable</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * Base class for operators with a source consumable.</div><div class="line"> *</div><div class="line"> * @param &lt;T&gt; the input source type</div><div class="line"> * @param &lt;U&gt; the output type</div><div class="line"> */</div><div class="line">abstract class AbstractObservableWithUpstream&lt;T, U&gt; extends Observable&lt;U&gt; implements HasUpstreamObservableSource&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /** The source consumable Observable. */</div><div class="line">    protected final ObservableSource&lt;T&gt; source;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Constructs the ObservableSource with the given consumable.</div><div class="line">     * @param source the consumable Observable</div><div class="line">     */</div><div class="line">    AbstractObservableWithUpstream(ObservableSource&lt;T&gt; source) &#123;</div><div class="line">        this.source = source;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public final ObservableSource&lt;T&gt; source() &#123;</div><div class="line">        return source;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>记得吗我们出入的是observable对象，怎么在这里变成ObservableSource了我们发现ObservableSource其实是一个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> */</div><div class="line">public interface ObservableSource&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Subscribes the given Observer to this ObservableSource instance.</div><div class="line">     * @param observer the Observer, not null</div><div class="line">     * @throws NullPointerException if &#123;@code observer&#125; is null</div><div class="line">     */</div><div class="line">    void subscribe(Observer&lt;? super T&gt; observer);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而observable实现了这个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public abstract class Observable&lt;T&gt; implements ObservableSource&lt;T&gt; &#123;</div></pre></td></tr></table></figure>
+<p>所以我们可以认为这俩是等同的</p>
+<p>再来看看ObservableSubscribeOn</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">public final class ObservableSubscribeOn&lt;T&gt; extends AbstractObservableWithUpstream&lt;T, T&gt; &#123;</div><div class="line">    final Scheduler scheduler;</div><div class="line"></div><div class="line">    public ObservableSubscribeOn(ObservableSource&lt;T&gt; source, Scheduler scheduler) &#123;</div><div class="line">        super(source);</div><div class="line">        this.scheduler = scheduler;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void subscribeActual(final Observer&lt;? super T&gt; s) &#123;</div><div class="line">        final SubscribeOnObserver&lt;T&gt; parent = new SubscribeOnObserver&lt;T&gt;(s);</div><div class="line"></div><div class="line">        s.onSubscribe(parent);</div><div class="line"></div><div class="line">        parent.setDisposable(scheduler.scheduleDirect(new Runnable() &#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                source.subscribe(parent);</div><div class="line">            &#125;</div><div class="line">        &#125;));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    static final class SubscribeOnObserver&lt;T&gt; extends AtomicReference&lt;Disposable&gt; implements Observer&lt;T&gt;, Disposable &#123;</div><div class="line"></div><div class="line">        private static final long serialVersionUID = 8094547886072529208L;</div><div class="line">        final Observer&lt;? super T&gt; actual;</div><div class="line"></div><div class="line">        final AtomicReference&lt;Disposable&gt; s;</div><div class="line"></div><div class="line">        SubscribeOnObserver(Observer&lt;? super T&gt; actual) &#123;</div><div class="line">            this.actual = actual;</div><div class="line">            this.s = new AtomicReference&lt;Disposable&gt;();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onSubscribe(Disposable s) &#123;</div><div class="line">            DisposableHelper.setOnce(this.s, s);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onNext(T t) &#123;</div><div class="line">            actual.onNext(t);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onError(Throwable t) &#123;</div><div class="line">            actual.onError(t);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onComplete() &#123;</div><div class="line">            actual.onComplete();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void dispose() &#123;</div><div class="line">            DisposableHelper.dispose(s);</div><div class="line">            DisposableHelper.dispose(this);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public boolean isDisposed() &#123;</div><div class="line">            return DisposableHelper.isDisposed(get());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        void setDisposable(Disposable d) &#123;</div><div class="line">            DisposableHelper.setOnce(this, d);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>subscribeActual这个方法是不是很熟悉，没错我们上一篇已经说到了这个方法了。他在和observer订阅的时候调用。</p>
+<p>首先这个方法中的SubscribeOnObserver是他的内部类，看代码可以看到它实现了observer接口，对传进去的下游的observer做了包装。</p>
+<p>然后调用自己</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s.onSubscribe(parent);</div></pre></td></tr></table></figure>
+<p>这个方法</p>
+<p>以为我们parent是对observer进行了包装的实现了Disposable接口所以我们在下游调用这个方法的时候就是我们的parent。</p>
+<p>最后就是这段代码了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">parent.setDisposable(scheduler.scheduleDirect(new Runnable() &#123;</div><div class="line">           @Override</div><div class="line">           public void run() &#123;</div><div class="line">               source.subscribe(parent);</div><div class="line">           &#125;</div><div class="line">       &#125;));</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>挺好理解的我们下游的observer经包装后变成了SubscribeOnObserver—-&gt;变成parent对象</p>
+<p>上游的observable经过包装后变成了ObservableSource，其实就是上游的Observable对象</p>
+<p>他们订阅发生在一个新的线程中，然后开始了事件的分发，但是注意啊，我们在这里进行的分发是发送给了包装好的observer，而不是调用的observer但是看源码可以看到包装好的SubscribeOnObserver</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">static final class SubscribeOnObserver&lt;T&gt; extends AtomicReference&lt;Disposable&gt; implements Observer&lt;T&gt;, Disposable &#123;</div><div class="line"></div><div class="line">    private static final long serialVersionUID = 8094547886072529208L;</div><div class="line">    final Observer&lt;? super T&gt; actual;</div><div class="line"></div><div class="line">    final AtomicReference&lt;Disposable&gt; s;</div><div class="line"></div><div class="line">    SubscribeOnObserver(Observer&lt;? super T&gt; actual) &#123;</div><div class="line">        this.actual = actual;</div><div class="line">        this.s = new AtomicReference&lt;Disposable&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onSubscribe(Disposable s) &#123;</div><div class="line">        DisposableHelper.setOnce(this.s, s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNext(T t) &#123;</div><div class="line">        actual.onNext(t);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable t) &#123;</div><div class="line">        actual.onError(t);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onComplete() &#123;</div><div class="line">        actual.onComplete();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void dispose() &#123;</div><div class="line">        DisposableHelper.dispose(s);</div><div class="line">        DisposableHelper.dispose(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean isDisposed() &#123;</div><div class="line">        return DisposableHelper.isDisposed(get());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void setDisposable(Disposable d) &#123;</div><div class="line">        DisposableHelper.setOnce(this, d);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终会分发给我们最开始的observer。</p>
+<p>这样就完成了一次线程的切换。</p>
+<p><strong>subscribeOn</strong> 的原理探究清楚了，那么我们的observeOn应该和它差不多吧！</p>
+<p>废话少说我们来看源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public final Observable&lt;T&gt; observeOn(Scheduler scheduler) &#123;</div><div class="line">    return observeOn(scheduler, false, bufferSize());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>返回的observable对象继续看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.CUSTOM)</div><div class="line">public final Observable&lt;T&gt; observeOn(Scheduler scheduler, boolean delayError, int bufferSize) &#123;</div><div class="line">    ObjectHelper.requireNonNull(scheduler, &quot;scheduler is null&quot;);</div><div class="line">    ObjectHelper.verifyPositive(bufferSize, &quot;bufferSize&quot;);</div><div class="line">    return RxJavaPlugins.onAssembly(new ObservableObserveOn&lt;T&gt;(this, scheduler, delayError, bufferSize));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>熟悉的一匹…这里说一下，scheduler是我们传入的线程不用多说，而后面的boolean值意思是是否延迟发送，看到上面发现默认是没有延迟的，bufferSize()就是我们缓冲区的大小。</p>
+<p>然后不用开我们就知道继续看哪些了，没错！ObservableObserveOn </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public final class ObservableObserveOn&lt;T&gt; extends AbstractObservableWithUpstream&lt;T, T&gt; &#123;</div><div class="line">    final Scheduler scheduler;</div><div class="line">    final boolean delayError;</div><div class="line">    final int bufferSize;</div><div class="line">    public ObservableObserveOn(ObservableSource&lt;T&gt; source, Scheduler scheduler, boolean delayError, int bufferSize) &#123;</div><div class="line">        super(source);</div><div class="line">        this.scheduler = scheduler;</div><div class="line">        this.delayError = delayError;</div><div class="line">        this.bufferSize = bufferSize;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void subscribeActual(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">        if (scheduler instanceof TrampolineScheduler) &#123;</div><div class="line">            source.subscribe(observer);</div><div class="line">        &#125; else &#123;</div><div class="line">            Scheduler.Worker w = scheduler.createWorker();</div><div class="line"></div><div class="line">            source.subscribe(new ObserveOnObserver&lt;T&gt;(observer, w, delayError, bufferSize));</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>…很清楚吧，对上下游分别包装，然后再不同的线程中订阅</p>
+<p>记住这里的source为上游包装好的observable，而下游的observer为包装好的ObserveOnObserver，同样也是内部类</p>
+<p>看看代码吧很长先看一部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">static final class ObserveOnObserver&lt;T&gt; extends BasicIntQueueDisposable&lt;T&gt;</div><div class="line">implements Observer&lt;T&gt;, Runnable &#123;</div><div class="line"></div><div class="line">    private static final long serialVersionUID = 6576896619930983584L;</div><div class="line">    final Observer&lt;? super T&gt; actual;</div><div class="line">    final Scheduler.Worker worker;</div><div class="line">    final boolean delayError;</div><div class="line">    final int bufferSize;</div><div class="line">    SimpleQueue&lt;T&gt; queue;</div><div class="line">    Disposable s;</div><div class="line">    Throwable error;</div><div class="line">    volatile boolean done;</div><div class="line"></div><div class="line">    volatile boolean cancelled;</div><div class="line"></div><div class="line">    int sourceMode;</div><div class="line"></div><div class="line">    boolean outputFused;</div><div class="line"></div><div class="line">    ObserveOnObserver(Observer&lt;? super T&gt; actual, Scheduler.Worker worker, boolean delayError, int bufferSize) &#123;</div><div class="line">        this.actual = actual;</div><div class="line">        this.worker = worker;</div><div class="line">        this.delayError = delayError;</div><div class="line">        this.bufferSize = bufferSize;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这里的</p>
+<ul>
+<li><p>actual下游的observer</p>
+</li>
+<li><p>worker 调度工作的工作者</p>
+</li>
+<li><p>delayError 是否延迟加载</p>
+</li>
+<li><p>bufferSize 队列的大小</p>
+</li>
+<li><p>queue：上游observable下发的队列</p>
+</li>
+<li><p>s： 储存下游observer的Disposable</p>
+</li>
+<li><p>error 错误信息</p>
+</li>
+<li><p>done 检验是否完毕</p>
+</li>
+<li><p>cancelled 同步或异步</p>
+<p>​</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onSubscribe(Disposable s) &#123;</div><div class="line">    if (DisposableHelper.validate(this.s, s)) &#123;</div><div class="line">        this.s = s;</div><div class="line">        if (s instanceof QueueDisposable) &#123;</div><div class="line">            @SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">            QueueDisposable&lt;T&gt; qd = (QueueDisposable&lt;T&gt;) s;</div><div class="line"></div><div class="line">            int m = qd.requestFusion(QueueDisposable.ANY | QueueDisposable.BOUNDARY);</div><div class="line"></div><div class="line">            if (m == QueueDisposable.SYNC) &#123;</div><div class="line">                sourceMode = m;</div><div class="line">                queue = qd;</div><div class="line">                done = true;</div><div class="line">                actual.onSubscribe(this);</div><div class="line">                schedule();</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            if (m == QueueDisposable.ASYNC) &#123;</div><div class="line">                sourceMode = m;</div><div class="line">                queue = qd;</div><div class="line">                actual.onSubscribe(this);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        queue = new SpscLinkedArrayQueue&lt;T&gt;(bufferSize);</div><div class="line"></div><div class="line">        actual.onSubscribe(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onNext(T t) &#123;</div><div class="line">    if (done) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (sourceMode != QueueDisposable.ASYNC) &#123;</div><div class="line">        queue.offer(t);</div><div class="line">    &#125;</div><div class="line">    schedule();</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onError(Throwable t) &#123;</div><div class="line">    if (done) &#123;</div><div class="line">        RxJavaPlugins.onError(t);</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    error = t;</div><div class="line">    done = true;</div><div class="line">    schedule();</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onComplete() &#123;</div><div class="line">    if (done) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    done = true;</div><div class="line">    schedule();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>next方法中可以看到上游的observable下发数据压入了队列中</p>
+<p>并且最后都会调用schedule方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void schedule() &#123;</div><div class="line">    if (getAndIncrement() == 0) &#123;</div><div class="line">        worker.schedule(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>getAndIncrement的原子性很关键的保证了下面的方法不会再未结束时被再次调用</p>
+<p>我们发现传入的是this 但是传入的应该是是runable啊没错，我们的这个ObserveOnObserver实现了这个接口</p>
+<p>所以我们的执行方发就要在run中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void run() &#123;</div><div class="line">    if (outputFused) &#123;</div><div class="line">        drainFused();</div><div class="line">    &#125; else &#123;</div><div class="line">        drainNormal();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>drainNormal方法是最经常执行的方法，先看这个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">void drainNormal() &#123;</div><div class="line">    int missed = 1;</div><div class="line"></div><div class="line">    final SimpleQueue&lt;T&gt; q = queue;</div><div class="line">    final Observer&lt;? super T&gt; a = actual;</div><div class="line"></div><div class="line">    for (;;) &#123;</div><div class="line">        if (checkTerminated(done, q.isEmpty(), a)) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (;;) &#123;</div><div class="line">            boolean d = done;</div><div class="line">            T v;</div><div class="line"></div><div class="line">            try &#123;</div><div class="line">                v = q.poll();</div><div class="line">            &#125; catch (Throwable ex) &#123;</div><div class="line">                Exceptions.throwIfFatal(ex);</div><div class="line">                s.dispose();</div><div class="line">                q.clear();</div><div class="line">                a.onError(ex);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            boolean empty = v == null;</div><div class="line"></div><div class="line">            if (checkTerminated(d, empty, a)) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (empty) &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            a.onNext(v);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        missed = addAndGet(-missed);</div><div class="line">        if (missed == 0) &#123;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>发现了个死循环，但是死循环肯定有跳出的没错就要继续看checkTerminated方法了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">boolean checkTerminated(boolean d, boolean empty, Observer&lt;? super T&gt; a) &#123;</div><div class="line">    if (cancelled) &#123;</div><div class="line">        queue.clear();</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">    if (d) &#123;</div><div class="line">        Throwable e = error;</div><div class="line">        if (delayError) &#123;</div><div class="line">            if (empty) &#123;</div><div class="line">                if (e != null) &#123;</div><div class="line">                    a.onError(e);</div><div class="line">                &#125; else &#123;</div><div class="line">                    a.onComplete();</div><div class="line">                &#125;</div><div class="line">                worker.dispose();</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123;</div><div class="line">            if (e != null) &#123;</div><div class="line">                queue.clear();</div><div class="line">                a.onError(e);</div><div class="line">                worker.dispose();</div><div class="line">                return true;</div><div class="line">            &#125; else</div><div class="line">            if (empty) &#123;</div><div class="line">                a.onComplete();</div><div class="line">                worker.dispose();</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果订阅已经取消了那么清空队列如果刚刚调用了onNext onError，onCompele方法时导致d为true</p>
+<p>然后继续看方法就知道了如果队列为空直接跳出循环</p>
+<p>第二死循环开始分发数据出队列，</p>
+<p>以及对异常错了处理，然后继续对队列做判空</p>
+<p>最后调用了</p>
+<p> a.onNext(v);对象就发送到下游了</p>
+
+  </div>
+  <!--评论块-->
+    
+
+</article>
+<nav class="post-nav">
+  <!-- Prev Nav -->
+    
+
+
+  <!-- Next Nav -->
+    
+  <a href="/2017/08/11/RxJava2-X学习之订阅原理/" id="post_nav-older" class="post-nav-content next-content">
+      旧篇
+  </a>
+    
+</nav>
+<div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
+<div class="post-toc-none"><p>(无)</p></div>
+<div class="post-toc-box">
+    <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程切换的秘密"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程切换的秘密</span></a></li></ol>
+</div>
+<!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
+<script type="text/javascript">
+    menu();
+</script>
+  </div>
+</div>
+<div id="bottom-outer">
+  <div id="bottom-inner">
+    <a  id="top-button" onfocus="this.blur();"><div class="up upinbody" style="background-color:#26A69A"><i class="material-icons material-up">vertical_align_top</i></div></a>
+
+
+<p >Copyright ©  2017  TongYang</p>
+<p >Powered by <a href="https://hexo.io/" target="_blank"> Hexo </a> & Theme - <a href="https://github.com/moumao/hexo-theme-Vateral" target="_blank">Vateral</a></p>
+<p style="font-size: 10px" id="footer-times" data-time="3/4/2016 16:12:00"></p>
+<script>
+    var beginTime=document.getElementById("footer-times").dataset.time
+    function show_date_time(){
+        var span=document.getElementById("footer-times")
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date(beginTime);//初始日期
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=Math.floor(e_hrsold);
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=Math.floor((e_hrsold-hrsold)*60);
+        seconds=Math.floor((e_minsold-minsold)*60);
+        span.innerHTML="本站已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+    show_date_time();
+</script>
+
+  </div>
+</div>
+
+<!--影集界面需要的资源-->
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+<script src="/js/materialize.min.js"></script>
+
+<script src="/js/main.min.js"></script>
+
+
+<script>
+    NProgress.start();
+    NProgress.done();
+    lazy();
+    links();
+    window.onpopstate = menu();
+    //pjax操作
+    $(document).pjax('a:not(.nopjax)', '#content-inner', {fragment:'#content-inner', timeout:8000});
+    $(document).on('pjax:start', NProgress.start).on('pjax:end', NProgress.done)
+        .on('pjax:end', () => {
+            dowmdiv();
+            lazy();
+            toc();
+            links();
+            menu();
+        });
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+</html>
