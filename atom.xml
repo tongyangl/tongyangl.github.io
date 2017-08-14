@@ -1,0 +1,1572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>TongYang</title>
+  <subtitle>١�����˲���</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-08-13T09:50:26.449Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Tong Yang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式</title>
+    <link href="http://yoursite.com/2017/08/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://yoursite.com/2017/08/13/设计模式/</id>
+    <published>2017-08-13T09:48:35.000Z</published>
+    <updated>2017-08-13T09:50:26.449Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><p>MVC是模型(Model)－视图(View)－控制器(Controller)的缩写，是设计模式中最常用的软件架构。</p>
+<blockquote>
+<p>视图（View）：用户界面。<br>控制器（Controller）：业务逻辑<br>模型（Model）：数据保存</p>
+</blockquote>
+<p>所有方式都是单向通信：</p>
+<ul>
+<li>View 接受用户交互请求</li>
+<li>View 将请求转交给Controller处理</li>
+<li>Controller 操作Model进行数据更新保存</li>
+<li>数据更新保存之后，Model会通知View更新</li>
+<li>View 更新变化数据使用户得到反馈</li>
+</ul>
+<h3 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h3><p>MVP是Model-View-Presenter，即将MVC中的控制器Controller换成了Presenter负责逻辑的处理。</p>
+<blockquote>
+<p>MVC和MVP的区别是：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会直接从Model中读取数据而不是通过 Controller。</p>
+</blockquote>
+<p>各部分之间都是双向通信：</p>
+<ul>
+<li><p>View 接收用户交互请求</p>
+</li>
+<li><p>View 将请求转交给 Presenter</p>
+</li>
+<li><p>Presenter 操作Model进行数据更新</p>
+</li>
+<li><p>Model 通知Presenter数据发生变化</p>
+</li>
+<li><p>Presenter 更新View数据</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>MVVM是Model-View-ViewModel，和MVP的区别在于Presenter换成了ViewModel负责逻辑处理。</p>
+<blockquote>
+<p>MVVM的优点是低耦合、可重用性、独立开发。</p>
+</blockquote>
+<p>双向绑定（data-binding）：</p>
+<ul>
+<li>View 接收用户交互请求</li>
+<li>View 将请求转交给ViewModel</li>
+<li>ViewModel 操作Model数据更新</li>
+<li>Model 更新完数据，通知ViewModel数据发生变化</li>
+<li>ViewModel 更新View数据</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;MVC&quot;&gt;&lt;a href=&quot;#MVC&quot; class=&quot;headerlink&quot; title=&quot;MVC&quot;&gt;&lt;/a&gt;MVC&lt;/h3&gt;&lt;p&gt;MVC是模型(Model)－视图(View)－控制器(Controller)的缩写，是设计模式中最常用的软件架构。&lt;/p&gt;
+&lt;blo
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rxjava线程切换</title>
+    <link href="http://yoursite.com/2017/08/12/Rxjava2.x%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2/"/>
+    <id>http://yoursite.com/2017/08/12/Rxjava2.x学习之线程切换/</id>
+    <published>2017-08-12T09:41:53.000Z</published>
+    <updated>2017-08-13T09:25:26.231Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="线程切换的秘密"><a href="#线程切换的秘密" class="headerlink" title="线程切换的秘密"></a>线程切换的秘密</h3><p>rxjava最让人心动的就是他的链式的线程切换…十分简单，但是我们有没有想过他是为什么这么简单实现的线程切换呢？中间究竟有着什么不可告人的秘密呢！让我们一探究竟！</p>
+<p>下面贴出一段代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">Observable.create(new ObservableOnSubscribe&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void subscribe(ObservableEmitter&lt;Object&gt; e) throws Exception &#123;</div><div class="line"></div><div class="line">        e.onNext(new Object());</div><div class="line">        e.onComplete();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;).subscribeOn(Schedulers.newThread())</div><div class="line">        .observeOn(AndroidSchedulers.mainThread())</div><div class="line">        .subscribe(new Observer&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onSubscribe(Disposable d) &#123;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNext(Object value) &#123;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable e) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onComplete() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>是不是很简单也是非常常见的，他只比我们上一篇的多了一个线程切换的过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">subscribeOn(Schedulers.newThread())</div><div class="line">                .observeOn(AndroidSchedulers.mainThread())</div></pre></td></tr></table></figure>
+<p>所以嘛，在哪做的鬼就在那开起来，我们来看看subscribeOn方法的源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.CUSTOM)</div><div class="line">public final Observable&lt;T&gt; subscribeOn(Scheduler scheduler) &#123;</div><div class="line">    ObjectHelper.requireNonNull(scheduler, &quot;scheduler is null&quot;);</div><div class="line">    return RxJavaPlugins.onAssembly(new ObservableSubscribeOn&lt;T&gt;(this, scheduler));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>嗯…和之前的有点像啊！返回的还是Observable对象，但是对他做了处理了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RxJavaPlugins.onAssembly(new ObservableSubscribeOn&lt;T&gt;(this, scheduler))</div></pre></td></tr></table></figure>
+<p>这里的this就是我们的Observable对象，scheduler就是传入的线程</p>
+<p>继续往下看…现在该看ObservableSubscribeOn了</p>
+<p>点进去发现他继承于AbstractObservableWithUpstream</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public final class ObservableSubscribeOn&lt;T&gt; extends AbstractObservableWithUpstream&lt;T, T&gt;</div></pre></td></tr></table></figure>
+<p>而AbstractObservableWithUpstream又是继承于Observable</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * Base class for operators with a source consumable.</div><div class="line"> *</div><div class="line"> * @param &lt;T&gt; the input source type</div><div class="line"> * @param &lt;U&gt; the output type</div><div class="line"> */</div><div class="line">abstract class AbstractObservableWithUpstream&lt;T, U&gt; extends Observable&lt;U&gt; implements HasUpstreamObservableSource&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /** The source consumable Observable. */</div><div class="line">    protected final ObservableSource&lt;T&gt; source;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Constructs the ObservableSource with the given consumable.</div><div class="line">     * @param source the consumable Observable</div><div class="line">     */</div><div class="line">    AbstractObservableWithUpstream(ObservableSource&lt;T&gt; source) &#123;</div><div class="line">        this.source = source;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public final ObservableSource&lt;T&gt; source() &#123;</div><div class="line">        return source;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>记得吗我们出入的是observable对象，怎么在这里变成ObservableSource了我们发现ObservableSource其实是一个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> */</div><div class="line">public interface ObservableSource&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Subscribes the given Observer to this ObservableSource instance.</div><div class="line">     * @param observer the Observer, not null</div><div class="line">     * @throws NullPointerException if &#123;@code observer&#125; is null</div><div class="line">     */</div><div class="line">    void subscribe(Observer&lt;? super T&gt; observer);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而observable实现了这个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public abstract class Observable&lt;T&gt; implements ObservableSource&lt;T&gt; &#123;</div></pre></td></tr></table></figure>
+<p>所以我们可以认为这俩是等同的</p>
+<p>再来看看ObservableSubscribeOn</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">public final class ObservableSubscribeOn&lt;T&gt; extends AbstractObservableWithUpstream&lt;T, T&gt; &#123;</div><div class="line">    final Scheduler scheduler;</div><div class="line"></div><div class="line">    public ObservableSubscribeOn(ObservableSource&lt;T&gt; source, Scheduler scheduler) &#123;</div><div class="line">        super(source);</div><div class="line">        this.scheduler = scheduler;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void subscribeActual(final Observer&lt;? super T&gt; s) &#123;</div><div class="line">        final SubscribeOnObserver&lt;T&gt; parent = new SubscribeOnObserver&lt;T&gt;(s);</div><div class="line"></div><div class="line">        s.onSubscribe(parent);</div><div class="line"></div><div class="line">        parent.setDisposable(scheduler.scheduleDirect(new Runnable() &#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                source.subscribe(parent);</div><div class="line">            &#125;</div><div class="line">        &#125;));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    static final class SubscribeOnObserver&lt;T&gt; extends AtomicReference&lt;Disposable&gt; implements Observer&lt;T&gt;, Disposable &#123;</div><div class="line"></div><div class="line">        private static final long serialVersionUID = 8094547886072529208L;</div><div class="line">        final Observer&lt;? super T&gt; actual;</div><div class="line"></div><div class="line">        final AtomicReference&lt;Disposable&gt; s;</div><div class="line"></div><div class="line">        SubscribeOnObserver(Observer&lt;? super T&gt; actual) &#123;</div><div class="line">            this.actual = actual;</div><div class="line">            this.s = new AtomicReference&lt;Disposable&gt;();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onSubscribe(Disposable s) &#123;</div><div class="line">            DisposableHelper.setOnce(this.s, s);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onNext(T t) &#123;</div><div class="line">            actual.onNext(t);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onError(Throwable t) &#123;</div><div class="line">            actual.onError(t);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onComplete() &#123;</div><div class="line">            actual.onComplete();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void dispose() &#123;</div><div class="line">            DisposableHelper.dispose(s);</div><div class="line">            DisposableHelper.dispose(this);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public boolean isDisposed() &#123;</div><div class="line">            return DisposableHelper.isDisposed(get());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        void setDisposable(Disposable d) &#123;</div><div class="line">            DisposableHelper.setOnce(this, d);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>subscribeActual这个方法是不是很熟悉，没错我们上一篇已经说到了这个方法了。他在和observer订阅的时候调用。</p>
+<p>首先这个方法中的SubscribeOnObserver是他的内部类，看代码可以看到它实现了observer接口，对传进去的下游的observer做了包装。</p>
+<p>然后调用自己</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s.onSubscribe(parent);</div></pre></td></tr></table></figure>
+<p>这个方法</p>
+<p>以为我们parent是对observer进行了包装的实现了Disposable接口所以我们在下游调用这个方法的时候就是我们的parent。</p>
+<p>最后就是这段代码了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">parent.setDisposable(scheduler.scheduleDirect(new Runnable() &#123;</div><div class="line">           @Override</div><div class="line">           public void run() &#123;</div><div class="line">               source.subscribe(parent);</div><div class="line">           &#125;</div><div class="line">       &#125;));</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>挺好理解的我们下游的observer经包装后变成了SubscribeOnObserver—-&gt;变成parent对象</p>
+<p>上游的observable经过包装后变成了ObservableSource，其实就是上游的Observable对象</p>
+<p>他们订阅发生在一个新的线程中，然后开始了事件的分发，但是注意啊，我们在这里进行的分发是发送给了包装好的observer，而不是调用的observer但是看源码可以看到包装好的SubscribeOnObserver</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">static final class SubscribeOnObserver&lt;T&gt; extends AtomicReference&lt;Disposable&gt; implements Observer&lt;T&gt;, Disposable &#123;</div><div class="line"></div><div class="line">    private static final long serialVersionUID = 8094547886072529208L;</div><div class="line">    final Observer&lt;? super T&gt; actual;</div><div class="line"></div><div class="line">    final AtomicReference&lt;Disposable&gt; s;</div><div class="line"></div><div class="line">    SubscribeOnObserver(Observer&lt;? super T&gt; actual) &#123;</div><div class="line">        this.actual = actual;</div><div class="line">        this.s = new AtomicReference&lt;Disposable&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onSubscribe(Disposable s) &#123;</div><div class="line">        DisposableHelper.setOnce(this.s, s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNext(T t) &#123;</div><div class="line">        actual.onNext(t);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable t) &#123;</div><div class="line">        actual.onError(t);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onComplete() &#123;</div><div class="line">        actual.onComplete();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void dispose() &#123;</div><div class="line">        DisposableHelper.dispose(s);</div><div class="line">        DisposableHelper.dispose(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean isDisposed() &#123;</div><div class="line">        return DisposableHelper.isDisposed(get());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void setDisposable(Disposable d) &#123;</div><div class="line">        DisposableHelper.setOnce(this, d);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终会分发给我们最开始的observer。</p>
+<p>这样就完成了一次线程的切换。</p>
+<p><strong>subscribeOn</strong> 的原理探究清楚了，那么我们的observeOn应该和它差不多吧！</p>
+<p>废话少说我们来看源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public final Observable&lt;T&gt; observeOn(Scheduler scheduler) &#123;</div><div class="line">    return observeOn(scheduler, false, bufferSize());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>返回的observable对象继续看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.CUSTOM)</div><div class="line">public final Observable&lt;T&gt; observeOn(Scheduler scheduler, boolean delayError, int bufferSize) &#123;</div><div class="line">    ObjectHelper.requireNonNull(scheduler, &quot;scheduler is null&quot;);</div><div class="line">    ObjectHelper.verifyPositive(bufferSize, &quot;bufferSize&quot;);</div><div class="line">    return RxJavaPlugins.onAssembly(new ObservableObserveOn&lt;T&gt;(this, scheduler, delayError, bufferSize));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>熟悉的一匹…这里说一下，scheduler是我们传入的线程不用多说，而后面的boolean值意思是是否延迟发送，看到上面发现默认是没有延迟的，bufferSize()就是我们缓冲区的大小。</p>
+<p>然后不用开我们就知道继续看哪些了，没错！ObservableObserveOn </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public final class ObservableObserveOn&lt;T&gt; extends AbstractObservableWithUpstream&lt;T, T&gt; &#123;</div><div class="line">    final Scheduler scheduler;</div><div class="line">    final boolean delayError;</div><div class="line">    final int bufferSize;</div><div class="line">    public ObservableObserveOn(ObservableSource&lt;T&gt; source, Scheduler scheduler, boolean delayError, int bufferSize) &#123;</div><div class="line">        super(source);</div><div class="line">        this.scheduler = scheduler;</div><div class="line">        this.delayError = delayError;</div><div class="line">        this.bufferSize = bufferSize;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void subscribeActual(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">        if (scheduler instanceof TrampolineScheduler) &#123;</div><div class="line">            source.subscribe(observer);</div><div class="line">        &#125; else &#123;</div><div class="line">            Scheduler.Worker w = scheduler.createWorker();</div><div class="line"></div><div class="line">            source.subscribe(new ObserveOnObserver&lt;T&gt;(observer, w, delayError, bufferSize));</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>…很清楚吧，对上下游分别包装，然后再不同的线程中订阅</p>
+<p>记住这里的source为上游包装好的observable，而下游的observer为包装好的ObserveOnObserver，同样也是内部类</p>
+<p>看看代码吧很长先看一部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">static final class ObserveOnObserver&lt;T&gt; extends BasicIntQueueDisposable&lt;T&gt;</div><div class="line">implements Observer&lt;T&gt;, Runnable &#123;</div><div class="line"></div><div class="line">    private static final long serialVersionUID = 6576896619930983584L;</div><div class="line">    final Observer&lt;? super T&gt; actual;</div><div class="line">    final Scheduler.Worker worker;</div><div class="line">    final boolean delayError;</div><div class="line">    final int bufferSize;</div><div class="line">    SimpleQueue&lt;T&gt; queue;</div><div class="line">    Disposable s;</div><div class="line">    Throwable error;</div><div class="line">    volatile boolean done;</div><div class="line"></div><div class="line">    volatile boolean cancelled;</div><div class="line"></div><div class="line">    int sourceMode;</div><div class="line"></div><div class="line">    boolean outputFused;</div><div class="line"></div><div class="line">    ObserveOnObserver(Observer&lt;? super T&gt; actual, Scheduler.Worker worker, boolean delayError, int bufferSize) &#123;</div><div class="line">        this.actual = actual;</div><div class="line">        this.worker = worker;</div><div class="line">        this.delayError = delayError;</div><div class="line">        this.bufferSize = bufferSize;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这里的</p>
+<ul>
+<li><p>actual下游的observer</p>
+</li>
+<li><p>worker 调度工作的工作者</p>
+</li>
+<li><p>delayError 是否延迟加载</p>
+</li>
+<li><p>bufferSize 队列的大小</p>
+</li>
+<li><p>queue：上游observable下发的队列</p>
+</li>
+<li><p>s： 储存下游observer的Disposable</p>
+</li>
+<li><p>error 错误信息</p>
+</li>
+<li><p>done 检验是否完毕</p>
+</li>
+<li><p>cancelled 同步或异步</p>
+<p>​</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onSubscribe(Disposable s) &#123;</div><div class="line">    if (DisposableHelper.validate(this.s, s)) &#123;</div><div class="line">        this.s = s;</div><div class="line">        if (s instanceof QueueDisposable) &#123;</div><div class="line">            @SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">            QueueDisposable&lt;T&gt; qd = (QueueDisposable&lt;T&gt;) s;</div><div class="line"></div><div class="line">            int m = qd.requestFusion(QueueDisposable.ANY | QueueDisposable.BOUNDARY);</div><div class="line"></div><div class="line">            if (m == QueueDisposable.SYNC) &#123;</div><div class="line">                sourceMode = m;</div><div class="line">                queue = qd;</div><div class="line">                done = true;</div><div class="line">                actual.onSubscribe(this);</div><div class="line">                schedule();</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            if (m == QueueDisposable.ASYNC) &#123;</div><div class="line">                sourceMode = m;</div><div class="line">                queue = qd;</div><div class="line">                actual.onSubscribe(this);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        queue = new SpscLinkedArrayQueue&lt;T&gt;(bufferSize);</div><div class="line"></div><div class="line">        actual.onSubscribe(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onNext(T t) &#123;</div><div class="line">    if (done) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    if (sourceMode != QueueDisposable.ASYNC) &#123;</div><div class="line">        queue.offer(t);</div><div class="line">    &#125;</div><div class="line">    schedule();</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onError(Throwable t) &#123;</div><div class="line">    if (done) &#123;</div><div class="line">        RxJavaPlugins.onError(t);</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    error = t;</div><div class="line">    done = true;</div><div class="line">    schedule();</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void onComplete() &#123;</div><div class="line">    if (done) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    done = true;</div><div class="line">    schedule();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>next方法中可以看到上游的observable下发数据压入了队列中</p>
+<p>并且最后都会调用schedule方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void schedule() &#123;</div><div class="line">    if (getAndIncrement() == 0) &#123;</div><div class="line">        worker.schedule(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>getAndIncrement的原子性很关键的保证了下面的方法不会再未结束时被再次调用</p>
+<p>我们发现传入的是this 但是传入的应该是是runable啊没错，我们的这个ObserveOnObserver实现了这个接口</p>
+<p>所以我们的执行方发就要在run中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void run() &#123;</div><div class="line">    if (outputFused) &#123;</div><div class="line">        drainFused();</div><div class="line">    &#125; else &#123;</div><div class="line">        drainNormal();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>drainNormal方法是最经常执行的方法，先看这个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">void drainNormal() &#123;</div><div class="line">    int missed = 1;</div><div class="line"></div><div class="line">    final SimpleQueue&lt;T&gt; q = queue;</div><div class="line">    final Observer&lt;? super T&gt; a = actual;</div><div class="line"></div><div class="line">    for (;;) &#123;</div><div class="line">        if (checkTerminated(done, q.isEmpty(), a)) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (;;) &#123;</div><div class="line">            boolean d = done;</div><div class="line">            T v;</div><div class="line"></div><div class="line">            try &#123;</div><div class="line">                v = q.poll();</div><div class="line">            &#125; catch (Throwable ex) &#123;</div><div class="line">                Exceptions.throwIfFatal(ex);</div><div class="line">                s.dispose();</div><div class="line">                q.clear();</div><div class="line">                a.onError(ex);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            boolean empty = v == null;</div><div class="line"></div><div class="line">            if (checkTerminated(d, empty, a)) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (empty) &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            a.onNext(v);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        missed = addAndGet(-missed);</div><div class="line">        if (missed == 0) &#123;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>发现了个死循环，但是死循环肯定有跳出的没错就要继续看checkTerminated方法了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">boolean checkTerminated(boolean d, boolean empty, Observer&lt;? super T&gt; a) &#123;</div><div class="line">    if (cancelled) &#123;</div><div class="line">        queue.clear();</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">    if (d) &#123;</div><div class="line">        Throwable e = error;</div><div class="line">        if (delayError) &#123;</div><div class="line">            if (empty) &#123;</div><div class="line">                if (e != null) &#123;</div><div class="line">                    a.onError(e);</div><div class="line">                &#125; else &#123;</div><div class="line">                    a.onComplete();</div><div class="line">                &#125;</div><div class="line">                worker.dispose();</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123;</div><div class="line">            if (e != null) &#123;</div><div class="line">                queue.clear();</div><div class="line">                a.onError(e);</div><div class="line">                worker.dispose();</div><div class="line">                return true;</div><div class="line">            &#125; else</div><div class="line">            if (empty) &#123;</div><div class="line">                a.onComplete();</div><div class="line">                worker.dispose();</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果订阅已经取消了那么清空队列如果刚刚调用了onNext onError，onCompele方法时导致d为true</p>
+<p>然后继续看方法就知道了如果队列为空直接跳出循环</p>
+<p>第二死循环开始分发数据出队列，</p>
+<p>以及对异常错了处理，然后继续对队列做判空</p>
+<p>最后调用了</p>
+<p> a.onNext(v);对象就发送到下游了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;线程切换的秘密&quot;&gt;&lt;a href=&quot;#线程切换的秘密&quot; class=&quot;headerlink&quot; title=&quot;线程切换的秘密&quot;&gt;&lt;/a&gt;线程切换的秘密&lt;/h3&gt;&lt;p&gt;rxjava最让人心动的就是他的链式的线程切换…十分简单，但是我们有没有想过他是为什么这么简单实现的
+    
+    </summary>
+    
+    
+      <category term="RXJava" scheme="http://yoursite.com/tags/RXJava/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RxJava2.X学习</title>
+    <link href="http://yoursite.com/2017/08/11/RxJava2-X%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%AE%A2%E9%98%85%E5%8E%9F%E7%90%86/"/>
+    <id>http://yoursite.com/2017/08/11/RxJava2-X学习之订阅原理/</id>
+    <published>2017-08-11T08:13:49.000Z</published>
+    <updated>2017-08-12T09:37:10.527Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Rxjava"><a href="#Rxjava" class="headerlink" title="Rxjava"></a>Rxjava</h3><p>rxjava是什么呢，简单来说就是一个异步框架</p>
+<p>下面贴出我们最开始学习的最简单的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">Observable.create(new ObservableOnSubscribe&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void subscribe(ObservableEmitter&lt;Object&gt; e) throws Exception &#123;</div><div class="line"></div><div class="line">                e.onNext(new Object());</div><div class="line">                e.onComplete();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;).subscribe(new Observer&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onSubscribe(Disposable d) &#123;</div><div class="line">                  </div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onNext(Object value) &#123;</div><div class="line">                </div><div class="line">                </div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onError(Throwable e) &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onComplete() &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<p>是不是很熟悉，非常基础的，也是最常使用的</p>
+<p>刚开始使用的时候一直好奇 e.onNext(new Object());中的对象是如何传递到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">         public void onNext(Object value) &#123;</div><div class="line">             </div><div class="line">             </div><div class="line">         &#125;</div></pre></td></tr></table></figure>
+<p>这个方法中的呢…今天我终于能静下心来好好分析其中的原因了。。。</p>
+<p>首先我们看Observable ，他是一个抽象类，嗯..有点长跳过</p>
+<p>然后是ObservableOnSubscribe的源码</p>
+<p>他是一个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public interface ObservableOnSubscribe&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Called for each Observer that subscribes.</div><div class="line">     * @param e the safe emitter instance, never null</div><div class="line">     * @throws Exception on error</div><div class="line">     */</div><div class="line">    void subscribe(ObservableEmitter&lt;T&gt; e) throws Exception;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>里面也有我们正要实现的方法</p>
+<p>void subscribe(ObservableEmitter<t> e)</t></p>
+<p>再看看ObservableEmitter</p>
+<p>他继承于Emitter ，并且添加了几个新的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">public interface ObservableEmitter&lt;T&gt; extends Emitter&lt;T&gt; &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Sets a Disposable on this emitter; any previous Disposable</div><div class="line">     * or Cancellation will be unsubscribed/cancelled.</div><div class="line">     * @param d the disposable, null is allowed</div><div class="line">     */</div><div class="line">    void setDisposable(Disposable d);</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Sets a Cancellable on this emitter; any previous Disposable</div><div class="line">     * or Cancellation will be unsubscribed/cancelled.</div><div class="line">     * @param c the cancellable resource, null is allowed</div><div class="line">     */</div><div class="line">    void setCancellable(Cancellable c);</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Returns true if the downstream disposed the sequence.</div><div class="line">     * @return true if the downstream disposed the sequence</div><div class="line">     */</div><div class="line">    boolean isDisposed();</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Ensures that calls to onNext, onError and onComplete are properly serialized.</div><div class="line">     * @return the serialized ObservableEmitter</div><div class="line">     */</div><div class="line">    ObservableEmitter&lt;T&gt; serialize();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这几个东西大概是什么我们有了个大概的了解，然后看看最重要的create方法，毕竟我们需要的Observable对象实例就是create方法返回的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.NONE)</div><div class="line">public static &lt;T&gt; Observable&lt;T&gt; create(ObservableOnSubscribe&lt;T&gt; source) &#123;</div><div class="line">    ObjectHelper.requireNonNull(source, &quot;source is null&quot;);</div><div class="line">    return RxJavaPlugins.onAssembly(new ObservableCreate&lt;T&gt;(source));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>没错observable对象就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RxJavaPlugins.onAssembly(new ObservableCreate&lt;T&gt;(source));</div></pre></td></tr></table></figure>
+<p>这个方法返回的</p>
+<p>再来看看onAssembly方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public static &lt;T&gt; Observable&lt;T&gt; onAssembly(Observable&lt;T&gt; source) &#123;</div><div class="line">    Function&lt;Observable, Observable&gt; f = onObservableAssembly;</div><div class="line">    if (f != null) &#123;</div><div class="line">        return apply(f, source);</div><div class="line">    &#125;</div><div class="line">    return source;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们这里发现onAssembly 方法传入的是ObservableCreate，而非Observable对象</p>
+<p>所以我们看下ObservableCreate的源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public final class ObservableCreate&lt;T&gt; extends Observable&lt;T&gt; &#123;</div><div class="line">    final ObservableOnSubscribe&lt;T&gt; source;</div><div class="line"></div><div class="line">    public ObservableCreate(ObservableOnSubscribe&lt;T&gt; source) &#123;</div><div class="line">        this.source = source;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void subscribeActual(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">        CreateEmitter&lt;T&gt; parent = new CreateEmitter&lt;T&gt;(observer);</div><div class="line">        observer.onSubscribe(parent);</div><div class="line"></div><div class="line">        try &#123;</div><div class="line">            source.subscribe(parent);</div><div class="line">        &#125; catch (Throwable ex) &#123;</div><div class="line">            Exceptions.throwIfFatal(ex);</div><div class="line">            parent.onError(ex);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    .....</div><div class="line">    .....</div><div class="line">    .....</div><div class="line">    略</div></pre></td></tr></table></figure>
+<p>这只是一部分源码也是最重要的</p>
+<p>我们可以发现ObservableCreate是继承于observable的所以使用他的实例没有问题</p>
+<p>这也是最重要的两个方法，</p>
+<p>我们先看看他的构造方法，把我们create传入的ObservableOnSubscribe传到这个构造方法中</p>
+<p>最难理解的地方来了。</p>
+<p>下面那个方法是干嘛的呢？</p>
+<p> CreateEmitter<t> parent = new CreateEmitter<t>(observer);又是干嘛的呢</t></t></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CreateEmitter是ObservableCreate的一个静态内部类，并且final修饰，不可继承他实现了ObservableEmitter接口</div></pre></td></tr></table></figure>
+<p>前面已经做了介绍了ObservableEmitter实现了Emitter接口</p>
+<p>说到关联就不得不说observable的subscribe方法，他传入的是我们的    Observer对象</p>
+<p>再次做的关联，所以关联肯定是在这个方法完成的，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">@SchedulerSupport(SchedulerSupport.NONE)</div><div class="line">@Override</div><div class="line">public final void subscribe(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">    ObjectHelper.requireNonNull(observer, &quot;observer is null&quot;);</div><div class="line">    try &#123;</div><div class="line">        observer = RxJavaPlugins.onSubscribe(this, observer);</div><div class="line"></div><div class="line">        ObjectHelper.requireNonNull(observer, &quot;Plugin returned null Observer&quot;);</div><div class="line"></div><div class="line">        subscribeActual(observer);</div><div class="line">    &#125; catch (NullPointerException e) &#123; // NOPMD</div><div class="line">        throw e;</div><div class="line">    &#125; catch (Throwable e) &#123;</div><div class="line">        Exceptions.throwIfFatal(e);</div><div class="line">        // can&apos;t call onError because no way to know if a Disposable has been set or not</div><div class="line">        // can&apos;t call onSubscribe because the call might have set a Subscription already</div><div class="line">        RxJavaPlugins.onError(e);</div><div class="line"></div><div class="line">        NullPointerException npe = new NullPointerException(&quot;Actually not, but can&apos;t throw other exceptions due to RS&quot;);</div><div class="line">        npe.initCause(e);</div><div class="line">        throw npe;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是subscribe方法的源码，还记得subscribeActual方法把，没错就是在这里做的回调</p>
+<p>但是你们可能直接点击返现subscribeActual是个抽象方法。但是我们具体调用的是ObservableCreate</p>
+<p>他实现了里面的抽象方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">static final class CreateEmitter&lt;T&gt;</div><div class="line">extends AtomicReference&lt;Disposable&gt;</div><div class="line">implements ObservableEmitter&lt;T&gt;, Disposable &#123;</div><div class="line"></div><div class="line"></div><div class="line">    private static final long serialVersionUID = -3434801548987643227L;</div><div class="line"></div><div class="line">    final Observer&lt;? super T&gt; observer;</div><div class="line"></div><div class="line">    CreateEmitter(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">        this.observer = observer;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onNext(T t) &#123;</div><div class="line">        if (t == null) &#123;</div><div class="line">            onError(new NullPointerException(&quot;onNext called with null. Null values are generally not allowed in 2.x operators and sources.&quot;));</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        if (!isDisposed()) &#123;</div><div class="line">            observer.onNext(t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable t) &#123;</div><div class="line">        if (t == null) &#123;</div><div class="line">            t = new NullPointerException(&quot;onError called with null. Null values are generally not allowed in 2.x operators and sources.&quot;);</div><div class="line">        &#125;</div><div class="line">        if (!isDisposed()) &#123;</div><div class="line">            try &#123;</div><div class="line">                observer.onError(t);</div><div class="line">            &#125; finally &#123;</div><div class="line">                dispose();</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123;</div><div class="line">            RxJavaPlugins.onError(t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onComplete() &#123;</div><div class="line">        if (!isDisposed()) &#123;</div><div class="line">            try &#123;</div><div class="line">                observer.onComplete();</div><div class="line">            &#125; finally &#123;</div><div class="line">                dispose();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这是上面CreateEmitter 的类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source.subscribe(parent);</div></pre></td></tr></table></figure>
+<p>在这里做了关联究竟是怎么关联的已经走到了8 9分了</p>
+<p>我们可以发现source其实就是ObservableOnSubscribe对象。</p>
+<p>subscribe这个方法就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Observable.create(new ObservableOnSubscribe&lt;Object&gt;() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void subscribe(ObservableEmitter&lt;Object&gt; e) throws Exception &#123;</div><div class="line"></div><div class="line">                e.onNext(new Object());</div><div class="line">                e.onComplete();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;)</div></pre></td></tr></table></figure>
+<p>里的subscribe方法所以</p>
+<p>e.onNext(new Object())</p>
+<p>就是调用的CreateEmitter实例parent的onNext方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void onNext(T t) &#123;</div><div class="line">    if (t == null) &#123;</div><div class="line">        onError(new NullPointerException(&quot;onNext called with null. Null values are generally not allowed in 2.x operators and sources.&quot;));</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    if (!isDisposed()) &#123;</div><div class="line">        observer.onNext(t);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>onnext方法里面对传过来的T ，如果不为空并且继续传递则调用observer的onNext方法就完成了关联</p>
+<p>怎么样是不是很晕啊….没错我刚开始自己看的时候也是很晕，，但是仔细看几遍就好了。</p>
+<p>嗯既然思路弄清楚了就整理一下</p>
+<p>observable是如何和Observer关联的</p>
+<ul>
+<li><p>首先调用observable的create方法，返回一个observable对象实例，记住这个observable是他的实现类ObservableCreate</p>
+</li>
+<li><p>在ObservableCreate中对我们的ObservableOnSubscribe对象进行了传递并且他实现了observable的抽象方法subscribeActual</p>
+</li>
+<li><p>当我们的observable实例创建后就要调用subscribe和observer关联了，subscribeActual(observer);方法调用了上个步骤中实现的subscribeActual抽象方法，传入的就是我们的observer</p>
+</li>
+<li><p>subscribeActual方法中CreateEmitter<t> parent = new CreateEmitter<t>(observer);的CreateEmitter实现了ObservableEmitter<t>, Disposable两个接口，并且source.subscribe(parent);中的parent其实就是我们的ObservableEmitter，所以我们调用的e.onNext()就是调用的parent中的这个方法</t></t></t></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void onNext(T t) &#123;</div><div class="line">            if (t == null) &#123;</div><div class="line">                onError(new NullPointerException(&quot;onNext called with null. Null values are generally not allowed in 2.x operators and sources.&quot;));</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">            if (!isDisposed()) &#123;</div><div class="line">                observer.onNext(t);</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>其中对T做了非空判断，如果传递的不为空则调用observer的onNext方法。就完成了一次传递！</p>
+<p>其实很简单的只要自己仔细思考。</p>
+<p>但是是不是觉得很奇怪，每个方法都有对!isDisposed()做了判断！</p>
+<p>没错我们只会执行一次onerror或者onComplete就是因为他</p>
+<p>我们发现在源码中都有个finalily的块调用dispose方法然后isDisposed就为false了也就不会继续执行另一个了</p>
+<p>​</p>
+<p>但这只是最简单的订阅关系，并未实现线程的切换，线程的切换我会在下一篇分析！</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Rxjava&quot;&gt;&lt;a href=&quot;#Rxjava&quot; class=&quot;headerlink&quot; title=&quot;Rxjava&quot;&gt;&lt;/a&gt;Rxjava&lt;/h3&gt;&lt;p&gt;rxjava是什么呢，简单来说就是一个异步框架&lt;/p&gt;
+&lt;p&gt;下面贴出我们最开始学习的最简单的代码&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="rxjava" scheme="http://yoursite.com/categories/rxjava/"/>
+    
+    
+      <category term="rxjava" scheme="http://yoursite.com/tags/rxjava/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机网络复习</title>
+    <link href="http://yoursite.com/2017/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://yoursite.com/2017/08/08/计算机网络复习/</id>
+    <published>2017-08-08T02:51:13.000Z</published>
+    <updated>2017-08-08T13:14:45.758Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="分组交换和电路交换"><a href="#分组交换和电路交换" class="headerlink" title="分组交换和电路交换"></a>分组交换和电路交换</h3><ul>
+<li><p>分组交换</p>
+<ul>
+<li><p>资源不会被保留</p>
+</li>
+<li><p>效率高</p>
+</li>
+<li><p>今天的因特网就是分组交换</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>电路交换</p>
+<ul>
+<li><p>资源会被保留</p>
+</li>
+<li><p>效率低</p>
+</li>
+<li><p>可以为一个通话保证特定数量的端到端宽带</p>
+</li>
+<li><p>频分多路复用分时多路复用</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>分组交换的时延</p>
+<p>处理时延+排队时延+传播时延+传输时延</p>
+<ul>
+<li><p>传输时延和传播时延的区别</p>
+<ul>
+<li><p>传输时延:</p>
+<p>R= 链路带宽 (bps)<br>L= 分组长度 (比特)<br>发送比特进入链路的时间= L/R</p>
+</li>
+<li><p>传播时延:</p>
+<p>d = 物理链路的长度<br>s = 在媒体中传播的速度 (~2x108 m/sec)<br>传播时延 = d/s</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>传播时延指的是线路传播时延，只与传输介质有关。传输指的是一定数据从开始传输到传输结束的时间，与介质、比特率有关。传输时延=传播时延+数据量/比特率。</p>
+<p>传输是指我们接收或者发出文件或者数据；传输可以是非实时性的。</p>
+<p>传播是指我们把文件或者数据发出；传播只具有单向性，实时性。</p>
+<ul>
+<li><p>分组交换对比电路交换</p>
+<p>电路交换</p>
+<ul>
+<li>在数据传输前，必须建立端到端的连接</li>
+<li>一旦某个节点故障，必须重新建立连接</li>
+<li>连接建立后，数据的传输没有额外的延时</li>
+<li>数据中不必包含地址域，仅需较短的虚电路号</li>
+<li>数据按序传输，但信道的使用率较低</li>
+<li>适合长时间传输大批量的数据，如流数据</li>
+</ul>
+<p>分组交换</p>
+<ul>
+<li>在数据传输前，不必建立端到端的连接</li>
+<li>只要下一个节点空闲，即可传输</li>
+<li>信道的使用率较高</li>
+<li>数据的传输采用存储转发，延时不可估计</li>
+<li>数据中必须包含地址域</li>
+<li>接收到的分组不一定按序，可能还需重组</li>
+<li><p>适合传输文本型数据</p>
+<h3 id="因特网的分层"><a href="#因特网的分层" class="headerlink" title="因特网的分层"></a>因特网的分层</h3></li>
+<li><p>应用层: 支持网络应用</p>
+</li>
+</ul>
+<p>FTP、HTTP、DNS、SMTP、DHCP等</p>
+<ul>
+<li><p>FTP：文件传输协议，FTP是因特网上使用得最广泛的文件传送协议。FTP提供交互式的访问，允许客户指明文件类型与格式，并允许文件具有存取权限。FTP其于TCP。</p>
+</li>
+<li><p>HTTP：超文本传输协议，是面向事务的应用层协议，它是万维网上能够可靠地交换文件的重要基础。http使用面向连接的TCP作为运输层协议，保证了数据的可靠传输。</p>
+</li>
+<li><p>DNS：域名系统，DNS是因特网使用的命名系统，用来把便于人们使用的机器名字转换为IP地址。</p>
+<p>现在顶级域名TLD分为三大类：国家顶级域名nTLD；通用顶级域名gTLD;基础结构域名</p>
+<p>域名服务器分为四种类型：根域名服务器；顶级域名服务器；本地域名服务器；权限域名服务器。</p>
+</li>
+<li><p>SMTP：电子邮件协议，即简单邮件传送协议。SMTP规定了在两个相互通信的SMTP进程之间应如何交换信息。SMTP通信的三个阶段：建立连接、邮件传送、连接释放。</p>
+</li>
+<li><p>POP3：邮件读取协议，协议通常被用来接收电子邮件</p>
+</li>
+<li><p>SNMP：简单网络管理协议。由三部分组成：SNMP本身、管理信息结构SMI和管理信息MIB。SNMP定义了管理站和代理之间所交换的分组格式。SMI定义了命名对象类型的通用规则，以及把对象和对象的值进行编码。MIB在被管理的实体中创建了命名对象，并规定类型。</p>
+</li>
+<li><p>Telnet：远程终端协议，telnet是一个简单的远程终端协议，它也是因特网的正式标准。又称为终端仿真协议。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>运输层: 主机到主机数据传输<br>TCP, UDP</p>
+<ul>
+<li><p>TCP：</p>
+<p>特点：点到点，可靠、有序，全双工，面向连接，流量控制，拥塞控制。</p>
+<p>连接时需要三次握手。</p>
+<p>断开连接时需要四次挥手</p>
+<p>TCP支持的应用协议主要有：Telnet、FTP、SMTP等。</p>
+<p>TCP提供IP下的数据可靠传输，它提供的服务包括数据流传送、可靠性、有效流控、全双工操作和多路复用。通过面向连接、端到端和可靠的数据包发送。</p>
+<p><strong>TCP协议采用了哪些机制保证数据的可靠传输？</strong></p>
+<ul>
+<li>连接时的 三次握手以及断开时的四次握手</li>
+<li>确认机制（超时、稍带确认）</li>
+<li>拥塞控制、流量控制</li>
+</ul>
+<p><strong>TCP中拥塞控制的方法：</strong></p>
+<ul>
+<li>加性增，乘性减</li>
+<li>慢启动</li>
+<li>对超时事件做出反应</li>
+</ul>
+<p>加性增：没有检测到拥塞的情况下，收到一个确认后就把拥塞窗口值增大一点（线性）</p>
+<p>乘性减：每发生一次丢包事件就将当前的拥塞窗口值减半</p>
+<p><strong>这里要特别注意拥塞控制、流量控制的区别</strong></p>
+<ul>
+<li>拥塞控制：防止过多的数据注入到网络中，这样可以使网络中的路由器不至于过载。拥塞控制的前提是：网络能够承受现有的网络负荷。</li>
+<li>流量控制：点对点通信量的控制。控制发送端的发送数据的速率。</li>
+</ul>
+<p><strong>这里要特别注意选择重传、回退N步的区别</strong></p>
+<ul>
+<li>选择重传：只重传出现差错的数据帧。但这时必须加大接收窗口，以便先收下发送序列号不连续但仍在接收窗口中的数据帧。等到所缺序号的数据帧收到后再一并交给主机。</li>
+<li>回退N步：当接收方检测出失序的数据帧后，要求发送方重发最后一个正确接收的信息之后所有未确认的帧；或者当发送方发了N个帧以后，发现N帧的前一帧在计时器超时后仍未返回其确认信息，则该帧被判超时或者出错，此时发送方不得不重新发送出错帧以及其后的帧。</li>
+</ul>
+</li>
+<li><p>UDP：</p>
+<p>​     是无连接的运输层协议</p>
+<p>UDP支持的应用层协议主要有：NFS（网络文件系统）、SNMP（简单网络管理协议）、DNS（主域名称系统）、TFTP（通用文件传输协议）等.</p>
+<p>而UDP则不为IP提供可靠性、流控或差错恢复功能，是非面向连接，不可靠的传输。</p>
+<p>  优点：</p>
+<ul>
+<li>应用层能够更好地控制要发送的数据和发送时间</li>
+<li>无需建立连接</li>
+<li>无连接状态</li>
+<li>分组首部开销小</li>
+</ul>
+<p>应用：</p>
+<ul>
+<li>常用于流式多媒体应用<ul>
+<li>丢包容忍</li>
+<li>速率敏感</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>DNS</li>
+<li>SNMP</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>网络层: 从源到目的地数据报的选路<br>ARP、IP、ICMP、OSPF、BGP等</p>
+<ul>
+<li><p>IP：网络之间互连的协议的外语（internet Protocol）缩写，中文缩写为“网协”.</p>
+<p>因特网的地址分配策略被称为无类别域间选路（CIRD）。在采用CIRD之前，IP地址被分为A,B,C,D,E五类，分别为：</p>
+<p><img src="https://ox.xizero.com/uploads/2017/08/7f34ab4373e42f75f9ff935bda594907.jpg" alt=""></p>
+</li>
+</ul>
+<p>不过在这之间，有几个私有地址，是不能够被使用的，包括：</p>
+<pre><code>A类 　　10.0.0.0 --10.255.255.255
+</code></pre><p>​    B类 　　172.16.0.0–172.31.255.255</p>
+<p>​    C类 　　192.168.0.0–192.168.255.255</p>
+</li>
+</ul>
+<pre><code>- ARP:地址解析协议，即ARP（Address Resolution Protocol）,
+
+  ARP协议的主要功能是将32位IP地址转换为48位物理地址。
+
+  工作过程：首先每台主机都会在缓冲区建立一个ARP列表，以表示IP与MAC的对应关系。当有数据包发送时，会先检查ARP列表中是否存在该IP对应的MAC地址，如果有，则直接将包发送到这个MAC地址，如果没有，就向本地网段发起一个ARP请求的广播包，网络中所有主机收到这个ARP包后，会先检查自己的IP是否与包中的IP地址一致，如果不一致则忽略，如果一致，则将发送端的MAC地址和IP地址添加到自己的ARP列表中（已存在的则覆盖），然后向发送端发送一个响应包，当发送方收到该响应包后,将接收方的IP与MAC添加到自己的ARP列表中。然后开始数据的传输
+
+- ICMP:ICMP是（Internet Control Message Protocol）Internet控制[报文](https://baike.baidu.com/item/%E6%8A%A5%E6%96%87)协议。它是[TCP/IP协议族](https://baike.baidu.com/item/TCP%2FIP%E5%8D%8F%E8%AE%AE%E6%97%8F)的一个子协议，用于在IP[主机](https://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA)、[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)器之间传递控制消息。控制消息是指[网络通](https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E9%80%9A)不通、[主机](https://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA)是否可达、[路由](https://baike.baidu.com/item/%E8%B7%AF%E7%94%B1)是否可用等网络本身的消息。这些控制消息虽然并不传输用户数据，但是对于用户数据的传递起着重要的作用。
+
+- OSPF:OSPF(Open Shortest Path First[开放式最短路径优先]是一个[内部网关协议](Interior Gateway Protocol，简称IGP），用于在单一[自治系统]（autonomous system,AS）内决策[路由]。是对[链路状态路由协议]的一种实现，隶属内部网关协议（IGP）
+
+- BGP:边界网关协议（BGP）是运行于 TCP 上的一种[自治系统]的[路由协议]。 BGP 是唯一一个用来处理像因特网大小的网络的协议，也是唯一能够妥善处理好不相关[路由域]间的多路连接的协议
+
+- RIP:路由信息协议
+
+- NAT（Network Address Translation，网络地址转换）是1994年提出的。当在专用网内部的一些主机本来已经分配到了本地IP地址（即仅在本专用网内使用的专用地址），但现在又想和因特网上的主机通信（并不需要加密）时，可使用NAT方法。
+
+-  RARP（Reverse Address Resolution Protocol）：逆向地址解析协议。
+</code></pre><ul>
+<li><p>数据链路层: 在邻近网元之间传输数据<br>ALOHA、CSMA或CSMA/CD、TDMA、FDMA、CDMA</p>
+</li>
+<li><p>物理层: “在线上”的比特<br>  任何一种调制解调体制</p>
+<p>  以二进制数据形式在物理媒体上传输数据 ISO2110，IEEE802，IEEE802.2</p>
+<p>  ​</p>
+</li>
+</ul>
+<h4 id="MAC地址和IP地址有什么本质区别？"><a href="#MAC地址和IP地址有什么本质区别？" class="headerlink" title="MAC地址和IP地址有什么本质区别？"></a><strong>MAC地址和IP地址有什么本质区别？</strong></h4><p>　　MAC地址是数据链路层地址，IP地址是网络层地址；<br>　　MAC地址没有结构性涵义，IP地址有结构性涵义，表示计算机与网络之间的连接关系。<br>　　IP地址就是给每个连接在因特网上的主机（或路由器）分配一个在全世界范围内是唯一的32位的标识符，从而把整个因特网看成是一个单一的，抽象的网络；在实际网络的链路上传输数据帧时，最终还是要用到物理地址；<br>　　MAC地址在一定程度属于硬件一致，基于物理层。能标识具体的链路通信对象，IP地址给予逻辑域的划分，不受硬件控制；</p>
+<h4 id="作为中间系统。转发器、网桥、路由器和网关有何区别？"><a href="#作为中间系统。转发器、网桥、路由器和网关有何区别？" class="headerlink" title="作为中间系统。转发器、网桥、路由器和网关有何区别？"></a><strong>作为中间系统。转发器、网桥、路由器和网关有何区别？</strong></h4><p>转发器：是物理层中间设备。主要作用是在物理层中实现透明的二进制比特复制，以补偿信号衰减。</p>
+<p>网桥：是数据链路层的中间设备。主要作用是根据MAC帧的目的地址对收到的帧进行转发。网桥具有过滤帧的功能。</p>
+<p>路由器：网络层的中间设备。作用是在互连网中完成路由选择的功能。</p>
+<p>网关：网络层以上的中间系统。作用是在高层进行协议的转换以连接两个不兼容的系统。</p>
+<h4 id="C-S模式和P2P模式的区别"><a href="#C-S模式和P2P模式的区别" class="headerlink" title="C/S模式和P2P模式的区别"></a><strong>C/S模式和P2P模式的区别</strong></h4><p>①：C/S结构是一种客户端/服务器结构，客户端与服务器之间是主从关系，是一种一对多的模式。它的信息和数据需要保存在服务器上，若用户要浏览和下载信息，必须先访问服务器，才能浏览和下载信息，而且客户机之间没有交互的能力。相反，P2P模式不分提供信息服务器和索取信息的客户端，每一台电脑都是信息的发布者和索取者，对等点之间能交互，无需使用服务器。<br>②：C/S模式中信息的存储和管理比较集中、稳定，服务器只公布用户想公布的信息，并且会在服务器中稳定地保存一段时间，该服务器通常也不间断的运行在网络间。而P2P缺乏安全机制，P2P是能给用户带来方便，但也会带来大量垃圾信息，而且各个对等点可以随便进入或者退出网络，会造成网络的不稳定。<br>③：从安全的角度来说，因为系统会出现漏洞，而C/S模式采用集中管理模式，客户端只能被动地从服务器获取信息，所以一旦客户端出了差错，并不会影响整个系统。<br>④：C/S模式的管理软件更新的较快，要跟上技术，必须花费大量精力和金钱在软件的更新换代上，而且工作人员要维护服务器和数据库，也要耗费大量资金。相反的P2P不需要服务器，也就不必耗费大量资金，而且每个对等点都可以在网络上发布和分享信息，这使得闲散资源得以充分的利用。</p>
+<h3 id="osi"><a href="#osi" class="headerlink" title="osi"></a>osi</h3><table>
+<thead>
+<tr>
+<th>OSI的层</th>
+<th style="text-align:left">功能</th>
+<th>TCP/IP协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td style="text-align:left">文件传输，电子邮件，文件服务，虚拟终端</td>
+<td>TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet</td>
+</tr>
+<tr>
+<td>表示层</td>
+<td style="text-align:left">数据格式化，代码转换，数据加密</td>
+<td>无</td>
+</tr>
+<tr>
+<td>会话层</td>
+<td style="text-align:left">解除或建立与别的接点的联系</td>
+<td>无</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td style="text-align:left">提供端对端的接口</td>
+<td>TCP，UDP</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td style="text-align:left">为数据包选择路由</td>
+<td>IP，ICMP，RIP，OSPF，BGP，IGMP</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td style="text-align:left">传输有地址的帧以及错误检测功能</td>
+<td>SLIP，CSLIP，PPP，ARP，RARP，MTU</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td style="text-align:left">以二进制数据形式在物理媒体上传输数据</td>
+<td>ISO2110，IEEE802，IEEE802.2</td>
+</tr>
+</tbody>
+</table>
+<p>TCP/IP五层协议</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>网络设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td>也就是用户使用的应用了。</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>四层交换机、也有工作在四层的路由器</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>路由器、三层交换机</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td>网桥（现已很少使用）、以太网交换机（二层交换机）、网卡（其实网卡是一半工作在物理层、一半工作在数据链路层）</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>网卡，光纤，CAT-5线，中继器、集线器、还有我们通常说的双绞线也工作在物理层</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;分组交换和电路交换&quot;&gt;&lt;a href=&quot;#分组交换和电路交换&quot; class=&quot;headerlink&quot; title=&quot;分组交换和电路交换&quot;&gt;&lt;/a&gt;分组交换和电路交换&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;分组交换&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;资源不会被保留&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="计算机网络" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构————栈</title>
+    <link href="http://yoursite.com/2017/08/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E6%A0%88/"/>
+    <id>http://yoursite.com/2017/08/07/数据结构————栈/</id>
+    <published>2017-08-07T04:26:01.000Z</published>
+    <updated>2017-08-07T05:14:05.509Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一种先入后出的数据结构</p>
+<h4 id="相关计算题"><a href="#相关计算题" class="headerlink" title="相关计算题"></a>相关计算题</h4><p>只用另一个栈和其他变量完成栈的排序</p>
+<p>思想：使用一个中间变量current，记第一个栈为stack，第二个辅助栈为lstake</p>
+<p>stack pop一个元素给current，和lstake的栈顶元素比较，当current小于栈顶元素直接push到栈顶，</p>
+<p>反之当大于栈顶元素时，一直pushlstake的元素到stake栈顶，直到lstake的栈顶元素大于current的值。</p>
+<p>一直重复直到stake的栈为空</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import java.util.Stack;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/7.</div><div class="line"> */</div><div class="line">public class test &#123;</div><div class="line"></div><div class="line">    public static void main(String args[]) &#123;</div><div class="line"></div><div class="line">        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();</div><div class="line">        stack.push(1);</div><div class="line">        stack.push(5);</div><div class="line">        stack.push(3);</div><div class="line">        stack.push(2);</div><div class="line">        stack.push(9);</div><div class="line">        stack.push(6);</div><div class="line">        stack.push(7);</div><div class="line">        int current;</div><div class="line">        Stack&lt;Integer&gt; lstake = new Stack&lt;&gt;();</div><div class="line">        lstake.push(stack.pop());</div><div class="line">        while (!stack.empty()) &#123;</div><div class="line">            current = stack.pop();</div><div class="line">            while (!lstake.empty()&amp;&amp;current&gt;lstake.peek())&#123;</div><div class="line">                stack.push(lstake.pop());</div><div class="line">            &#125;</div><div class="line">                lstake.push(current);</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (int a : lstake) &#123;</div><div class="line"></div><div class="line">            System.out.print(a + &quot;,&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;栈&quot;&gt;&lt;a href=&quot;#栈&quot; class=&quot;headerlink&quot; title=&quot;栈&quot;&gt;&lt;/a&gt;栈&lt;/h3&gt;&lt;p&gt;一种先入后出的数据结构&lt;/p&gt;
+&lt;h4 id=&quot;相关计算题&quot;&gt;&lt;a href=&quot;#相关计算题&quot; class=&quot;headerlink&quot; title=&quot;
+    
+    </summary>
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>八大排序java实现</title>
+    <link href="http://yoursite.com/2017/08/05/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8Fjava%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://yoursite.com/2017/08/05/八大排序java实现/</id>
+    <published>2017-08-05T03:34:13.000Z</published>
+    <updated>2017-08-06T11:22:28.544Z</updated>
+    
+    <content type="html"><![CDATA[<p>总结整理下八大排序的算法，用java实现。毕竟都是一些面试，平时使用都要用到的算法</p>
+<ul>
+<li><p>冒泡排序</p>
+<ol>
+<li>冒泡排序：一趟一趟的比较，比较相邻元素的大小，每趟有一个元素沉入最后面的位置 </li>
+<li>属于交换类排序 </li>
+<li>稳定的排序算法  </li>
+<li>平均时间复杂度O(n*n) </li>
+<li>最坏时间复杂度O(n*n) </li>
+<li>空间复杂度O(1) </li>
+<li>n较小时适用 </li>
+</ol>
+<p>​</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public static void bubbleSort(int[] array) &#123;</div><div class="line">       System.out.println(&quot;BubbleSort()&quot;);</div><div class="line">       for (int i = 0; i &lt; array.length; i++) &#123;//第i趟比较</div><div class="line"></div><div class="line">           for (int j = i + 1; j &lt; array.length; j++) &#123;</div><div class="line"></div><div class="line">               if (array[j] &lt; array[i]) &#123;</div><div class="line"></div><div class="line">                   swap(array,j,i);</div><div class="line">               &#125;</div><div class="line"></div><div class="line">           &#125;</div><div class="line"></div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">private static void swap(int[] array, int a, int b) &#123;</div><div class="line">    int t = array[a];</div><div class="line">    array[a] = array[b];</div><div class="line">    array[b] = t;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>选择排序<ol>
+<li>​     *直接选择排序：第i轮选择剩余最小的元素放入到第i的位置上 </li>
+<li>​     * 属于选择类排序 </li>
+<li>​     * 不稳定的排序算法 ：如58529第一轮选择交换5和2，破换了原来两个5的顺序 </li>
+<li>​     <em> 平均时间复杂度O(n</em>n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * 当n较小时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public static void xuanze(int[] array)</div><div class="line">&#123;</div><div class="line">    for (int i=0;i&lt;arr.length-1;i++)&#123;</div><div class="line">        int min=i;</div><div class="line"></div><div class="line">        for (int j=i+1;j&lt;arr.length;j++)&#123;</div><div class="line">              if (arr[j]&lt;arr[min])&#123;</div><div class="line">                  min=j;</div><div class="line">              &#125;</div><div class="line">        &#125;</div><div class="line">       swap(arr,min,i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>插入排序<ol>
+<li>​     *直接插入排序：每一轮第i个元素跟前面的i-1个元素从后向前比较，一直比较到合适插入的位置 </li>
+<li>​     * 属于插入类排序 </li>
+<li>​     * 稳定的排序算法  </li>
+<li>​     <em> 平均时间复杂度O(n</em>n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * 大部分有序时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public  static  void insertSort(int []array)&#123;</div><div class="line">     int current,j;</div><div class="line"></div><div class="line">     for (int i=1;i&lt;array.length;i++)&#123;</div><div class="line">            current=array[i];</div><div class="line">         for ( j=i-1;j&gt;=0&amp;&amp;array[j]&gt;current;j--)&#123;</div><div class="line"></div><div class="line">             array[j+1]=array[j];</div><div class="line"></div><div class="line">         &#125;</div><div class="line">         array[j+1]=current;</div><div class="line"></div><div class="line">     &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>快速排序<ol>
+<li>​    通过递归和分治的思想，先确定一个值一般为第一个，然后从右向前遍历一旦后面的小，则第一个和这个数字交换位置，然后从左向右遍历。直到两个指针指向同一个位置。</li>
+<li>​     <em> 平均时间复杂度O(n</em>log2n) </li>
+<li>​     <em> 最坏时间复杂度O(n</em>n) </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * n较大 时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">public static void sort(int[] data, int left, int right) &#123;</div><div class="line">    // 枢纽元，一般以第一个元素为基准进行划分</div><div class="line">    int leftCurrent = left;</div><div class="line">    int rightCurrent = right;</div><div class="line">    if (left &lt; right) &#123;</div><div class="line">        // 从数组两端交替地向中间扫描</div><div class="line">        int pivotKey = data[left];</div><div class="line">        System.out.println(&quot;---leftCurrent:&quot; + leftCurrent + &quot;--rightCurrent:&quot; + rightCurrent + &quot;--key:&quot; + pivotKey);</div><div class="line">        // leftCurrent从左往右扫描，rightCurrent从右往左扫描</div><div class="line">        while (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">            // 找到数组最右边比key小的值的下标</div><div class="line">            while (leftCurrent &lt; rightCurrent &amp;&amp; pivotKey &lt; data[rightCurrent]) &#123;</div><div class="line">                rightCurrent--;</div><div class="line">            &#125;</div><div class="line">            if (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">                // 把右边比key小的值往前挪</div><div class="line">                data[leftCurrent] = data[rightCurrent];</div><div class="line">                leftCurrent++;</div><div class="line">                System.out.println(&quot;a:&quot; + Arrays.toString(data));</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            // 找到左边比key大的值的下标</div><div class="line">            while (leftCurrent &lt; rightCurrent &amp;&amp; pivotKey &gt; data[leftCurrent]) &#123;</div><div class="line">                leftCurrent++;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (leftCurrent &lt; rightCurrent) &#123;</div><div class="line">                // 把左边比key大的值往右挪</div><div class="line">                data[rightCurrent] = data[leftCurrent];</div><div class="line">                rightCurrent--;</div><div class="line">                System.out.println(&quot;b:&quot; + Arrays.toString(data));</div><div class="line">            &#125;</div><div class="line">        &#125;// end while</div><div class="line">        // 枢纽元素移动到正确位置</div><div class="line">        data[leftCurrent] = pivotKey;</div><div class="line">        System.out.println(&quot;---&quot; + Arrays.toString(data) + &quot;\n\n&quot;);</div><div class="line">        // 前半个子表递归排序</div><div class="line">        sort(data, left, leftCurrent - 1);</div><div class="line">        // 后半个子表递归排序</div><div class="line">        sort(data, leftCurrent + 1, right);</div><div class="line">    &#125;// end if</div><div class="line">&#125;//</div></pre></td></tr></table></figure>
+<p>可以这么理解 两个指针 j k分别从左向右和从右向左遍历，</p>
+<p>从左向右的一旦发现比key大的就给右边</p>
+<p>从右向左的一旦发现比key小的就放左边</p>
+<p>这样一直遍历到指针指向同一个位置，这个位置就是jk相同并且是key应该存在的位置</p>
+<ul>
+<li>希尔排序<ol>
+<li>​     *希尔排序：分组交换的思想，先分组，后交换排序 </li>
+<li>​     * 属于交换类排序 </li>
+<li>​     * 不稳定的排序算法 ：分组之后交换打破了稳定性 </li>
+<li>​     <em> 平均时间复杂度O(n</em>log2n) </li>
+<li>​     * 最坏时间复杂度O(n^s) 1&lt;s&lt;2 </li>
+<li>​     * 空间复杂度O(1) </li>
+<li>​     * n较大时适用 </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">public static void shellSort(int[] data) &#123;</div><div class="line">    int i,j,group;</div><div class="line">    int n=data.length;</div><div class="line">    for (group=n/2;group&gt;0;group=group/2)&#123;</div><div class="line"></div><div class="line">        for (i=0;i&lt;group;i++)&#123;</div><div class="line">            for (j=i+group;j&lt;n;j+=group)&#123;</div><div class="line"></div><div class="line">                if (data[j] &lt; data[j - group])</div><div class="line">                &#123;</div><div class="line">                    int temp = data[j];</div><div class="line">                    int k = j - group;</div><div class="line">                    while (k &gt;= 0 &amp;&amp; data[k] &gt; temp)</div><div class="line">                    &#123;</div><div class="line">                        data[k + group] = data[k];</div><div class="line">                        k -= group;</div><div class="line">                    &#125;</div><div class="line">                    data[k + group] = temp;</div><div class="line">                &#125;</div><div class="line"></div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>堆排序</p>
+<p>​</p>
+</li>
+</ul>
+<p>二叉堆是完全二叉树或者是近似完全二叉树。</p>
+<p>二叉堆满足二个特性：</p>
+<p>1．父结点的键值总是大于或等于（小于或等于）任何一个子节点的键值。</p>
+<p>2．每个结点的左子树和右子树都是一个二叉堆（都是最大堆或最小堆）。</p>
+<p>当父结点的键值总是大于或等于任何一个子节点的键值时为<strong>最大堆</strong>。当父结点的键值总是小于或等于任何一个子节点的键值时为<strong>最小堆</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/6.</div><div class="line"> */</div><div class="line">public class Template &#123;</div><div class="line"></div><div class="line">    public void CreatHeap(int a[], int n) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        int isfirst = (n -2) / 2;//第一个非叶子节点</div><div class="line"></div><div class="line">        for (; isfirst &gt;= 0; isfirst--) &#123;</div><div class="line"></div><div class="line">            AdjustHeapNode(a, isfirst, n);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void HeapSort(int a[], int n) &#123;</div><div class="line"></div><div class="line">        CreatHeap(a, n);</div><div class="line"></div><div class="line">        int temp;</div><div class="line">        for (int i = 0; i &lt; n - 1; i++) &#123;</div><div class="line">            temp = a[n - 1 - i];</div><div class="line">            a[n - 1 - i] = a[0];</div><div class="line">            a[0] = temp;</div><div class="line"></div><div class="line">            AdjustHeapNode(a, 0, n - 1 - i);</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void AdjustHeapNode(int a[], int i, int n) &#123;</div><div class="line">        if (n == 1 || i &gt; (n - 2) / 2)  //i为叶子节点  (n-2)/2 最后一个非叶子节点的位置</div><div class="line">            return;</div><div class="line"></div><div class="line">        int iLeft = 2 * i + 1;</div><div class="line">        int iRight = 2 * i + 2;</div><div class="line"></div><div class="line"></div><div class="line">        if (iRight &lt;= n - 1)     //说明i有左右两个子节点         三个节点找最大值</div><div class="line">        &#123;</div><div class="line">            if (a[i] &gt;= a[iLeft] &amp;&amp; a[i] &gt;= a[iRight])      // i 最大 不用调整</div><div class="line">                return;</div><div class="line"></div><div class="line">            if (a[i] &lt; a[iLeft] &amp;&amp; a[iRight] &lt;= a[iLeft])  // iLeft 最大</div><div class="line">            &#123;</div><div class="line">                int temp = a[iLeft];</div><div class="line">                a[iLeft] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line">                AdjustHeapNode(a, iLeft, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (a[i] &lt; a[iRight] &amp;&amp; a[iLeft] &lt;= a[iRight]) // iRight 最大</div><div class="line">            &#123;</div><div class="line">                int temp = a[iRight];</div><div class="line">                a[iRight] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line"></div><div class="line">                AdjustHeapNode(a, iRight, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125; else &#123; // 说明i只有左节点   二个节点找最大值</div><div class="line">            //iLeft为最后一个节点</div><div class="line">            if (a[i] &gt;= a[iLeft])</div><div class="line">                return;</div><div class="line">            else &#123;</div><div class="line">                int temp = a[iLeft];</div><div class="line">                a[iLeft] = a[i];</div><div class="line">                a[i] = temp;</div><div class="line">                AdjustHeapNode(a, iLeft, n);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;总结整理下八大排序的算法，用java实现。毕竟都是一些面试，平时使用都要用到的算法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;冒泡排序&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;冒泡排序：一趟一趟的比较，比较相邻元素的大小，每趟有一个元素沉入最后面的位置 &lt;/li&gt;
+&lt;li&gt;属于交换类排序 &lt;/li
+    
+    </summary>
+    
+      <category term="算法" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Fragment懒加载</title>
+    <link href="http://yoursite.com/2017/08/02/Fragment%E6%87%92%E5%8A%A0%E8%BD%BD/"/>
+    <id>http://yoursite.com/2017/08/02/Fragment懒加载/</id>
+    <published>2017-08-02T03:21:37.000Z</published>
+    <updated>2017-08-02T03:59:00.530Z</updated>
+    
+    <content type="html"><![CDATA[<p>说真的！！网上的博客好多都是在别人那直接copy过来的！昨天看算法就是，百度第一页的所有博客几乎都一样而且不是一个人写的，最重要的是他妈的是错的！！！逻辑混乱，代码错误，挫的都一样。真的佩服。今天看懒加载又是这样。。不得不自己琢磨了</p>
+<h3 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h3><p>大家都知道懒加载为了什么有事时候Viewpager 可能加载十多个Fragment ，一下子全加载了对用户体验很不好。而且viewpage的setOffscreenPageLimit方法看源码就知道了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private static final int DEFAULT_OFFSCREEN_PAGES = 1;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void setOffscreenPageLimit(int limit) &#123;</div><div class="line">    if (limit &lt; DEFAULT_OFFSCREEN_PAGES) &#123;</div><div class="line">        Log.w(TAG, &quot;Requested offscreen page limit &quot; + limit + &quot; too small; defaulting to &quot;</div><div class="line">                + DEFAULT_OFFSCREEN_PAGES);</div><div class="line">        limit = DEFAULT_OFFSCREEN_PAGES;</div><div class="line">    &#125;</div><div class="line">    if (limit != mOffscreenPageLimit) &#123;</div><div class="line">        mOffscreenPageLimit = limit;</div><div class="line">        populate();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你无论怎么设置它都至少加载下一页的体验很差！尤其每个fragment都有大量的网络请求和绘制的时候</p>
+<p>所以懒加载诞生了。最重要的就是setUserVisibleHint这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public void setUserVisibleHint(boolean isVisibleToUser) &#123;</div><div class="line">    super.setUserVisibleHint(isVisibleToUser);</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当fragment可见的时候isVisibleToUser为true，反之亦然。但是这里要注意了，它是在oncreateview之前调用的，所以直接在这里请求绘制控件的话会空指针的！</p>
+<p>所以我们封装一个BaseFragment</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package rxjavatest.tycoding.com.iv2ex.ui.fragment;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.annotation.Nullable;</div><div class="line">import android.support.v4.app.Fragment;</div><div class="line">import android.view.View;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/1.</div><div class="line"> */</div><div class="line"></div><div class="line">public abstract class BaseFragment extends Fragment &#123;</div><div class="line"></div><div class="line">    protected boolean isVisable;</div><div class="line">    protected boolean isprepared = false;</div><div class="line">    protected boolean isdateInit=false;</div><div class="line">    @Override</div><div class="line">    public void setUserVisibleHint(boolean isVisibleToUser) &#123;</div><div class="line">        super.setUserVisibleHint(isVisibleToUser);</div><div class="line">        isVisable=isVisibleToUser;</div><div class="line">        prepareFetchData(false);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onActivityCreated(@Nullable Bundle savedInstanceState) &#123;</div><div class="line">        super.onActivityCreated(savedInstanceState);</div><div class="line">        isprepared=true;</div><div class="line">        prepareFetchData(false);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">   protected  void prepareFetchData(boolean force)&#123;</div><div class="line"></div><div class="line">       if (isVisable &amp;&amp; isprepared &amp;&amp; (!isdateInit || force)) &#123;</div><div class="line">           loadData();</div><div class="line">           isdateInit = true;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">   &#125;</div><div class="line"></div><div class="line">    protected abstract void loadData( );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>分别讲一下上面意思</p>
+<p>首先三个boolean值分别是frag是否可见，view是否初始化，fragment是否加载过数据</p>
+<p> protected abstract void loadData( );</p>
+<p>这个抽象方法就是在子类中需要实现的，在这里进行数据加载。</p>
+<p>prepareFetchData(boolean force)的参数用来我们子类执行是否每次都加载的操作</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;说真的！！网上的博客好多都是在别人那直接copy过来的！昨天看算法就是，百度第一页的所有博客几乎都一样而且不是一个人写的，最重要的是他妈的是错的！！！逻辑混乱，代码错误，挫的都一样。真的佩服。今天看懒加载又是这样。。不得不自己琢磨了&lt;/p&gt;
+&lt;h3 id=&quot;懒加载&quot;&gt;&lt;a 
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自己写一个Handler</title>
+    <link href="http://yoursite.com/2017/07/27/%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AAHandler/"/>
+    <id>http://yoursite.com/2017/07/27/自己写一个Handler/</id>
+    <published>2017-07-27T11:49:18.000Z</published>
+    <updated>2017-07-29T03:45:26.113Z</updated>
+    
+    <content type="html"><![CDATA[<p>前一阵整理了一下Handler的机制。。大概自己是弄明白的，但是为了巩固下自己，决定自己写一个handler，，当然我们是通过java程序来模拟。</p>
+<p>首先回想下我们大概需要哪几个东西，没错，四个。</p>
+<ul>
+<li><p>Message</p>
+</li>
+<li><p>Looper</p>
+</li>
+<li><p>Handler</p>
+</li>
+<li><p>MessageQueue</p>
+<p>​</p>
+</li>
+</ul>
+<p>接下来我们就需要按照自己的印象和想法来实现。只要大概功能就行。</p>
+<p>最简单的Message</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/7/27.</div><div class="line"> */</div><div class="line">public class Message &#123;</div><div class="line">    Handler target;</div><div class="line">  public Object obj;</div><div class="line"></div><div class="line">    public Object getObj() &#123;</div><div class="line">        return obj;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">import java.util.concurrent.locks.Condition;</div><div class="line">import java.util.concurrent.locks.Lock;</div><div class="line">import java.util.concurrent.locks.ReentrantLock;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/7/27.</div><div class="line"> */</div><div class="line">public class MessageQueue &#123;</div><div class="line">    Message[] messages;</div><div class="line">    Lock lock = new ReentrantLock();</div><div class="line">    Condition ConditionFull;</div><div class="line">    Condition ConditionEmpty;</div><div class="line">    int putIndex;</div><div class="line">    int takeIndex;</div><div class="line">    int count;</div><div class="line"></div><div class="line">    public MessageQueue() &#123;</div><div class="line">        ConditionFull = lock.newCondition();</div><div class="line">        ConditionEmpty = lock.newCondition();</div><div class="line"></div><div class="line">        messages = new Message[50];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    final void enqueueMessage(Message mes) &#123;</div><div class="line"></div><div class="line">        try &#123;</div><div class="line"></div><div class="line">            lock.lock();</div><div class="line">            while (count == messages.length) &#123;</div><div class="line"></div><div class="line">                try &#123;</div><div class="line">                    ConditionFull.await();</div><div class="line">                &#125; catch (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            messages[putIndex] = mes;</div><div class="line">            putIndex = (++putIndex == messages.length ? 0 : putIndex);</div><div class="line">            count++;</div><div class="line">            ConditionEmpty.signalAll();</div><div class="line"></div><div class="line">        &#125; finally &#123;</div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    final Message next()&#123;</div><div class="line">        //取出消息</div><div class="line">        Message message = null;</div><div class="line">        try&#123;</div><div class="line">            lock.lock();</div><div class="line">            //取到最后一个</div><div class="line">            if (count == 0) &#123;</div><div class="line">                try &#123;</div><div class="line">                    ConditionEmpty.await();</div><div class="line">                &#125; catch (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            message = messages[takeIndex];</div><div class="line">            messages[takeIndex] = null;</div><div class="line">            takeIndex = (++takeIndex == messages.length ? 0 : takeIndex);</div><div class="line">            count--;</div><div class="line">            //通知子线程</div><div class="line">            ConditionFull.signalAll();</div><div class="line">        &#125;finally&#123;</div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line">        return message;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/7/27.</div><div class="line"> */</div><div class="line">public class Looper &#123;</div><div class="line"></div><div class="line">    static  final ThreadLocal&lt;Looper&gt;sThreadLocal=new ThreadLocal&lt;&gt;();</div><div class="line">    MessageQueue messageQueue;</div><div class="line"></div><div class="line">    public Looper( ) &#123;</div><div class="line">        messageQueue=new MessageQueue();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static Looper myLooper() &#123;</div><div class="line">        return sThreadLocal.get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void prepare() &#123;</div><div class="line">        if (sThreadLocal.get() != null) &#123;</div><div class="line">            throw new RuntimeException(</div><div class="line">                    &quot;Only one Looper may be created per thread&quot;);</div><div class="line">        &#125;</div><div class="line">        sThreadLocal.set(new Looper());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void loop() &#123;</div><div class="line"></div><div class="line">        Looper me = myLooper();</div><div class="line">        if (me == null) &#123;</div><div class="line">            throw new RuntimeException(</div><div class="line">                    &quot;No Looper; Looper.prepare() wasn&apos;t called on this thread.&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        MessageQueue queue = me.messageQueue;</div><div class="line"></div><div class="line">        for (;;) &#123;</div><div class="line">            Message msg = queue.next();</div><div class="line">            if (msg == null || msg.target == null)</div><div class="line">                continue;</div><div class="line">            //转发给handler</div><div class="line">            msg.target.dispatchMessage(msg);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/7/27.</div><div class="line"> */</div><div class="line">public class Handler &#123;</div><div class="line">  MessageQueue messageQueue;</div><div class="line"></div><div class="line">  Looper looper;</div><div class="line"></div><div class="line"></div><div class="line">    public Handler() &#123;</div><div class="line">        looper = Looper.myLooper();</div><div class="line">        if (looper == null) &#123;</div><div class="line">            throw new RuntimeException(</div><div class="line">                    &quot;Can&apos;t create handler inside thread that has not called Looper.prepare()&quot;);</div><div class="line">        &#125;</div><div class="line">        messageQueue = looper.messageQueue;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public final void sendMessage(Message msg)&#123;</div><div class="line">        MessageQueue queue = messageQueue;</div><div class="line">        if (queue != null) &#123;</div><div class="line">            msg.target = this;</div><div class="line">            queue.enqueueMessage(msg);</div><div class="line">        &#125;else &#123;</div><div class="line">            RuntimeException e = new RuntimeException(</div><div class="line">                    this + &quot; sendMessage() called with no mQueue&quot;);</div><div class="line">            throw e;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public void handleMessage(Message msg) &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Handle system messages here.</div><div class="line">     */</div><div class="line">    public void dispatchMessage(Message msg) &#123;</div><div class="line">        handleMessage(msg);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">import java.util.UUID;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/7/19.</div><div class="line"> */</div><div class="line">public class test &#123;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    public static void main(String args[]) &#123;</div><div class="line">        Looper.prepare();</div><div class="line">        Handler handler=new Handler()&#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void handleMessage(Message msg) &#123;</div><div class="line"></div><div class="line">                System.out.println(Thread.currentThread().getName() + &quot;--receiver--&quot; + msg.toString());</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        for (int i = 0; i &lt; 10; i++) &#123;</div><div class="line">            int finalI = i;</div><div class="line">            new Thread(new Runnable() &#123;</div><div class="line">                public void run() &#123;</div><div class="line"></div><div class="line">                    while (true) &#123;</div><div class="line"></div><div class="line">                        Message msg = new Message();</div><div class="line"></div><div class="line">                        synchronized (UUID.class) &#123;</div><div class="line">                            msg.obj = Thread.currentThread().getName()+&quot;--send---+&quot;+String.valueOf(finalI);</div><div class="line">                        &#125;</div><div class="line">                        System.out.println(msg);</div><div class="line">                        handler.sendMessage(msg);</div><div class="line">                        try &#123;</div><div class="line">                            Thread.sleep(1000);</div><div class="line">                        &#125; catch (InterruptedException e) &#123;</div><div class="line">                            e.printStackTrace();</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;).start();</div><div class="line">        &#125;</div><div class="line">        //开始消息循环</div><div class="line">        Looper.loop();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行程序</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前一阵整理了一下Handler的机制。。大概自己是弄明白的，但是为了巩固下自己，决定自己写一个handler，，当然我们是通过java程序来模拟。&lt;/p&gt;
+&lt;p&gt;首先回想下我们大概需要哪几个东西，没错，四个。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Message&lt;/p&gt;
+&lt;/li
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>handler的实现原理</title>
+    <link href="http://yoursite.com/2017/07/23/handler%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
+    <id>http://yoursite.com/2017/07/23/handler的实现原理/</id>
+    <published>2017-07-23T05:19:54.000Z</published>
+    <updated>2017-07-23T05:54:36.099Z</updated>
+    
+    <content type="html"><![CDATA[<p>说真的关于handler的原理的文章，网上多的是，之前由于自己懒惰，都是自己看网上分析的博客，然后稍微看一些源码，给自己弄的一知半解的，所以今天终于内心沉了下来，准备自己看看源码按照自己思路整理一下handler的实现。</p>
+<p>handler是什么我就不多说了。。如果这个都不知道那就别往下看了。闲话短说，直接开始，我们一般使用handler都是直接使用内部类的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Handler handler=new Handler()&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void handleMessage(Message msg) &#123;</div><div class="line">        super.handleMessage(msg);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这样，然后handleMessage更新ui信息。</p>
+<p>说到handler不得不说其他几个类了。</p>
+<ul>
+<li><p>Message 意为消息，发送到Handler进行处理的对象，携带描述信息和任意数据。</p>
+</li>
+<li><p>MessageQueue 意为消息队列，Message的集合。</p>
+</li>
+<li><p>Looper 有着一个很难听的中文名字，消息泵，用来从MessageQueue中抽取Message，发送给Handler进行处理。</p>
+</li>
+<li><p>Handler 处理Looper抽取出来的Message。</p>
+<p>​</p>
+</li>
+</ul>
+<p>我们可以这样理解这四个东西。</p>
+<p>首先线程调用Looper.prepare()方法，获取当前线程绑定的Looper对象，如果当前线程存在了Looper对象，则会抛出异常（Only one Looper may be created per thread） 之所以在主线程我们自己没有调用Looper.prepare()方法是因为在ActivityThread初始化的时候会自己初始化一个Looper对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">private static void prepare(boolean quitAllowed) &#123;</div><div class="line">    if (sThreadLocal.get() != null) &#123;</div><div class="line">        throw new RuntimeException(&quot;Only one Looper may be created per thread&quot;);</div><div class="line">    &#125;</div><div class="line">    sThreadLocal.set(new Looper(quitAllowed));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ThreadLocal不用多说，线程私有的所以没有Looper对象 的话会自己在本线程添加一个Looper对象。我们看下这个方法 Looper(quitAllowed)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">private Looper(boolean quitAllowed) &#123;</div><div class="line">    mQueue = new MessageQueue(quitAllowed);</div><div class="line">    mThread = Thread.currentThread();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>初始化一个消息队列，并且获取当前的线程。</p>
+<p>然后调用Looper.loop()方法，看一下源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">public static void loop() &#123;</div><div class="line">    final Looper me = myLooper();</div><div class="line">    if (me == null) &#123;</div><div class="line">        throw new RuntimeException(&quot;No Looper; Looper.prepare() wasn&apos;t called on this thread.&quot;);</div><div class="line">    &#125;</div><div class="line">    final MessageQueue queue = me.mQueue;/、拿到消息队列</div><div class="line"></div><div class="line">    // Make sure the identity of this thread is that of the local process,</div><div class="line">    // and keep track of what that identity token actually is.</div><div class="line">    Binder.clearCallingIdentity();</div><div class="line">    final long ident = Binder.clearCallingIdentity();</div><div class="line"></div><div class="line">    for (;;) &#123;</div><div class="line">        Message msg = queue.next(); // might block</div><div class="line">        if (msg == null) &#123;</div><div class="line">            // No message indicates that the message queue is quitting.</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // This must be in a local variable, in case a UI event sets the logger</div><div class="line">        final Printer logging = me.mLogging;</div><div class="line">        if (logging != null) &#123;</div><div class="line">            logging.println(&quot;&gt;&gt;&gt;&gt;&gt; Dispatching to &quot; + msg.target + &quot; &quot; +</div><div class="line">                    msg.callback + &quot;: &quot; + msg.what);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        final long traceTag = me.mTraceTag;</div><div class="line">        if (traceTag != 0 &amp;&amp; Trace.isTagEnabled(traceTag)) &#123;</div><div class="line">            Trace.traceBegin(traceTag, msg.target.getTraceName(msg));</div><div class="line">        &#125;</div><div class="line">        try &#123;</div><div class="line">            msg.target.dispatchMessage(msg);</div><div class="line">        &#125; finally &#123;</div><div class="line">            if (traceTag != 0) &#123;</div><div class="line">                Trace.traceEnd(traceTag);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (logging != null) &#123;</div><div class="line">            logging.println(&quot;&lt;&lt;&lt;&lt;&lt; Finished to &quot; + msg.target + &quot; &quot; + msg.callback);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // Make sure that during the course of dispatching the</div><div class="line">        // identity of the thread wasn&apos;t corrupted.</div><div class="line">        final long newIdent = Binder.clearCallingIdentity();</div><div class="line">        if (ident != newIdent) &#123;</div><div class="line">            Log.wtf(TAG, &quot;Thread identity changed from 0x&quot;</div><div class="line">                    + Long.toHexString(ident) + &quot; to 0x&quot;</div><div class="line">                    + Long.toHexString(newIdent) + &quot; while dispatching to &quot;</div><div class="line">                    + msg.target.getClass().getName() + &quot; &quot;</div><div class="line">                    + msg.callback + &quot; what=&quot; + msg.what);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        msg.recycleUnchecked();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到我们如果不调用Looper.prepare方法的话则会抛出异常，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static @Nullable Looper myLooper() &#123;</div><div class="line">    return sThreadLocal.get();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过myLooper()方法获取线程中的looper对象。</p>
+<p> final MessageQueue queue = me.mQueue;拿到消息队列</p>
+<p>然后看源码很容易就可以知道进入一个死循环，从消息队列中源源不断的拿到信息，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg.target.dispatchMessage(msg);</div></pre></td></tr></table></figure>
+<p>这个代码很重要，尤其这个方法dispatchMessage（）可是点击这个方法发现找不到，我就很奇怪，难道这个方法不在looper类里面？于是看了一下handler的源码发现确实是这样。</p>
+<p>我们先把这个放着块，等会再看。</p>
+<p>看看handler的构造方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public Handler() &#123;</div><div class="line">    this(null, false);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public Handler(Looper looper) &#123;</div><div class="line">    this(looper, null, false);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public Handler(Callback callback) &#123;</div><div class="line">    this(callback, false);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public Handler(Looper looper, Callback callback) &#123;</div><div class="line">    this(looper, callback, false);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public Handler(boolean async) &#123;</div><div class="line">    this(null, async);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这么多的构造方法。。但是他们都使用了this，指向了最终的也是每次初始化都会调用到的构造方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public Handler(Callback callback, boolean async) &#123;</div><div class="line">    if (FIND_POTENTIAL_LEAKS) &#123;</div><div class="line">        final Class&lt;? extends Handler&gt; klass = getClass();</div><div class="line">        if ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;</div><div class="line">                (klass.getModifiers() &amp; Modifier.STATIC) == 0) &#123;</div><div class="line">            Log.w(TAG, &quot;The following Handler class should be static or leaks might occur: &quot; +</div><div class="line">                klass.getCanonicalName());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mLooper = Looper.myLooper();</div><div class="line">    if (mLooper == null) &#123;</div><div class="line">        throw new RuntimeException(</div><div class="line">            &quot;Can&apos;t create handler inside thread that has not called Looper.prepare()&quot;);</div><div class="line">    &#125;</div><div class="line">    mQueue = mLooper.mQueue;</div><div class="line">    mCallback = callback;</div><div class="line">    mAsynchronous = async;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从源码我们可以看到。。在这里handler里面的looper对象得到了绑定，拿到之前looper的对象，如果这个looper对象为空的话则会抛出异常，让你调用Looper.prepare()方法。</p>
+<p>然后就是消息队列的关联。然后我们看源码可以发现，，这里面就不贴了太多了。。自己看也行，发现好多方法比如postAtTime（）最终都是调用的方法sendMessageAtTime（）；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public boolean sendMessageAtTime(Message msg, long uptimeMillis) &#123;</div><div class="line">    MessageQueue queue = mQueue;</div><div class="line">    if (queue == null) &#123;</div><div class="line">        RuntimeException e = new RuntimeException(</div><div class="line">                this + &quot; sendMessageAtTime() called with no mQueue&quot;);</div><div class="line">        Log.w(&quot;Looper&quot;, e.getMessage(), e);</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">    return enqueueMessage(queue, msg, uptimeMillis);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>返回的是这个方法 enqueueMessage(queue, msg, uptimeMillis);</p>
+<p>再看看这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) &#123;</div><div class="line">    msg.target = this;</div><div class="line">    if (mAsynchronous) &#123;</div><div class="line">        msg.setAsynchronous(true);</div><div class="line">    &#125;</div><div class="line">    return queue.enqueueMessage(msg, uptimeMillis);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg.target = this;就是这个方法，是不是有点眼熟，</div></pre></td></tr></table></figure>
+<p>msg.target.dispatchMessage(msg);</p>
+<p>没错在这里把msg.target 赋值成了handler本身，这样就关联起来了。所以之前的那个方法在handler里面可以找到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void dispatchMessage(Message msg) &#123;</div><div class="line">    if (msg.callback != null) &#123;</div><div class="line">        handleCallback(msg);</div><div class="line">    &#125; else &#123;</div><div class="line">        if (mCallback != null) &#123;</div><div class="line">            if (mCallback.handleMessage(msg)) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        handleMessage(msg);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>怎么样很熟悉吧 handleMessage(msg);这个方法就是我们最终回调自己写的方法。我们可以看到他是一个空方法。。因为要自己完成接下来的事情。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public void handleMessage(Message msg) &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中有个问题应该有人注意到了为什么那个消息队列的死循环存在主线程中还不会造成ANR？因为我们的任何点击事件，各种处理都是有这个循环来做的，也就是说我们之所以造成了ANR是因为自己的操作不当导致了Looper.loop()方法阻塞。。而不是    Looper.loop()阻塞了主线程。。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;说真的关于handler的原理的文章，网上多的是，之前由于自己懒惰，都是自己看网上分析的博客，然后稍微看一些源码，给自己弄的一知半解的，所以今天终于内心沉了下来，准备自己看看源码按照自己思路整理一下handler的实现。&lt;/p&gt;
+&lt;p&gt;handler是什么我就不多说了。。如
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Collction接口集合</title>
+    <link href="http://yoursite.com/2017/07/22/Collction%E6%8E%A5%E5%8F%A3%E9%9B%86%E5%90%88/"/>
+    <id>http://yoursite.com/2017/07/22/Collction接口集合/</id>
+    <published>2017-07-22T11:32:27.000Z</published>
+    <updated>2017-07-22T12:19:25.581Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://ox.xizero.com/uploads/2017/07/3985563_e7febf364d8d8235.png" alt=""></p>
+<p>如图所示可以清楚的看到实现Collection接口的集合类。一目了然。</p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>我们先从最常见的List子接口来看。</p>
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><p>这是我们刚开始学java最最经常用到的结合类了，他支持List接口的全部功能，而且看他的名字就知道他的底层是基于数组实现的一个List类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;String&gt; list = new ArrayList&lt;&gt;(initalCapacity：6);</div></pre></td></tr></table></figure>
+<p>如上所示我们初始化了一个长度为6的List。</p>
+<p>通过观察源码可以发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public ArrayList(int initialCapacity) &#123;</div><div class="line">    if (initialCapacity &gt; 0) &#123;</div><div class="line">        this.elementData = new Object[initialCapacity];</div><div class="line">    &#125; else if (initialCapacity == 0) &#123;</div><div class="line">        this.elementData = EMPTY_ELEMENTDATA;</div><div class="line">    &#125; else &#123;</div><div class="line">        throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+</div><div class="line">                                           initialCapacity);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我们在构造方法中传入数值的时候他会初始化我们自定义长度的一个数组。如果为负数则抛出异常。</p>
+<p>如果不指定参数的话则调用默认的构造函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public ArrayList() &#123;</div><div class="line">    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</div></pre></td></tr></table></figure>
+<p>看代码就看出来了。初始化一个长度为0的数组。</p>
+<p>private static final int DEFAULT_CAPACITY = 10;</p>
+<p>看出来了默认大小为10</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public boolean add(E e) &#123;</div><div class="line"></div><div class="line">       ensureCapacityInternal(size + 1);  // 数组的大小增加1</div><div class="line"></div><div class="line">       elementData[size++] = e;</div><div class="line"></div><div class="line">       return true;</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>ensureCapacityInternal方法就是确保数组拥有足够的大小来装填货物。</p>
+<p>由此就可以知道了<strong>ArrayList是一个动态扩展的数组</strong></p>
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><p>它和ArrayList差不多。只不过他是线程安全的，之所以是线程安全的是因为他的操作数据的方法都加上了关键字synchronized，所以他的性能很差。。一般不会使用。</p>
+<p>Vector和ArrayList的区别：</p>
+<ul>
+<li><p>ArrayList是线程不安全的，Vector是线程安全的。</p>
+</li>
+<li><p>Vector的性能比ArrayList差。</p>
+</li>
+<li><p>ArrayList每次动态扩大只增加本身的50%，而Vector会增加一倍</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><p>他是Vector的子类，所以也是线程安全的，但是性能较差，通常用他模拟实现栈这个数据结构，即先入后出。</p>
+<p>他有几个常见方法</p>
+<ul>
+<li><p>empty() 判断是否为空</p>
+</li>
+<li><p>peek() 查看栈顶部的对象，但是不移除他</p>
+</li>
+<li><p>pop()移除栈顶的对象，并且返回他</p>
+</li>
+<li><p>push()把对象压到栈顶</p>
+</li>
+<li><p>search(object o) 返回对象在栈的位置。注意他的基数是1,即从1开始</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p>它实现了List接口之外还实现了Deque接口，看名字可以看出来他的底部实现和ArrayList完全不一样，他是使用链表实现的，因此在随机访问集合元素的时候性能很差，但是在插入删除元素的时候性能很好，和ArrayList各有千秋，互有利弊。由于实现了Deque接口所以他也有双端队列的特性所以新增加了几种方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">void addFirst(E e):将指定元素插入此列表的开头。</div><div class="line">void addLast(E e): 将指定元素添加到此列表的结尾。</div><div class="line">E getFirst(E e): 返回此列表的第一个元素。</div><div class="line">E getLast(E e): 返回此列表的最后一个元素。</div><div class="line">boolean offerFirst(E e): 在此列表的开头插入指定的元素。</div><div class="line">boolean offerLast(E e): 在此列表末尾插入指定的元素。</div><div class="line">E peekFirst(E e): 获取但不移除此列表的第一个元素；如果此列表为空，则返回 null。</div><div class="line">E peekLast(E e): 获取但不移除此列表的最后一个元素；如果此列表为空，则返回 null。</div><div class="line">E pollFirst(E e): 获取并移除此列表的第一个元素；如果此列表为空，则返回 null。</div><div class="line">E pollLast(E e): 获取并移除此列表的最后一个元素；如果此列表为空，则返回 null。</div><div class="line">E removeFirst(E e): 移除并返回此列表的第一个元素。</div><div class="line">boolean removeFirstOccurrence(Objcet o): 从此列表中移除第一次出现的指定元素（从头部到尾部遍历列表时）。</div><div class="line">E removeLast(E e): 移除并返回此列表的最后一个元素。</div><div class="line">boolean removeLastOccurrence(Objcet o): 从此列表中移除最后一次出现的指定元素（从头部到尾部遍历列表时）。</div></pre></td></tr></table></figure>
+<p>注意他也是非线程安全的。</p>
+<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><p>HashSet是Set接口的典型实现，实现了Set接口中的所有方法，并没有添加额外的方法，大多数时候使用Set集合时就是使用这个实现类。HashSet按Hash算法来存储集合中的元素。因此具有很好的存取和查找性能。</p>
+<p>1.不能保证元素的排列顺序，顺序可能与添加顺序不同，顺序也有可能发生变化。<br>2.HashSet不是同步的，如果多个线程同时访问一个HashSet，则必须通过代码来保证其同步。<br>3.集合元素值可以是null。</p>
+<p>他判断两个元素是否相等有个特点就是两个对象的equals方法相等，并且他的对象的hashCode方法也是相等才可以</p>
+<p>所以有四种情况</p>
+<p>1.如果有两个元素通过equal()方法比较返回false，但它们的hashCode()方法返回不相等，HashSet将会把它们存储在不同的位置。</p>
+<p>2.如果有两个元素通过equal()方法比较返回true，但它们的hashCode()方法返回不相等，HashSet将会把它们存储在不同的位置。</p>
+<p>3.如果两个对象通过equals()方法比较不相等，hashCode()方法比较相等，HashSet将会把它们存储在相同的位置，在这个位置以链表式结构来保存多个对象。这是因为当向HashSet集合中存入一个元素时，HashSet会调用对象的hashCode()方法来得到对象的hashCode值，然后根据该hashCode值来决定该对象存储在HashSet中存储位置。</p>
+<p>4.如果有两个元素通过equal()方法比较返回true，但它们的hashCode()方法返回true，HashSet将不予添加。</p>
+<h3 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h3><p>LinkedHashSet是HashSet对的子类，但是他使用链表维护元素的次序，使得元素是以插入的顺序来保存的。</p>
+<p>但是由于插入顺序的保证，所以性能没有HashSet高。但是它依旧不能有重复元素。</p>
+<p>其实HashSet的实质是一个HashMap。HashSet的所有集合元素，构成了HashMap的key，其value为一个静态Object对象。因此HashSet的所有性质，HashMap的key所构成的集合都具备。</p>
+<p>比如keyset方法返回一个set集合。</p>
+<h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><p>TreeSet是SortedSet接口的实现类，正如SortedSet名字所暗示的，TreeSet可以确保集合元素处于排序状态。此外，TreeSet还提供了几个额外的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">comparator():返回对此 set 中的元素进行排序的比较器；如果此 set 使用其元素的自然顺序，则返回null。</div><div class="line">first():返回此 set 中当前第一个（最低）元素。</div><div class="line">last(): 返回此 set 中当前最后一个（最高）元素。</div><div class="line">lower(E e):返回此 set 中严格小于给定元素的最大元素；如果不存在这样的元素，则返回 null。</div><div class="line">higher(E e):返回此 set 中严格大于给定元素的最小元素；如果不存在这样的元素，则返回 null。</div><div class="line">subSet(E fromElement, E toElement):返回此 set 的部分视图，其元素从 fromElement（包括）到 toElement（不包括）。</div><div class="line">headSet(E toElement):返回此 set 的部分视图，其元素小于toElement。</div><div class="line">tailSet(E fromElement):返回此 set 的部分视图，其元素大于等于 fromElement。</div></pre></td></tr></table></figure>
+<p>TreeSet支持两种排序方法：自然排序和定制排序。在默认情况下，TreeSet采用自然排序。</p>
+<ul>
+<li><p>自然排序</p>
+<p>Java提供了一个Comparable接口，该接口里定义了一个compareTo(Object obj)方法,该方法返回一个整数值，实现该接口的类必须实现该方法，实现了该接口的类的对象就可以比较大小了。当一个对象调用该方法与另一个对象比较时，例如obj1.compareTo(obj2),如果该方法返回0，则表明两个对象相等；如果该方法返回一个整数，则表明obj1大于obj2;如果该方法返回一个负整数，则表明oj1小于obj2。</p>
+<p>TreeSet会调用集合中元素所属类的compareTo(Object obj)方法来比较元素之间的大小关系，然后将集合元素按升序排列，即把通过compareTo(Object obj)方法比较后比较大的的往后排。这种方式就是自然排序。</p>
+<p>Java的一些常用类已经实现了Comparable接口，并提供了比较大小的标准。例如，String按字符串的UNICODE值进行比较，Integer等所有数值类型对应的包装类按它们的数值大小进行比较。<br>除了这些已经实现Comparable接口类之外，如果试图把一个对象添加到TreeSet时，则该对象的类必须实现Comparable接口，否则就会出现异常。<br><strong>注意：</strong>TreeSet中只能添加同一种类型的对象，否则无法比较，会出现异常。</p>
+</li>
+<li><p>定制排序</p>
+<p>TreeSet的自然排序是根据集合元素中compareTo(Object obj)比较的大小，以升序排列。</p>
+<p>该接口包含一个int compare(T o1,T o2)方法，该方法用于比较o1,o2的大小：如果该方法返回正整数，则表明o1大于o2；如果该方法返回0，则表明o1等于o2;如果该方法返回负整数，则表明o1小于o2。</p>
+<p><strong>注意</strong> 如果排序之后改变了TreeSet的值则他不会自动再次排序</p>
+<h5 id="TreeSet中判断集合元素相等"><a href="#TreeSet中判断集合元素相等" class="headerlink" title="TreeSet中判断集合元素相等"></a>TreeSet中判断集合元素相等</h5><p>对于TreeSet集合而言，判断两个对象是否相等的唯一标准是：两个对象通过compareTo(Object obj)方法比较是否返回0——如果通过compareTo(Object obj)方法比较返回0，TreeSet则会认为它们相等，不予添加入集合内；否则就认为它们不相等，添加到集合内。</p>
+</li>
+</ul>
+<h3 id="EnumSet"><a href="#EnumSet" class="headerlink" title="EnumSet"></a>EnumSet</h3><p>EnumSet是一个专为枚举类设计的集合类，EnumSet中的所有元素都必须是指定枚举类型的枚举值，该枚举类型在创建EnumSet时显示或隐式地指定。EnumSet的集合元素也是有序的，EnumSet以枚举值在EnumSet类内的定义顺序来决定集合元素的顺序。</p>
+<p>这个集合真的不咋常用，，他是线程不安全的。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://ox.xizero.com/uploads/2017/07/3985563_e7febf364d8d8235.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如图所示可以清楚的看到实现Collection接口的集合类。一目了然。&lt;/p&gt;
+&lt;h2 
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android四大组件-Broadcas</title>
+    <link href="http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Broadcas/"/>
+    <id>http://yoursite.com/2017/07/20/Android四大组件-Broadcas/</id>
+    <published>2017-07-20T09:37:54.000Z</published>
+    <updated>2017-07-20T10:15:10.873Z</updated>
+    
+    <content type="html"><![CDATA[<p>广播作为四大组件之一，平时我们也不少用到，广播广播，顾名思自然有发送者和接受者，广播作为Android组件之间的通讯方式，有如下五中使用场景</p>
+<ul>
+<li><p>同一app内部的同一组件内的消息通信（单个或多个线程之间）；</p>
+</li>
+<li><p>同一app内部的不同组件之间的消息通信（单个进程）；</p>
+</li>
+<li><p>同一app具有多个进程的不同组件之间的消息通信；</p>
+</li>
+<li><p>不同app之间的组件之间消息通信；</p>
+</li>
+<li><p>Android系统在特定情况下与App之间的消息通信。</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="BroadcastReceiver"><a href="#BroadcastReceiver" class="headerlink" title="BroadcastReceiver"></a>BroadcastReceiver</h3><p>我们自定义的BroadcastReceiver需要继承BroadcastReceiver这个抽象基类，并且实现抽象方法onReceive(context, intent)。这个方法也是运行在UI线程的，所以也不要在这个方法中作过多了耗时操作。。不然就ANR了。。</p>
+<p>例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class MyBroadcastReceiver   extends BroadcastReceiver&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onReceive(Context context, Intent intent) &#123;</div><div class="line">        Log.d(&quot;MyBroadcastReceiver:&quot;,intent.getStringExtra(&quot;name&quot;));</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>广播的注册类型分为两种，一种是静态注册一种是动态注册</p>
+<h3 id="动态注册"><a href="#动态注册" class="headerlink" title="动态注册"></a>动态注册</h3><p>动态注册时，无须在AndroidManifest中注册<receiver>组件。直接在代码中通过调用Context的registerReceiver函数，可以在程序中动态注册BroadcastReceiver。registerReceiver的定义形式如下：</receiver></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity  &#123;</div><div class="line">   private MyBroadcastReceiver receiver;</div><div class="line">    @Override</div><div class="line"></div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        IntentFilter intentFilter=new IntentFilter();</div><div class="line"></div><div class="line">        intentFilter.addAction(&quot;MyBroadcastReceiver&quot;);</div><div class="line">         receiver=new MyBroadcastReceiver();</div><div class="line"></div><div class="line">        registerReceiver(receiver,intentFilter);</div><div class="line">        Intent intent=new Intent();</div><div class="line">        intent.setAction(&quot;MyBroadcastReceiver&quot;);</div><div class="line">        intent.putExtra(&quot;name&quot;,&quot;name&quot;);</div><div class="line">        sendBroadcast(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">         unregisterReceiver(receiver);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class MyBroadcastReceiver   extends BroadcastReceiver&#123;</div><div class="line"></div><div class="line">      @Override</div><div class="line">      public void onReceive(Context context, Intent intent) &#123;</div><div class="line">          Log.d(&quot;MyBroadcastReceiver:&quot;,intent.getStringExtra(&quot;name&quot;));</div><div class="line"></div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当此Activity实例化时，会动态将MyBroadcastReceiver注册到系统中。当此Activity销毁时，动态注册的MyBroadcastReceiver将不再接收到相应的广播。</p>
+<p>切记一定要进行解绑定unregisterReceiver(mBroadcastReceiver)。</p>
+<h3 id="静态注册"><a href="#静态注册" class="headerlink" title="静态注册"></a>静态注册</h3><p>直接在配置文件AndroidManifest.xml进行注册。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;receiver android:enabled=[&quot;true&quot; | &quot;false&quot;]</div><div class="line">android:exported=[&quot;true&quot; | &quot;false&quot;]</div><div class="line">android:icon=&quot;drawable resource&quot;</div><div class="line">android:label=&quot;string resource&quot;</div><div class="line">android:name=&quot;string&quot;</div><div class="line">android:permission=&quot;string&quot;</div><div class="line">android:process=&quot;string&quot; &gt;</div><div class="line">. . .</div><div class="line">&lt;/receiver&gt;</div></pre></td></tr></table></figure>
+<p>其中，需要注意的属性<br>android:exported  ——此broadcastReceiver能否接收其他App的发出的广播，这个属性默认值有点意思，其默认值是由receiver中有无intent-filter决定的，如果有intent-filter，默认值为true，否则为false。（同样的，activity/service中的此属性默认值一样遵循此规则）同时，需要注意的是，这个值的设定是以application或者application user id为界的，而非进程为界（一个应用中可能含有多个进程）；<br>android:name  —— 此broadcastReceiver类名；<br>android:permission  ——如果设置，具有相应权限的广播发送方发送的广播才能被此broadcastReceiver所接收；<br>android:process  ——broadcastReceiver运行所处的进程。默认为app的进程。可以指定独立的进程（Android四大基本组件都可以通过此属性指定自己的独立进程）</p>
+<h3 id="广播的类型"><a href="#广播的类型" class="headerlink" title="广播的类型"></a>广播的类型</h3><ul>
+<li><p>Normal Broadcast：普通广播</p>
+<p>此处将普通广播界定为：开发者自己定义的intent，以context.sendBroadcast_”AsUser”(intent, …)形式。具体可以使用的方法有：<br>sendBroadcast(intent)/sendBroadcast(intent, receiverPermission)/sendBroadcastAsUser(intent, userHandler)/sendBroadcastAsUser(intent, userHandler,receiverPermission)。<br>普通广播会被注册了的相应的感兴趣（intent-filter匹配）接收，且顺序是无序的。如果发送广播时有相应的权限要求，BroadCastReceiver如果想要接收此广播，也需要有相应的权限。</p>
+</li>
+<li><p>System Broadcast: 系统广播</p>
+<p>Android系统中内置了多个系统广播，只要涉及到手机的基本操作，基本上都会发出相应的系统广播。如：开启启动，网络状态改变，拍照，屏幕关闭与开启，点亮不足等等。每个系统广播都具有特定的intent-filter，其中主要包括具体的action，系统广播发出后，将被相应的BroadcastReceiver接收。系统广播在系统内部当特定事件发生时，有系统自动发出。</p>
+</li>
+<li><p><strong>Ordered broadcast：有序广播</strong></p>
+<p>有序广播的有序广播中的“有序”是针对广播接收者而言的，指的是发送出去的广播被BroadcastReceiver按照先后循序接收。有序广播的定义过程与普通广播无异，只是其的主要发送方式变为：sendOrderedBroadcast(intent, receiverPermission, …)。</p>
+<p>对于有序广播，其主要特点总结如下：</p>
+<p>1&gt;多个具当前已经注册且有效的BroadcastReceiver接收有序广播时，是按照先后顺序接收的，先后顺序判定标准遵循为：将当前系统中所有有效的动态注册和静态注册的BroadcastReceiver按照priority属性值从大到小排序，对于具有相同的priority的动态广播和静态广播，动态广播会排在前面。</p>
+<p>2&gt;先接收的BroadcastReceiver可以对此有序广播进行截断，使后面的BroadcastReceiver不再接收到此广播，也可以对广播进行修改，使后面的BroadcastReceiver接收到广播后解析得到错误的参数值。当然，一般情况下，不建议对有序广播进行此类操作，尤其是针对系统中的有序广播。</p>
+</li>
+<li><p><strong>Sticky Broadcast：粘性广播(在 android 5.0/api 21中deprecated,不再推荐使用，相应的还有粘性有序广播，同样已经deprecated)。</strong></p>
+<p>既然已经deprecated，此处不再多做总结。</p>
+</li>
+<li><p><strong>Local Broadcast：App应用内广播（此处的App应用以App应用进程为界</strong></p>
+<p>由前文阐述可知，Android中的广播可以跨进程甚至跨App直接通信，且注册是exported对于有intent-filter的情况下默认值是true，由此将可能出现安全隐患如下：</p>
+<p>1.其他App可能会针对性的发出与当前App intent-filter相匹配的广播，由此导致当前App不断接收到广播并处理；</p>
+<p>2.其他App可以注册与当前App一致的intent-filter用于接收广播，获取广播具体信息。</p>
+<p>无论哪种情形，这些安全隐患都确实是存在的。由此，最常见的增加安全性的方案是：</p>
+<p>1.对于同一App内部发送和接收广播，将exported属性人为设置成false，使得非本App内部发出的此广播不被接收；</p>
+<p>2.在广播发送和接收时，都增加上相应的permission，用于权限验证；</p>
+<p>3.发送广播时，指定特定广播接收器所在的包名，具体是通过intent.setPackage(packageName)指定在，这样此广播将只会发送到此包中的App内与之相匹配的有效广播接收器中。</p>
+<p>App应用内广播可以理解成一种局部广播的形式，广播的发送者和接收者都同属于一个App。实际的业务需求中，App应用内广播确实可能需要用到。同时，之所以使用应用内广播时，而不是使用全局广播的形式，更多的考虑到的是Android广播机制中的安全性问题。</p>
+<p>相比于全局广播，App应用内广播优势体现在：</p>
+<p>1.安全性更高；</p>
+<p>2.更加高效。</p>
+<p>​</p>
+<p>1).对于静态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是ReceiverRestrictedContext；</p>
+<p>2).对于全局广播的动态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是Activity Context；</p>
+<p>3).对于通过LocalBroadcastManager动态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是Application Context。</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;广播作为四大组件之一，平时我们也不少用到，广播广播，顾名思自然有发送者和接受者，广播作为Android组件之间的通讯方式，有如下五中使用场景&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;同一app内部的同一组件内的消息通信（单个或多个线程之间）；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;同一
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android四大组件-Activity</title>
+    <link href="http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Activity/"/>
+    <id>http://yoursite.com/2017/07/20/Android四大组件-Activity/</id>
+    <published>2017-07-20T05:33:07.000Z</published>
+    <updated>2017-07-20T08:04:06.690Z</updated>
+    
+    <content type="html"><![CDATA[<p>Activity作为Android四大组件之一想必重要性不用多说。</p>
+<p>Activity可以理解为Android程序我们看到的界面都是承载在Activity上。</p>
+<h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="" alt="http://img.blog.csdn.net/20160717151833576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
+<p>  正常Activity的启动经历以下过程</p>
+<ul>
+<li><p>onCreat</p>
+<p>Activity的创建，做一切初始化的操作，这个时候Activity还不可见。</p>
+</li>
+<li><p>onStart</p>
+<p>Activity已经展现在前台页面，但是还是不可以交互。</p>
+</li>
+<li><p>onResume</p>
+<p>Activity可见，并且可以交互。可以做一些onPause或者onStop释放资源的的回收操作</p>
+</li>
+<li><p>Activity进入运行状态</p>
+</li>
+<li><p>onPause</p>
+<p>Activity进入后台之前可见的时候做一些回收工作，只有当前Activity的onpause方法执行完事之后下个Activity的onResume方法才会执行</p>
+</li>
+<li><p>onStop</p>
+<p>Activity不可见。回收操作，不能太过于耗时。</p>
+</li>
+<li><p>onDestory</p>
+<p>Activity销毁，可以做一些大量的回收操作</p>
+<p>​</p>
+</li>
+</ul>
+<p>如果ACtivity在进入onStop方法后未被销毁，而又被展现到前台页面则会调用onRestart()方法</p>
+<p>onCreate的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中savedInstanceState是一个Bundle类型的参数，会在onPause()或onStop()之前执行，在她和map差不多，都是键值对形式，我们可以在Activity快被销毁的时候储存一些东西</p>
+<p>调用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onSaveInstanceState(Bundle outState) &#123;</div><div class="line">    super.onSaveInstanceState(outState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里进行存储。</p>
+<p>onRestoreInstanceState</p>
+<p>这个方法会在Activity真正被销毁的时候才会执行。比如按下bcak键。</p>
+<h3 id="Activity的四种LaunchMode"><a href="#Activity的四种LaunchMode" class="headerlink" title="Activity的四种LaunchMode"></a>Activity的四种LaunchMode</h3><ul>
+<li>standard 模式</li>
+</ul>
+<p>这是默认模式，每次激活Activity时都会创建Activity实例，并放入任务栈中。使用场景：大多数Activity。</p>
+<ul>
+<li>singleTop 模式</li>
+</ul>
+<p>如果在任务的栈顶正好存在该Activity的实例，就重用该实例( 会调用实例的 onNewIntent() )，否则就会创建新的实例并放入栈顶，即使栈中已经存在该Activity的实例，只要不在栈顶，都会创建新的实例。使用场景如新闻类或者阅读类App的内容页面。</p>
+<ul>
+<li>singleTask 模式</li>
+</ul>
+<p>如果在栈中已经有该Activity的实例，就重用该实例(会调用实例的 onNewIntent() )。重用时，会让该实例回到栈顶，因此在它上面的实例将会被移出栈。如果栈中不存在该实例，将会创建新的实例放入栈中。使用场景如浏览器的主界面。不管从多少个应用启动浏览器，只会启动主界面一次，其余情况都会走onNewIntent，并且会清空主界面上面的其他页面。</p>
+<ul>
+<li>singleInstance 模式</li>
+</ul>
+<p>在一个新栈中创建该Activity的实例，并让多个应用共享该栈中的该Activity实例。一旦该模式的Activity实例已经存在于某个栈中，任何应用再激活该Activity时都会重用该栈中的实例( 会调用实例的 onNewIntent() )。其效果相当于多个应用共享一个应用，不管谁激活该 Activity 都会进入同一个应用中。使用场景如闹铃提醒，将闹铃提醒与闹铃设置分离。singleInstance不要用于中间页面，如果用于中间页面，跳转会有问题，比如：A -&gt; B (singleInstance) -&gt; C，完全退出后，在此启动，首先打开的是B。</p>
+<p>如何判断一个Activity加载完毕。使用onResume方法？  错。。这个不知道为啥就是错误的，</p>
+<p>因为之前做过一个播放器，里面的mediaController是一个自定义的Popuwindow，需要加载玩Activity就显示，但是我放在onResume里面总是报错，显示窗口泄露，找不到Activity于是高了半天才发现这个方法。这个方法表示Activity加载完毕，可以做一些加载完毕就做得事情，如popuwindow的展示，测量加载完毕的View长度，如果在其他方法里面测量的话会导致长度错误或者为0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onConfigurationChanged(Configuration newConfig) &#123;</div><div class="line">    super.onConfigurationChanged(newConfig);</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个方法是屏幕的旋转。当屏幕旋转的时候可以在这个方法进行操作。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Activity作为Android四大组件之一想必重要性不用多说。&lt;/p&gt;
+&lt;p&gt;Activity可以理解为Android程序我们看到的界面都是承载在Activity上。&lt;/p&gt;
+&lt;h3 id=&quot;Activity的生命周期&quot;&gt;&lt;a href=&quot;#Activity的生命周期&quot;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JAVA FIle的排序</title>
+    <link href="http://yoursite.com/2017/07/19/JAVA-FIle%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%9C%E8%A5%BF/"/>
+    <id>http://yoursite.com/2017/07/19/JAVA-FIle的一些东西/</id>
+    <published>2017-07-19T06:27:56.000Z</published>
+    <updated>2017-07-19T06:55:01.402Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前搞了一个Android 的播放器，里面涉及到了好多关于java file文件的东西。</p>
+<p>其中就有一个关于file的排序问题。</p>
+<p>自己天真的以为用TreeSet就可以了。。但是发现是可以了，但是他是分大小写的，我们平常都是不分大小写的，所以自己鼓捣了一会发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Collections.sort();</div><div class="line">这个方法</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">private List&lt;File&gt; sortFileList(List&lt;File&gt; list) &#123;</div><div class="line"></div><div class="line">        Collections.sort(list, new Comparator&lt;File&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public int compare(File o1, File o2) &#123;</div><div class="line">                if (o1.isDirectory() &amp;&amp; o2.isFile())</div><div class="line">                    return -1;</div><div class="line">                if (o1.isFile() &amp;&amp; o2.isDirectory())</div><div class="line">                    return 1;</div><div class="line">                return o1.getName().compareToIgnoreCase(o2.getName());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        return list;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>实现 Comparator接口。就可以实现排序了</p>
+<p>同样对于filelist这个方法也有一个FileFilter的接口传入，比如一些隐藏文件我们可以直接让他不显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">file.listFiles(new FileFilter() &#123;</div><div class="line">    @Override</div><div class="line">    public boolean accept(File pathname) &#123;</div><div class="line">     if(pathname.getName().startsWith(&quot;.&quot;))&#123;</div><div class="line">       </div><div class="line">               return false;</div><div class="line"></div><div class="line">     &#125;else&#123;</div><div class="line">               return true;</div><div class="line"></div><div class="line">     &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这样就可以了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前搞了一个Android 的播放器，里面涉及到了好多关于java file文件的东西。&lt;/p&gt;
+&lt;p&gt;其中就有一个关于file的排序问题。&lt;/p&gt;
+&lt;p&gt;自己天真的以为用TreeSet就可以了。。但是发现是可以了，但是他是分大小写的，我们平常都是不分大小写的，所以自己鼓捣
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>测试</title>
+    <link href="http://yoursite.com/2017/07/15/%E6%B5%8B%E8%AF%95/"/>
+    <id>http://yoursite.com/2017/07/15/测试/</id>
+    <published>2017-07-15T08:56:43.000Z</published>
+    <updated>2017-07-15T09:02:05.359Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android性能优化</title>
+    <link href="http://yoursite.com/2017/05/11/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    <id>http://yoursite.com/2017/05/11/Android性能优化/</id>
+    <published>2017-05-11T05:43:34.000Z</published>
+    <updated>2017-05-11T10:11:17.196Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="布局优化"><a href="#布局优化" class="headerlink" title="布局优化"></a>布局优化</h3><p>尽量少用嵌套，能用linearLayout和frameLayout解决最好不要用RelativeLayout。</p>
+<p>因为view的绘制会花更多的时间。</p>
+<p>使用 <include> <merge>和ViewStub </merge></include></p>
+<ul>
+<li><p><include> 不用多说，大家应该很熟悉，可以指定一个布局文件到当前布局中，比如toolbar的设置，很多的app 中activity的toolbar都是相同的，没必要每个都写，这个标签是可以有id 的，并且可以设置宽高。其他的不行</include></p>
+</li>
+<li><p><merge> 它一般和<include>标签一起使用用来减少布局的层数</include></merge></p>
+</li>
+<li><p>ViewStub</p>
+<p>他继承于view，并且非常轻量级，宽高都是0，所以它本身不参与绘制过程。它的意义在于在需要的时候加载所需的布局文件。比如一些隐藏的布局，在需要的时候显示！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ViewStub   </div><div class="line">    android:inflateId=&quot;@id/inflateid&quot;</div><div class="line">    android:id=&quot;@+id/viewstub_demo_image&quot;  </div><div class="line">    android:layout_width=&quot;wrap_content&quot;  </div><div class="line">    android:layout_height=&quot;wrap_content&quot;  </div><div class="line">    android:layout_marginLeft=&quot;5dip&quot;  </div><div class="line">    android:layout_marginRight=&quot;5dip&quot;  </div><div class="line">    android:layout=&quot;@layout/viewstub_demo_image_layout&quot;/&gt;</div></pre></td></tr></table></figure>
+<p>inflateid是加载布局的根元素的id，viewstub_demo_image是viewStub的id，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">((viewstub)findviewbyId(R.id.viewstub_demo_image)).setVisibility(View.Visible);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">View myview=((ViewStub)findViewById(R.id.viewstub_demo_image)).infalte();</div></pre></td></tr></table></figure>
+<p>这时候布局会被替换掉，但是目前Viewstub不支持<merge>标签</merge></p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="绘制优化"><a href="#绘制优化" class="headerlink" title="绘制优化"></a>绘制优化</h3><p> 尽量不要在onDraw方法中进行大量的运算，循环，创建性的布局对象（会频繁调用onDraw方法）</p>
+<h3 id="内存泄漏优化"><a href="#内存泄漏优化" class="headerlink" title="内存泄漏优化"></a>内存泄漏优化</h3><p>不要让静态变量持有禁用activity，会导致activity无法被销毁。或者progressDialog</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">private static ProgressDialog dialog;</div><div class="line"></div><div class="line">   dialog=new ProgressDialog(this);</div></pre></td></tr></table></figure>
+<p>这个this也对activity有引用，所以无法被销毁。</p>
+<p>单利对象— 因为单例模式的对象适合applicantion的生命周期是一样的，所以当有时候我们不去解除绑定的话，activity会一直持有这个单例对象，会导致无法被销毁</p>
+<p>属性动画在activity被销毁时要调用 animator.cancle()方法</p>
+<p>不要在主线程中去做过多复杂的操作，这些都尽量去异步的放在子线程中去执行。 不然很容易anr，如果产生anr 系统会在/data/anr 目录下创建一个traces.txt文件。通过分析这个文件我们就能分析出ANR产生的原因。</p>
+<h3 id="Listview"><a href="#Listview" class="headerlink" title="Listview"></a>Listview</h3><p>不要在getView方法中进行耗时操作。或者开启大量的异步任务。可以尝试开启硬件加速。和使用viewHolder减少findviewById方法。或者监听话筒状态比如，滑动的时候不要加载图片。分页加载等</p>
+<h3 id="线程的优化"><a href="#线程的优化" class="headerlink" title="线程的优化"></a>线程的优化</h3><p>尽量使用线程池，避免程序中存在大量的THread。线程池可以重用内部的线程，避免了创建和销毁的开销。而且还可以控制线程的最大并发数。避免线程强占系统资源导致阻塞。</p>
+<h3 id="杂七杂八"><a href="#杂七杂八" class="headerlink" title="杂七杂八"></a>杂七杂八</h3><p>不要创建过多的对象，不重要的对象可以使用 软引用和弱引用</p>
+<p>不要使用枚举</p>
+<p>常量使用 static final修饰</p>
+<p>使用Android 特有的数据结构。 SparesArray 和Pair等</p>
+<p>缓存采用三级缓存，内存，磁盘，网络</p>
+<p>使用静态内部类，不然由于内部类对外存在持有，导致外部类不会被销毁</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;布局优化&quot;&gt;&lt;a href=&quot;#布局优化&quot; class=&quot;headerlink&quot; title=&quot;布局优化&quot;&gt;&lt;/a&gt;布局优化&lt;/h3&gt;&lt;p&gt;尽量少用嵌套，能用linearLayout和frameLayout解决最好不要用RelativeLayout。&lt;/p&gt;
+&lt;p
+    
+    </summary>
+    
+    
+      <category term="性能优化" scheme="http://yoursite.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图片缓存与bitmap的加载</title>
+    <link href="http://yoursite.com/2017/05/07/%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98%E4%B8%8Ebitmap%E7%9A%84%E5%8A%A0%E8%BD%BD/"/>
+    <id>http://yoursite.com/2017/05/07/图片缓存与bitmap的加载/</id>
+    <published>2017-05-07T07:08:45.000Z</published>
+    <updated>2017-05-07T11:24:16.581Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="图片" scheme="http://yoursite.com/tags/%E5%9B%BE%E7%89%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>drawable</title>
+    <link href="http://yoursite.com/2017/05/04/drawable/"/>
+    <id>http://yoursite.com/2017/05/04/drawable/</id>
+    <published>2017-05-04T10:36:52.000Z</published>
+    <updated>2017-05-04T12:25:49.502Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="drawable"><a href="#drawable" class="headerlink" title="drawable"></a>drawable</h3><p>他是一个图像的概念，不完全是指图片，一般是通过xml文件定义，她是一个抽象类，有着非常多的子类，子类都是直接继承它。</p>
+<ul>
+<li><p>bitmapdrawable</p>
+<p>代表一张图片.</p>
+<p>xml 属性有几个比较常用</p>
+<ul>
+<li><p>src —代表资源id</p>
+</li>
+<li><p>antialias —抗锯齿（开）</p>
+</li>
+<li><p>dither—抖动效果（开）开启会更好的适配</p>
+</li>
+<li><p>filter —在拉伸等情况下可以更好的显示（开启）</p>
+</li>
+<li><p>gravity—当图片小于容器的时候选择的属性 有很多</p>
+</li>
+<li><p>mipMap— 一种文理映射，不常用</p>
+</li>
+<li><p>titleMode—平铺模式</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>ShapeDrawable</p>
+<p>非常常见的drawable</p>
+<ul>
+<li><p>shape :有四个属性</p>
+<ul>
+<li><p>rectangle：矩形</p>
+</li>
+<li><p>oval：椭圆</p>
+</li>
+<li><p>line ：横线</p>
+</li>
+<li><p>ring ：圆环</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>corners :表示shape四个角的角度。只适用于矩形</p>
+<ul>
+<li><p>radius：四个角的角度，优先度低，会被其它属性覆盖</p>
+</li>
+<li><p>topLeftRadius：左上角</p>
+</li>
+<li><p>topRightRadius:右上角</p>
+</li>
+<li><p>bottomLeftRadius：左下角</p>
+</li>
+<li><p>bottomRightRadius：右下角</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>gradient 和solid 互斥，表示渐变，而solid表示纯色填充</p>
+<ul>
+<li><p>angle :渐变的角度，默认为0,值必须是45的倍数，0表示从左到右，90表示从上到下</p>
+</li>
+<li><p>centerX：渐变的中心横坐标</p>
+</li>
+<li><p>centerY：渐变中心的纵坐标</p>
+</li>
+<li><p>startColor：渐变变的起始颜色</p>
+</li>
+<li><p>centerColor：渐变的中间色</p>
+</li>
+<li><p>endColor：渐变的结束颜色</p>
+</li>
+<li><p>gradientRadius：渐变半径</p>
+</li>
+<li><p>useLevel：一半为false，当drawable作为statelistDrawable的时候为true</p>
+</li>
+<li><p>type：渐变类别，linear（线性）radoal（径向渐变）sweep（扫描渐变）</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>solid:填充的颜色，全色填充</p>
+</li>
+<li><p>stroke:shape的描边</p>
+<ul>
+<li><p>width:描边的宽度</p>
+</li>
+<li><p>color：描边的颜色</p>
+</li>
+<li><p>dashWidth：虚线的线段宽度</p>
+</li>
+<li><p>dashGap：虚线的线段之间的间隔</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>padding 表示空白，表示包含它的view的空白</p>
+</li>
+<li><p>size shape的大小</p>
+<p>​</p>
+</li>
+</ul>
+<ul>
+<li><p>LayerDrawable 层次化的drawable集合，标签为<layer-list> ,通过item实现叠加效果</layer-list></p>
+</li>
+<li><p>StateListDrawable <selector>标签，表示Drawable集合，每个drawable对应着view的一种状态</selector></p>
+<p>比如button的点击等等</p>
+<p>view的常见状态</p>
+<ul>
+<li><p>state_pressed，表示按下的状态，比如button被按下，但是没有松开</p>
+</li>
+<li><p>state_focused ,表示view获取了焦点</p>
+</li>
+<li><p>state_selected,表示选择了view</p>
+</li>
+<li><p>state_checked,表示用户选中的view 一般在checkbox</p>
+</li>
+<li><p>state_enabled,表示view处于可用状态</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>TransitionDrawable <transition>  用于实现两个Drawable之间的淡入淡出效果</transition></p>
+</li>
+<li><p>insetDrawable <insert> 可以将其他Drawable内嵌到自己当中并且可以在四周留出间距</insert></p>
+<p>当自己的drawable需要和实际的view有大小区别的时候</p>
+</li>
+<li><p>scale 根据自己等级 level将指定的Drawable缩放到一定的比例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;   </div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;   </div><div class="line">&lt;scale     </div><div class="line">    android:interpolator= &quot;@android:anim/decelerate_interpolator&quot;         </div><div class="line">    android:fromXScale=&quot;0.0&quot;     </div><div class="line">    android:toXScale=&quot;1.5&quot;     </div><div class="line">    android:fromYScale=&quot;0.0&quot;     </div><div class="line">    android:toYScale=&quot;1.5&quot;     </div><div class="line">    android:pivotX=&quot;50%&quot;     </div><div class="line">    android:pivotY=&quot;50%&quot;     </div><div class="line">    android:startOffset=&quot;0&quot;     </div><div class="line">    android:duration=&quot;10000&quot;    </div><div class="line">    android:repeatCount=&quot;1&quot;     </div><div class="line">    android:repeatMode=&quot;reverse&quot;  /&gt;   </div><div class="line">&lt;/set&gt;   </div><div class="line">  </div><div class="line">&lt;!--    </div><div class="line">fromXDelta,fromYDelta       起始时X，Y座标,屏幕右下角的座标是X:320,Y:480   </div><div class="line">toXDelta， toYDelta      动画结束时X,Y的座标 --&gt; &lt;!--    </div><div class="line">interpolator                    指定动画插入器  </div><div class="line">常见的有加速减速插入器         accelerate_decelerate_interpolator  </div><div class="line">加速插入器               accelerate_interpolator，  </div><div class="line">减速插入器               decelerate_interpolator。   </div><div class="line">fromXScale,fromYScale，         动画开始前X,Y的缩放，0.0为不显示，  1.0为正常大小  </div><div class="line">toXScale，toYScale，          动画最终缩放的倍数， 1.0为正常大小，大于1.0放大  </div><div class="line">pivotX，  pivotY         动画起始位置，相对于屏幕的百分比,两个都为50%表示动画从屏幕中间开始   </div><div class="line">startOffset，                动画多次执行的间隔时间，如果只执行一次，执行前会暂停这段时间，  </div><div class="line">                    单位毫秒 duration，一次动画效果消耗的时间，单位毫秒，  </div><div class="line">                    值越小动画速度越快 repeatCount，动画重复的计数，动画将会执行该值+1次   </div><div class="line">                    repeatMode，动画重复的模式，reverse为反向，当第偶次执行时，动画方向会相反。  </div><div class="line">                    restart为重新执行，方向不变 --&gt;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>CliPDrawable <clip> 可以通过自己等级来剪裁另一个Drawable</clip></p>
+<p>clipOrientation表示剪裁的方向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">testClipDrawable.setLevel(3000)</div></pre></td></tr></table></figure>
+<p>level 为0-10000 ，例如3000表示剪裁了30%；</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;drawable&quot;&gt;&lt;a href=&quot;#drawable&quot; class=&quot;headerlink&quot; title=&quot;drawable&quot;&gt;&lt;/a&gt;drawable&lt;/h3&gt;&lt;p&gt;他是一个图像的概念，不完全是指图片，一般是通过xml文件定义，她是一个抽象类，有着非常多的子
+    
+    </summary>
+    
+    
+      <category term="drawable" scheme="http://yoursite.com/tags/drawable/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>view的工作原理</title>
+    <link href="http://yoursite.com/2017/05/02/view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
+    <id>http://yoursite.com/2017/05/02/view的工作原理/</id>
+    <published>2017-05-02T04:00:35.000Z</published>
+    <updated>2017-05-02T06:02:37.952Z</updated>
+    
+    <content type="html"><![CDATA[<p>ViewRoot是对应ViewRootImpl类，他是连接windowmangager和DecorView的纽带。</p>
+<p>view的三大绘制流程都是从viewroot开始的，在ActivityThread中，activity对象被创建完成后，会把decorview添加到window中。同时创建vIewrootImpl对象。</p>
+<p>view的绘制从viewroot的performTraversals方法开始分别对应 measure，layout，和draw，分别对应</p>
+<ul>
+<li><p>测量宽高</p>
+</li>
+<li><p>确定view在父容器中的位置</p>
+</li>
+<li><p>绘制</p>
+<p>​</p>
+</li>
+</ul>
+<p>performTraversals会依次调用perfromMeasure，performLayout,performDraw 方法，这三个方法会完成顶级view的 三个绘制过程，其中的performMeasure会调用measure ，然后再调用onmeasure</p>
+<p>然后再onmeasure方法中会继续对子view进行measure过程，这样就遍历了整个view树。</p>
+<p>其他两个方法也是类似</p>
+<p>DecorView作为顶级的view其实包含一个linearlayout，分为两个部分，一个titlebar和content，所以我们的oncreate方法中是setcontentview而不是setview</p>
+<h1 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h1><p>measureSpec会根据view的layoutparams和父容器施加的规则转换而来</p>
+<p>MeasureSpec是一个32位的int值，前两位代表测量模式SpecMode，后面代代表SpecSize测量大小</p>
+<p>SpecMode分为三种</p>
+<ul>
+<li><p>UNSPECIFIED 父容器对view的宽高没有任何的限制，要多打给多大，一般出现在系统内部</p>
+</li>
+<li><p>EXACTLY 精确大小，表示view的大小就是spceSize， 如match_parent，或者精确的一个数值</p>
+</li>
+<li><p>AT_MOST 父容器给顶了一个大小，view的大小不能超过它，比如wrap_contet</p>
+<p>​</p>
+</li>
+</ul>
+<p>最顶级的view decorview的大小是由他自己的layoutparams和窗口的尺寸决定，而其他的view都是父容器的规则和自身的layoutparams决定。</p>
+<p>MeasureSpec一旦确定后 onMeasure就可以确定view的最终宽高</p>
+<p>padding代表父容器已经占用的大小，所以实际可用大小为父容器大小减去padding。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int size=Math.max(0,specSize-padding);</div></pre></td></tr></table></figure>
+<h1 id="view的工作流程"><a href="#view的工作流程" class="headerlink" title="view的工作流程"></a>view的工作流程</h1><p>———–Measure————layout———–draw</p>
+<h3 id="measure"><a href="#measure" class="headerlink" title="measure"></a>measure</h3><p>如果是viewgroup则除了测量自己的大小，还要去遍历调用字view 的measure的方法如果是view则只调用measure</p>
+<p>view的measure方法是一个final方法，不能被重写而在measrue方法中会调用onMseasure方法。</p>
+<h5 id="viewgroup的measure过程"><a href="#viewgroup的measure过程" class="headerlink" title="viewgroup的measure过程"></a>viewgroup的measure过程</h5><p>viewgroup是抽象类没有实现onMeasure，但是有一个measureChildren方法。</p>
+<p>之所以它没有实现测量方法，是因为他需要子类去实现这个方法如linearlayout等，因为每个的布局特性导致他们的测量方法不同。</p>
+<p>记住 view的onMeasure过程不是和acitvity同步的，所以在oncreate和onstart或者onresume中无法获取到真正的宽高</p>
+<p>所以要使用如下方法调用是比较正确的</p>
+<ul>
+<li>通过onWindowFocusChanged方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public void onWindowFocusChanged(boolean hasFocus)&#123;</div><div class="line">  surper.onWindowFocusChanged(hasFocus);</div><div class="line">  if(hasFocus)&#123;</div><div class="line">    int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>通过view.post方法</p>
+<p>post一个runable投入到消息队列，然后等待Looper调用runable的时候view已经初始化好了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">view.post(new runable()&#123;</div><div class="line">  @Override</div><div class="line">  public void run()&#123;</div><div class="line">  </div><div class="line">  // 获取宽高</div><div class="line">   int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>通过ViewTreeObserver的回调方法</p>
+</li>
+<li><p>通过view.measure(int WidthMeasureSpec,int HeightMeasureSpec)</p>
+<p> match_parent  直接放弃，无法获取</p>
+<p>具体的数值 </p>
+</li>
+</ul>
+<p>​        warp_content</p>
+<h3 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h3><p>ViewGroup调用layout方法确定自己的位置，当自己的位置确定后他会调用onlayout方法遍历子元素的laout方法，然后子元素在去调用layout方法 </p>
+<p>layout方法确定本身的位置，onlayout确定子元素的位置</p>
+<p>layout方法会通过 setfrme 确定view的四个顶点位置mLeft，mRight,mTop,mbottom.四个点确定了位置也就确定了然后调用onlayout方法 ，它和onmeasure方法一样，viewgroup没有具体的实现，</p>
+<h3 id="draw"><a href="#draw" class="headerlink" title="draw"></a>draw</h3><p>draw的过程遵循四步骤</p>
+<ul>
+<li><p>绘制背景</p>
+</li>
+<li><p>绘制自己（onDraw）</p>
+</li>
+<li><p>绘制children（dispatchDraw）</p>
+</li>
+<li><p>绘制装饰（onDrawScrollBars）</p>
+</li>
+</ul>
+<p>View的特殊方法 ——–setWillNotDraw</p>
+<p>表示一个view如果不需要绘制则可以设置为ture，这样系统会进行优化。viewgroup会默认的开启这个方法，如果我们的自定义view需要onDraw方法来绘制东西，则我们需要关闭这个方法</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ViewRoot是对应ViewRootImpl类，他是连接windowmangager和DecorView的纽带。&lt;/p&gt;
+&lt;p&gt;view的三大绘制流程都是从viewroot开始的，在ActivityThread中，activity对象被创建完成后，会把decorview添
+    
+    </summary>
+    
+    
+      <category term="view" scheme="http://yoursite.com/tags/view/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>希尔排序</title>
+    <link href="http://yoursite.com/2017/04/28/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/"/>
+    <id>http://yoursite.com/2017/04/28/希尔排序/</id>
+    <published>2017-04-28T10:51:28.000Z</published>
+    <updated>2017-04-29T04:23:00.931Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">static void xier()&#123;</div><div class="line">    int i,j,h,v;</div><div class="line">    for (h=1;h==test.length/9;h=h*3+1);</div><div class="line">    for (;h&gt;0;h=h/3)&#123;</div><div class="line">       for (i=h+1;i==test.length;i+=1)&#123;</div><div class="line"></div><div class="line">           v=test[i];</div><div class="line">           j=i;</div><div class="line">           while (j&gt;h&amp;&amp;test[j-h]&gt;v)</div><div class="line">           &#123;</div><div class="line">               test[j]=test[j-h];</div><div class="line">                j-=h;</div><div class="line"></div><div class="line">           &#125;</div><div class="line">           test[j]=v;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过设置一个间距在可以在较远的距离进行位置交换，并且不断缩小这个间距知道距离变为1，这个时候的数组已经变得基本有序，最后的一次排序也就成为了插入排序，但是因为数组有序度高所以耗时短、</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
+    
+    </summary>
+    
+    
+      <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>排序（冒泡排序，插入排序）</title>
+    <link href="http://yoursite.com/2017/04/28/%E6%8E%92%E5%BA%8F%EF%BC%88%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%89/"/>
+    <id>http://yoursite.com/2017/04/28/排序（冒泡排序，插入排序）/</id>
+    <published>2017-04-28T10:44:03.000Z</published>
+    <updated>2017-04-28T10:49:33.922Z</updated>
+    
+    <content type="html"><![CDATA[<p>最常见也是最简单的冒泡排序时间复杂度0（n^2）;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">for (int i = 0; i &lt; test.length-1; i++) &#123;</div><div class="line">    for (int j = i+1; j &lt; test.length; j++) &#123;</div><div class="line">        if (test[j] &lt; test[i]) &#123;</div><div class="line">            int temp = test[j];</div><div class="line">            test[j] = test[i];</div><div class="line">            test[i] = temp;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>插入排序；</p>
+<p>数据量较小时速度很快。</p>
+<p>进行局部排序，一部分一部分来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">private   static  void charu()</div><div class="line"> &#123;</div><div class="line">     int v ,j;</div><div class="line"></div><div class="line">     for (int i=1;i&lt;test.length;i++)&#123;</div><div class="line"></div><div class="line">         v=test[i];</div><div class="line">         j=i;</div><div class="line">         while (test[j-1]&gt;v&amp;&amp;j&gt;=1)&#123;</div><div class="line">             test[j]=test[j-1];</div><div class="line">             j--;</div><div class="line">         &#125;</div><div class="line">         test[j]=v;</div><div class="line"></div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最常见也是最简单的冒泡排序时间复杂度0（n^2）;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;lin
+    
+    </summary>
+    
+    
+      <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+</feed>
