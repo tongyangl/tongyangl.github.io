@@ -15,17 +15,19 @@
 
 
 
-<meta name="description" content="学了这么久安卓，忽然发现自己会的太少了，于是在ｖ２ｅｘ上求助，偶然发现好心人推荐的一个博客非常不错，里面总结了很多关于安卓学习用到的东西，今天在这跟大家分享下。 1http://www.jianshu.com/p/af2de05aadff">
+<meta name="description" content="开发过程中难免会遇到一些需要自己自定义的view 他可能直接继承某个控件如textview，button等 也可能继承view。 学了这么久安卓，今天终于闲下来搞了搞自定义view。。先从最简单的来我们直接继承view 画一个圆 我们要重写onDraw的方法，就要了解下这三个东西 Paint ，Canvas，和draw">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安卓学习路线">
-<meta property="og:url" content="http://yoursite.com/2017/03/28/安卓学习路线/index.html">
+<meta property="og:title" content="自定义View">
+<meta property="og:url" content="http://yoursite.com/2017/01/14/自定义View/index.html">
 <meta property="og:site_name" content="Tong Yang&#39;s Blog">
-<meta property="og:description" content="学了这么久安卓，忽然发现自己会的太少了，于是在ｖ２ｅｘ上求助，偶然发现好心人推荐的一个博客非常不错，里面总结了很多关于安卓学习用到的东西，今天在这跟大家分享下。 1http://www.jianshu.com/p/af2de05aadff">
-<meta property="og:updated_time" content="2017-03-28T11:06:20.496Z">
+<meta property="og:description" content="开发过程中难免会遇到一些需要自己自定义的view 他可能直接继承某个控件如textview，button等 也可能继承view。 学了这么久安卓，今天终于闲下来搞了搞自定义view。。先从最简单的来我们直接继承view 画一个圆 我们要重写onDraw的方法，就要了解下这三个东西 Paint ，Canvas，和draw">
+<meta property="og:image" content="http://i1.piimg.com/567571/75d01825255aa982.png">
+<meta property="og:updated_time" content="2017-08-14T09:02:00.338Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安卓学习路线">
-<meta name="twitter:description" content="学了这么久安卓，忽然发现自己会的太少了，于是在ｖ２ｅｘ上求助，偶然发现好心人推荐的一个博客非常不错，里面总结了很多关于安卓学习用到的东西，今天在这跟大家分享下。 1http://www.jianshu.com/p/af2de05aadff">
+<meta name="twitter:title" content="自定义View">
+<meta name="twitter:description" content="开发过程中难免会遇到一些需要自己自定义的view 他可能直接继承某个控件如textview，button等 也可能继承view。 学了这么久安卓，今天终于闲下来搞了搞自定义view。。先从最简单的来我们直接继承view 画一个圆 我们要重写onDraw的方法，就要了解下这三个东西 Paint ，Canvas，和draw">
+<meta name="twitter:image" content="http://i1.piimg.com/567571/75d01825255aa982.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>安卓学习路线 | Tong Yang&#39;s Blog</title>
+<title>自定义View | Tong Yang&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -240,11 +242,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="article-安卓学习路线" class="article article-type-article" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="article-自定义View" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/28/安卓学习路线/" class="article-date">
-      <time datetime="2017-03-28T11:05:59.000Z" itemprop="datePublished">2017-03-28</time>
+      <a href="/2017/01/14/自定义View/" class="article-date">
+      <time datetime="2017-01-14T09:00:32.000Z" itemprop="datePublished">2017-01-14</time>
 </a>
 
 
@@ -259,7 +261,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      安卓学习路线
+      自定义View
     </h1>
   
 
@@ -267,6 +269,10 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
 
         
     <div class="article-tag tagcloud">
@@ -280,8 +286,73 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>学了这么久安卓，忽然发现自己会的太少了，于是在ｖ２ｅｘ上求助，偶然发现好心人推荐的一个博客非常不错，里面总结了很多关于安卓学习用到的东西，今天在这跟大家分享下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.jianshu.com/p/af2de05aadff</div></pre></td></tr></table></figure>
+        <h3 id="自定义view"><a href="#自定义view" class="headerlink" title="自定义view"></a>自定义view</h3><ul>
+<li><p>Paint就相当于画笔，有着颜色等属性。</p>
+<ul>
+<li>setARGB/setColor 设置颜色</li>
+<li>setAlpha 设置透明度</li>
+<li>setAntiAlias 设置是否抗锯齿</li>
+<li>setShader 设置画笔的填充效果</li>
+<li>setShadowLayer 设置阴影</li>
+<li>setStyle 设置画笔风格</li>
+<li>setStrokeWidth 设置空心边框的宽度</li>
+<li>setTextSize 设置绘制文本时文字的大小</li>
+<li>setStrokeCap(Paint.Cap.ROUND) 设置为圆角</li>
+</ul>
+</li>
+<li><p>Canvas就相当于画板或者画纸。有着宽高等属性</p>
+</li>
+<li><p>draw则相当于画的动作比如画个正方形等。</p>
+<ul>
+<li>drawArc 绘制弧</li>
+<li>drawBitmap 绘制位图</li>
+<li>drawCircle 绘制圆形</li>
+<li>drawLine 绘制线</li>
+<li>drawOval 绘制椭圆</li>
+<li>drawPath 绘制路径</li>
+<li>drawPoint 绘制一个点</li>
+<li>drawPoints 绘制多个点</li>
+<li>drawRect 绘制矩形</li>
+<li>drawRoundRect 绘制圆角矩形</li>
+<li>drawText 绘制字符串</li>
+<li>drawTextOnPath 沿着路径绘制字符串</li>
+</ul>
+<p>这些都是draw的一些方法，记住一些常见的就好了，都是英文，很好记，毕竟as的代码提示</p>
+<p>​</p>
+</li>
+</ul>
+<p>好了，我们先从自己画一个圆开始，首先自己写一个MyView的类继承View</p>
+<p>记得三个构造方法！</p>
+<p>然后再onDraw方法里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mPaint = new Paint();</div><div class="line">      mPaint.setAntiAlias(true);//去掉锯齿</div><div class="line">      mPaint.setColor(color);设置画笔的颜色</div><div class="line">      canvas.drawCircle(length, length, length, mPaint); 设置圆的大小</div></pre></td></tr></table></figure>
+<p>这样我们在自己lyout文件里用上自己自定义view就可以出现了！</p>
+<p><img src="http://i1.piimg.com/567571/75d01825255aa982.png" alt=""></p>
+<p>怎么样，很简单吧！ 具体的正方形啥的就不一一去试了</p>
+<p>什么？颜色和大小都是写死的。。 嗯，别人的都是可以自定义大小等属性的。于是研究了一下</p>
+<p>我们要自定义一个属于我们自己属性</p>
+<p>在value下面创建attrs的xml文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;resources&gt;</div><div class="line">    &lt;declare-styleable name=&quot;Myview&quot;&gt;</div><div class="line">        &lt;attr name=&quot;MyLength&quot; format=&quot;integer&quot;&gt;</div><div class="line"></div><div class="line">        &lt;/attr&gt;</div><div class="line">        &lt;attr name=&quot;MyColor&quot; format=&quot;color&quot;&gt;</div><div class="line"></div><div class="line">        &lt;/attr&gt;</div><div class="line">    &lt;/declare-styleable&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
+<p>写好我们自定义view的名字和属性类型。</p>
+<p>接下来就是去我们自定义view拿到我们的属性了</p>
+<h3 id="TypeArray"><a href="#TypeArray" class="headerlink" title="TypeArray"></a>TypeArray</h3><p>我们可以通过它来获取我们的自定义view。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.Myview);</div><div class="line">      color = ta.getColor(R.styleable.Myview_MyColor, Color.RED);</div><div class="line">      length = ta.getFloat(R.styleable.Myview_MyLength, 0);</div><div class="line">      Log.d(&quot;===&quot;, color + &quot;...&quot;);</div><div class="line">      ta.recycle();</div></pre></td></tr></table></figure>
+<p>通过这个数组我们获取到了我们设置的属性 记得最后一定要回收！ ta.recycle();</p>
+<p>好了接下来去xml文件去设置自己的属性吧，属性名字就是我们的项目名字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;rxjavatest.tycoding.com.beziertest.Myview</div><div class="line">       BezierTest:MyLength=&quot;200&quot;</div><div class="line">       android:layout_width=&quot;match_parent&quot;</div><div class="line">       android:layout_height=&quot;match_parent&quot;</div><div class="line">       BezierTest:MyColor=&quot;@color/colorPrimaryDark&quot; /&gt;</div></pre></td></tr></table></figure>
+<p>像这样，我以为就万事大吉了。。可是tmd，绘制圆不显示。。去构造方法log不出来我们获取的属性。。这就奇了怪了。。于是鼓捣了半个钟头，md！就该自己研究，之前受到网上其他人写的东西的影响，我的其他两个构造方法没有调用我们获取的这个构造方法。</p>
+<p>所以一样要这么写出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public Myview(Context context) &#123;</div><div class="line">      this(context, null);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public Myview(Context context, AttributeSet attrs, int defStyleAttr) &#123;</div><div class="line"></div><div class="line">      super(context, attrs, defStyleAttr);</div><div class="line">      TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.Myview);</div><div class="line">      color = ta.getColor(R.styleable.Myview_MyColor, Color.RED);</div><div class="line">      length = ta.getFloat(R.styleable.Myview_MyLength, 0);</div><div class="line">      Log.d(&quot;===&quot;, color + &quot;...&quot;);</div><div class="line">      ta.recycle();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public Myview(Context context, AttributeSet attrs) &#123;</div><div class="line">      this(context, attrs, 0);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p> this调用构造方法就不说了。。java基础 这样再次打开！！！</p>
+<p>控件的大小和颜色我们可以随心所欲的控制了。</p>
+<p>之所以要把那两个构造函数写出来因为</p>
+<ul>
+<li><p>·public view（Context context） 当在代码中创建对象时会被调用</p>
+</li>
+<li><p>·public View (Context context, AttributeSet attrs) 这个是xml来创建new view的对象时候用到所以我们的所有的属性都应该指向我们那个    public Myview(Context context, AttributeSet attrs, int defStyleAttr) </p>
+<p>​</p>
+</li>
+</ul>
+<p>当然这是最基础最简单的东西，，还有很多我学到在记录。</p>
 
       
     </div>
@@ -290,13 +361,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/03/28/安卓学习路线/">安卓学习路线</a></p>
+        <p><span>本文标题:</span><a href="/2017/01/14/自定义View/">自定义View</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Tong Yang</a></p>
-        <p><span>发布时间:</span>2017-03-28, 19:05:59</p>
-        <p><span>最后更新:</span>2017-03-28, 19:06:20</p>
+        <p><span>发布时间:</span>2017-01-14, 17:00:32</p>
+        <p><span>最后更新:</span>2017-08-14, 17:02:00</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/03/28/安卓学习路线/" title="安卓学习路线">http://yoursite.com/2017/03/28/安卓学习路线/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/03/28/安卓学习路线/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/14/自定义View/" title="自定义View">http://yoursite.com/2017/01/14/自定义View/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/01/14/自定义View/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -309,15 +380,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/03/28/RecyclerView的使用/">
-                    RecyclerView的使用
+                <a href="/2017/03/28/Linux环境下搭建hexo博客/">
+                    Linux环境下搭建hexo博客
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/03/28/Linux环境下搭建hexo博客/">
-                    Linux环境下搭建hexo博客
+                <a href="/2016/11/15/利用序列化器生成xml文件/">
+                    利用序列化器生成xml文件
                 </a>
             </div>
         
@@ -329,7 +400,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义view"><span class="toc-number">1.</span> <span class="toc-text">自定义view</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TypeArray"><span class="toc-number">2.</span> <span class="toc-text">TypeArray</span></a></li></ol>
         
     </div>
     <style>
@@ -365,7 +436,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"安卓学习路线　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"自定义View　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -399,7 +470,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/03/28/RecyclerView的使用/" title="上一篇: RecyclerView的使用">
+            <a href="/2017/03/28/Linux环境下搭建hexo博客/" title="上一篇: Linux环境下搭建hexo博客">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -407,7 +478,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/03/28/Linux环境下搭建hexo博客/" title="下一篇: Linux环境下搭建hexo博客">
+            <a href="/2016/11/15/利用序列化器生成xml文件/" title="下一篇: 利用序列化器生成xml文件">
                 <i class="fa fa-angle-right"></i>
             </a>
         

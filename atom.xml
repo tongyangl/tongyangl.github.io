@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>TongYang</title>
-  <subtitle>١�����˲���</subtitle>
+  <title>Tong Yang&#39;s Blog</title>
+  <subtitle>Strive</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-13T09:50:26.449Z</updated>
+  <updated>2017-08-14T08:41:35.512Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/08/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <id>http://yoursite.com/2017/08/13/设计模式/</id>
     <published>2017-08-13T09:48:35.000Z</published>
-    <updated>2017-08-13T09:50:26.449Z</updated>
+    <updated>2017-08-14T08:41:35.512Z</updated>
     
     <content type="html"><![CDATA[<h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><p>MVC是模型(Model)－视图(View)－控制器(Controller)的缩写，是设计模式中最常用的软件架构。</p>
 <blockquote>
@@ -68,8 +68,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;MVC&quot;&gt;&lt;a href=&quot;#MVC&quot; class=&quot;headerlink&quot; title=&quot;MVC&quot;&gt;&lt;/a&gt;MVC&lt;/h3&gt;&lt;p&gt;MVC是模型(Model)－视图(View)－控制器(Controller)的缩写，是设计模式中最常用的软件架构。&lt;/p&gt;
-&lt;blo
+      了解一些设计模式是必须的，下面我会总结一下MVC，MVP,MVVM的特点
     
     </summary>
     
@@ -83,7 +82,7 @@
     <link href="http://yoursite.com/2017/08/12/Rxjava2.x%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2/"/>
     <id>http://yoursite.com/2017/08/12/Rxjava2.x学习之线程切换/</id>
     <published>2017-08-12T09:41:53.000Z</published>
-    <updated>2017-08-13T09:25:26.231Z</updated>
+    <updated>2017-08-14T08:42:23.267Z</updated>
     
     <content type="html"><![CDATA[<h3 id="线程切换的秘密"><a href="#线程切换的秘密" class="headerlink" title="线程切换的秘密"></a>线程切换的秘密</h3><p>rxjava最让人心动的就是他的链式的线程切换…十分简单，但是我们有没有想过他是为什么这么简单实现的线程切换呢？中间究竟有着什么不可告人的秘密呢！让我们一探究竟！</p>
 <p>下面贴出一段代码</p>
@@ -177,7 +176,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;线程切换的秘密&quot;&gt;&lt;a href=&quot;#线程切换的秘密&quot; class=&quot;headerlink&quot; title=&quot;线程切换的秘密&quot;&gt;&lt;/a&gt;线程切换的秘密&lt;/h3&gt;&lt;p&gt;rxjava最让人心动的就是他的链式的线程切换…十分简单，但是我们有没有想过他是为什么这么简单实现的
+      rxjava线程的切换在我们这总是感觉很神秘，下面来解释一下线程切换的秘密
     
     </summary>
     
@@ -191,7 +190,7 @@
     <link href="http://yoursite.com/2017/08/11/RxJava2-X%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%AE%A2%E9%98%85%E5%8E%9F%E7%90%86/"/>
     <id>http://yoursite.com/2017/08/11/RxJava2-X学习之订阅原理/</id>
     <published>2017-08-11T08:13:49.000Z</published>
-    <updated>2017-08-12T09:37:10.527Z</updated>
+    <updated>2017-08-14T08:43:09.290Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Rxjava"><a href="#Rxjava" class="headerlink" title="Rxjava"></a>Rxjava</h3><p>rxjava是什么呢，简单来说就是一个异步框架</p>
 <p>下面贴出我们最开始学习的最简单的代码</p>
@@ -271,9 +270,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;Rxjava&quot;&gt;&lt;a href=&quot;#Rxjava&quot; class=&quot;headerlink&quot; title=&quot;Rxjava&quot;&gt;&lt;/a&gt;Rxjava&lt;/h3&gt;&lt;p&gt;rxjava是什么呢，简单来说就是一个异步框架&lt;/p&gt;
-&lt;p&gt;下面贴出我们最开始学习的最简单的代码&lt;/p&gt;
-
+      RXJava究竟是如何完成观察者个监听者之间的订阅的呢？上游是如何下发到下游的数据呢？
     
     </summary>
     
@@ -289,7 +286,7 @@
     <link href="http://yoursite.com/2017/08/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0/"/>
     <id>http://yoursite.com/2017/08/08/计算机网络复习/</id>
     <published>2017-08-08T02:51:13.000Z</published>
-    <updated>2017-08-08T13:14:45.758Z</updated>
+    <updated>2017-08-14T08:43:32.942Z</updated>
     
     <content type="html"><![CDATA[<h3 id="分组交换和电路交换"><a href="#分组交换和电路交换" class="headerlink" title="分组交换和电路交换"></a>分组交换和电路交换</h3><ul>
 <li><p>分组交换</p>
@@ -443,17 +440,17 @@
 </li>
 </ul>
 </li>
-<li><p>网络层: 从源到目的地数据报的选路<br>ARP、IP、ICMP、OSPF、BGP等</p>
+<li><p>网络层: 从源到目的地数据报的选路<br>  ARP、IP、ICMP、OSPF、BGP等</p>
 <ul>
 <li><p>IP：网络之间互连的协议的外语（internet Protocol）缩写，中文缩写为“网协”.</p>
 <p>因特网的地址分配策略被称为无类别域间选路（CIRD）。在采用CIRD之前，IP地址被分为A,B,C,D,E五类，分别为：</p>
 <p><img src="https://ox.xizero.com/uploads/2017/08/7f34ab4373e42f75f9ff935bda594907.jpg" alt=""></p>
-</li>
-</ul>
 <p>不过在这之间，有几个私有地址，是不能够被使用的，包括：</p>
 <pre><code>A类 　　10.0.0.0 --10.255.255.255
 </code></pre><p>​    B类 　　172.16.0.0–172.31.255.255</p>
 <p>​    C类 　　192.168.0.0–192.168.255.255</p>
+</li>
+</ul>
 </li>
 </ul>
 <pre><code>- ARP:地址解析协议，即ARP（Address Resolution Protocol）,
@@ -568,11 +565,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;分组交换和电路交换&quot;&gt;&lt;a href=&quot;#分组交换和电路交换&quot; class=&quot;headerlink&quot; title=&quot;分组交换和电路交换&quot;&gt;&lt;/a&gt;分组交换和电路交换&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;分组交换&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;资源不会被保留&lt;/p&gt;
-
+      总结一下计算机网络的知识点
     
     </summary>
     
@@ -588,7 +581,7 @@
     <link href="http://yoursite.com/2017/08/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E6%A0%88/"/>
     <id>http://yoursite.com/2017/08/07/数据结构————栈/</id>
     <published>2017-08-07T04:26:01.000Z</published>
-    <updated>2017-08-07T05:14:05.509Z</updated>
+    <updated>2017-08-14T08:43:59.165Z</updated>
     
     <content type="html"><![CDATA[<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一种先入后出的数据结构</p>
 <h4 id="相关计算题"><a href="#相关计算题" class="headerlink" title="相关计算题"></a>相关计算题</h4><p>只用另一个栈和其他变量完成栈的排序</p>
@@ -601,8 +594,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;栈&quot;&gt;&lt;a href=&quot;#栈&quot; class=&quot;headerlink&quot; title=&quot;栈&quot;&gt;&lt;/a&gt;栈&lt;/h3&gt;&lt;p&gt;一种先入后出的数据结构&lt;/p&gt;
-&lt;h4 id=&quot;相关计算题&quot;&gt;&lt;a href=&quot;#相关计算题&quot; class=&quot;headerlink&quot; title=&quot;
+      数据结构---栈的介绍
     
     </summary>
     
@@ -618,7 +610,7 @@
     <link href="http://yoursite.com/2017/08/05/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8Fjava%E5%AE%9E%E7%8E%B0/"/>
     <id>http://yoursite.com/2017/08/05/八大排序java实现/</id>
     <published>2017-08-05T03:34:13.000Z</published>
-    <updated>2017-08-06T11:22:28.544Z</updated>
+    <updated>2017-08-14T08:44:40.496Z</updated>
     
     <content type="html"><![CDATA[<p>总结整理下八大排序的算法，用java实现。毕竟都是一些面试，平时使用都要用到的算法</p>
 <ul>
@@ -706,12 +698,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;总结整理下八大排序的算法，用java实现。毕竟都是一些面试，平时使用都要用到的算法&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;冒泡排序&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;冒泡排序：一趟一趟的比较，比较相邻元素的大小，每趟有一个元素沉入最后面的位置 &lt;/li&gt;
-&lt;li&gt;属于交换类排序 &lt;/li
+      算法是一个程序员必会的一个内容，而一些常见的排序算法也是我们必须掌握的
     
     </summary>
     
@@ -727,7 +714,7 @@
     <link href="http://yoursite.com/2017/08/02/Fragment%E6%87%92%E5%8A%A0%E8%BD%BD/"/>
     <id>http://yoursite.com/2017/08/02/Fragment懒加载/</id>
     <published>2017-08-02T03:21:37.000Z</published>
-    <updated>2017-08-02T03:59:00.530Z</updated>
+    <updated>2017-08-14T08:45:52.898Z</updated>
     
     <content type="html"><![CDATA[<p>说真的！！网上的博客好多都是在别人那直接copy过来的！昨天看算法就是，百度第一页的所有博客几乎都一样而且不是一个人写的，最重要的是他妈的是错的！！！逻辑混乱，代码错误，挫的都一样。真的佩服。今天看懒加载又是这样。。不得不自己琢磨了</p>
 <h3 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h3><p>大家都知道懒加载为了什么有事时候Viewpager 可能加载十多个Fragment ，一下子全加载了对用户体验很不好。而且viewpage的setOffscreenPageLimit方法看源码就知道了</p>
@@ -748,8 +735,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;说真的！！网上的博客好多都是在别人那直接copy过来的！昨天看算法就是，百度第一页的所有博客几乎都一样而且不是一个人写的，最重要的是他妈的是错的！！！逻辑混乱，代码错误，挫的都一样。真的佩服。今天看懒加载又是这样。。不得不自己琢磨了&lt;/p&gt;
-&lt;h3 id=&quot;懒加载&quot;&gt;&lt;a 
+      若是每次打开应用都会加载fragment的下一个内容，那么当网络请求很多的时候就会导致应用卡顿，流量浪费，内存溢出等等问题，实现懒加载是一个必须的内容
     
     </summary>
     
@@ -765,7 +751,7 @@
     <link href="http://yoursite.com/2017/07/27/%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AAHandler/"/>
     <id>http://yoursite.com/2017/07/27/自己写一个Handler/</id>
     <published>2017-07-27T11:49:18.000Z</published>
-    <updated>2017-07-29T03:45:26.113Z</updated>
+    <updated>2017-08-14T08:46:22.890Z</updated>
     
     <content type="html"><![CDATA[<p>前一阵整理了一下Handler的机制。。大概自己是弄明白的，但是为了巩固下自己，决定自己写一个handler，，当然我们是通过java程序来模拟。</p>
 <p>首先回想下我们大概需要哪几个东西，没错，四个。</p>
@@ -792,11 +778,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;前一阵整理了一下Handler的机制。。大概自己是弄明白的，但是为了巩固下自己，决定自己写一个handler，，当然我们是通过java程序来模拟。&lt;/p&gt;
-&lt;p&gt;首先回想下我们大概需要哪几个东西，没错，四个。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Message&lt;/p&gt;
-&lt;/li
+      说了那么多了的handler的原理，不如自己动手撸一个？
     
     </summary>
     
@@ -812,7 +794,7 @@
     <link href="http://yoursite.com/2017/07/23/handler%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
     <id>http://yoursite.com/2017/07/23/handler的实现原理/</id>
     <published>2017-07-23T05:19:54.000Z</published>
-    <updated>2017-07-23T05:54:36.099Z</updated>
+    <updated>2017-08-14T08:47:34.911Z</updated>
     
     <content type="html"><![CDATA[<p>说真的关于handler的原理的文章，网上多的是，之前由于自己懒惰，都是自己看网上分析的博客，然后稍微看一些源码，给自己弄的一知半解的，所以今天终于内心沉了下来，准备自己看看源码按照自己思路整理一下handler的实现。</p>
 <p>handler是什么我就不多说了。。如果这个都不知道那就别往下看了。闲话短说，直接开始，我们一般使用handler都是直接使用内部类的方式</p>
@@ -871,8 +853,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;说真的关于handler的原理的文章，网上多的是，之前由于自己懒惰，都是自己看网上分析的博客，然后稍微看一些源码，给自己弄的一知半解的，所以今天终于内心沉了下来，准备自己看看源码按照自己思路整理一下handler的实现。&lt;/p&gt;
-&lt;p&gt;handler是什么我就不多说了。。如
+      Handler一直是我们的Android程序员必会的一个东西，他的异步任务处理也是最基础的，但究竟是如何完成的切换呢？Looper和Handler之间的联系是怎么样的呢？
     
     </summary>
     
@@ -888,7 +869,7 @@
     <link href="http://yoursite.com/2017/07/22/Collction%E6%8E%A5%E5%8F%A3%E9%9B%86%E5%90%88/"/>
     <id>http://yoursite.com/2017/07/22/Collction接口集合/</id>
     <published>2017-07-22T11:32:27.000Z</published>
-    <updated>2017-07-22T12:19:25.581Z</updated>
+    <updated>2017-08-14T08:49:37.643Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://ox.xizero.com/uploads/2017/07/3985563_e7febf364d8d8235.png" alt=""></p>
 <p>如图所示可以清楚的看到实现Collection接口的集合类。一目了然。</p>
@@ -971,9 +952,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://ox.xizero.com/uploads/2017/07/3985563_e7febf364d8d8235.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;如图所示可以清楚的看到实现Collection接口的集合类。一目了然。&lt;/p&gt;
-&lt;h2 
+      Java 的各种集合是我们最常使用的，处理数据非常的方便快捷，但是我们也总是会把一些数据集合弄混，下面一起来总结一下实现Collection接口的集合，以及他们各自的特性
     
     </summary>
     
@@ -985,27 +964,13 @@
   </entry>
   
   <entry>
-    <title>Android四大组件-Broadcas</title>
+    <title>Android四大组件-Broadcast</title>
     <link href="http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Broadcas/"/>
     <id>http://yoursite.com/2017/07/20/Android四大组件-Broadcas/</id>
     <published>2017-07-20T09:37:54.000Z</published>
-    <updated>2017-07-20T10:15:10.873Z</updated>
+    <updated>2017-08-14T08:50:59.734Z</updated>
     
-    <content type="html"><![CDATA[<p>广播作为四大组件之一，平时我们也不少用到，广播广播，顾名思自然有发送者和接受者，广播作为Android组件之间的通讯方式，有如下五中使用场景</p>
-<ul>
-<li><p>同一app内部的同一组件内的消息通信（单个或多个线程之间）；</p>
-</li>
-<li><p>同一app内部的不同组件之间的消息通信（单个进程）；</p>
-</li>
-<li><p>同一app具有多个进程的不同组件之间的消息通信；</p>
-</li>
-<li><p>不同app之间的组件之间消息通信；</p>
-</li>
-<li><p>Android系统在特定情况下与App之间的消息通信。</p>
-<p>​</p>
-</li>
-</ul>
-<h3 id="BroadcastReceiver"><a href="#BroadcastReceiver" class="headerlink" title="BroadcastReceiver"></a>BroadcastReceiver</h3><p>我们自定义的BroadcastReceiver需要继承BroadcastReceiver这个抽象基类，并且实现抽象方法onReceive(context, intent)。这个方法也是运行在UI线程的，所以也不要在这个方法中作过多了耗时操作。。不然就ANR了。。</p>
+    <content type="html"><![CDATA[<h3 id="BroadcastReceiver"><a href="#BroadcastReceiver" class="headerlink" title="BroadcastReceiver"></a>BroadcastReceiver</h3><p>我们自定义的BroadcastReceiver需要继承BroadcastReceiver这个抽象基类，并且实现抽象方法onReceive(context, intent)。这个方法也是运行在UI线程的，所以也不要在这个方法中作过多了耗时操作。。不然就ANR了。。</p>
 <p>例子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class MyBroadcastReceiver   extends BroadcastReceiver&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onReceive(Context context, Intent intent) &#123;</div><div class="line">        Log.d(&quot;MyBroadcastReceiver:&quot;,intent.getStringExtra(&quot;name&quot;));</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>广播的注册类型分为两种，一种是静态注册一种是动态注册</p>
@@ -1054,11 +1019,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;广播作为四大组件之一，平时我们也不少用到，广播广播，顾名思自然有发送者和接受者，广播作为Android组件之间的通讯方式，有如下五中使用场景&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;同一app内部的同一组件内的消息通信（单个或多个线程之间）；&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;同一
+      广播作为四大组件之一，平时我们也不少用到，广播广播，顾名思自然有发送者和接受者，广播作为Android组件之间的通讯方式，有如下五中使用场景
+- 同一app内部的同一组件内的消息通信（单个或多个线程之间）； - 同一app内部的不同组件之间的消息通信（单个进程）； - 同一app具有多个进程的不同组件之间的消息通信； - 不同app之间的组件之间消息通信； - Android系统在特定情况下与App之间的消息通信。
     
     </summary>
     
@@ -1074,11 +1036,9 @@
     <link href="http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Activity/"/>
     <id>http://yoursite.com/2017/07/20/Android四大组件-Activity/</id>
     <published>2017-07-20T05:33:07.000Z</published>
-    <updated>2017-07-20T08:04:06.690Z</updated>
+    <updated>2017-08-14T08:51:33.937Z</updated>
     
-    <content type="html"><![CDATA[<p>Activity作为Android四大组件之一想必重要性不用多说。</p>
-<p>Activity可以理解为Android程序我们看到的界面都是承载在Activity上。</p>
-<h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="" alt="http://img.blog.csdn.net/20160717151833576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
+    <content type="html"><![CDATA[<h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="" alt="http://img.blog.csdn.net/20160717151833576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
 <p>  正常Activity的启动经历以下过程</p>
 <ul>
 <li><p>onCreat</p>
@@ -1136,9 +1096,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;Activity作为Android四大组件之一想必重要性不用多说。&lt;/p&gt;
-&lt;p&gt;Activity可以理解为Android程序我们看到的界面都是承载在Activity上。&lt;/p&gt;
-&lt;h3 id=&quot;Activity的生命周期&quot;&gt;&lt;a href=&quot;#Activity的生命周期&quot;
+      Activity作为Android四大组件之一想必重要性不用多说。
+Activity可以理解为Android程序我们看到的界面都是承载在Activity上。
     
     </summary>
     
@@ -1154,12 +1113,9 @@
     <link href="http://yoursite.com/2017/07/19/JAVA-FIle%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%9C%E8%A5%BF/"/>
     <id>http://yoursite.com/2017/07/19/JAVA-FIle的一些东西/</id>
     <published>2017-07-19T06:27:56.000Z</published>
-    <updated>2017-07-19T06:55:01.402Z</updated>
+    <updated>2017-08-14T08:51:59.729Z</updated>
     
-    <content type="html"><![CDATA[<p>之前搞了一个Android 的播放器，里面涉及到了好多关于java file文件的东西。</p>
-<p>其中就有一个关于file的排序问题。</p>
-<p>自己天真的以为用TreeSet就可以了。。但是发现是可以了，但是他是分大小写的，我们平常都是不分大小写的，所以自己鼓捣了一会发现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Collections.sort();</div><div class="line">这个方法</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Collections.sort();</div><div class="line">这个方法</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">private List&lt;File&gt; sortFileList(List&lt;File&gt; list) &#123;</div><div class="line"></div><div class="line">        Collections.sort(list, new Comparator&lt;File&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public int compare(File o1, File o2) &#123;</div><div class="line">                if (o1.isDirectory() &amp;&amp; o2.isFile())</div><div class="line">                    return -1;</div><div class="line">                if (o1.isFile() &amp;&amp; o2.isDirectory())</div><div class="line">                    return 1;</div><div class="line">                return o1.getName().compareToIgnoreCase(o2.getName());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        return list;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>实现 Comparator接口。就可以实现排序了</p>
 <p>同样对于filelist这个方法也有一个FileFilter的接口传入，比如一些隐藏文件我们可以直接让他不显示</p>
@@ -1169,9 +1125,9 @@
     
     <summary type="html">
     
-      &lt;p&gt;之前搞了一个Android 的播放器，里面涉及到了好多关于java file文件的东西。&lt;/p&gt;
-&lt;p&gt;其中就有一个关于file的排序问题。&lt;/p&gt;
-&lt;p&gt;自己天真的以为用TreeSet就可以了。。但是发现是可以了，但是他是分大小写的，我们平常都是不分大小写的，所以自己鼓捣
+      之前搞了一个Android 的播放器，里面涉及到了好多关于java file文件的东西。
+其中就有一个关于file的排序问题。
+自己天真的以为用TreeSet就可以了。。但是发现是可以了，但是他是分大小写的，我们平常都是不分大小写的，所以自己鼓捣了一会发现
     
     </summary>
     
