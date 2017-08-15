@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-14T08:41:35.512Z</updated>
+  <updated>2017-08-15T07:31:56.376Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,119 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AsyncTask的再一次探究</title>
+    <link href="http://yoursite.com/2017/08/15/AsyncTask%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E6%8E%A2%E7%A9%B6/"/>
+    <id>http://yoursite.com/2017/08/15/AsyncTask的再一次探究/</id>
+    <published>2017-08-15T05:29:32.000Z</published>
+    <updated>2017-08-15T07:31:56.376Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="AsyncTask"><a href="#AsyncTask" class="headerlink" title="AsyncTask"></a>AsyncTask</h2><p>他是一个抽象类大家都知道了，然后使用就是继承他实现那四个方法，然后传入我们要传入的三个泛型参数，</p>
+<ol>
+<li><strong>Params</strong>：表示我们在调用execute方法时传递的参数类型；</li>
+<li><strong>progress</strong>：表示后台任务的执行进度类型；</li>
+<li><strong>Result</strong>：表示后台任务的返回结果类型</li>
+</ol>
+<p>不多逼逼了，用法大家都知道了。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>AsyncTask类第一次加载必须在主线程中加载（这个不需要我们关系，ActivityThread已经帮我们做了）；</p>
+</li>
+<li><p>AsyncTask对象的创建代码必须在主线程中调用；</p>
+</li>
+<li><p>execute方法必须在主线程中调用；</p>
+</li>
+<li><p>onPreExecute、onPostExecute、doInBackground、onProgressUpdate 四个方法不能在程序中直接调用；</p>
+</li>
+<li><p>一个AsyncTask实例只能调用一次execute方法；</p>
+</li>
+<li><p>AsyncTask执行execute方法时在Android1.6之前串行；Android1.6之后并行；Android3.0后串行。</p>
+<p>​</p>
+</li>
+</ul>
+<p>注意事项还是要注意的，无论面试还是开发都是需要了解的，避免出现问题。</p>
+<h2 id="AsyncTask的源码分析"><a href="#AsyncTask的源码分析" class="headerlink" title="AsyncTask的源码分析"></a>AsyncTask的源码分析</h2><p>大家分析源码都差不多吧~反正我都是从他的调用开始分析的</p>
+<h3 id="异步任务的开始execute方法"><a href="#异步任务的开始execute方法" class="headerlink" title="异步任务的开始execute方法"></a>异步任务的开始execute方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@MainThread</div><div class="line">public final AsyncTask&lt;Params, Progress, Result&gt; execute(Params... params) &#123;</div><div class="line">    return executeOnExecutor(sDefaultExecutor, params);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>嘛，@MainThread 这个注解了解的都知道表示方法必须在主线程调用否则就会提示错误（这句话是百度来的）</p>
+<p>我自己实际操作了一下并没有提示错误…</p>
+<p>我就不截图了…可以试试，可能在最新的版本里和之前的不太一样吧，本着探索精神干脆运行一下看看是否会出现崩溃..结果还是没有，程序正常启动…</p>
+<p>本着探索精神</p>
+<p>贴出的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">           new Thread(new Runnable() &#123;</div><div class="line">               @Override</div><div class="line">               public void run() &#123;</div><div class="line">                   Log.d(&quot;mmmm&quot;, Thread.currentThread().getName()+&quot;   run&quot;);</div><div class="line">                   MyAsycktask myAsycktask=new MyAsycktask();</div><div class="line">                 myAsycktask.execute(&quot;tong&quot;);</div><div class="line"></div><div class="line">               &#125;</div><div class="line">           &#125;).start();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class MyAsycktask extends AsyncTask&lt;String, Void, String&gt; &#123;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        protected void onPostExecute(String s) &#123;</div><div class="line">            super.onPostExecute(s);</div><div class="line">            Log.d(&quot;mmmm&quot;, Thread.currentThread().getName()+&quot;   onPostExecute&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        protected String doInBackground(String... params) &#123;</div><div class="line">            Log.d(&quot;mmmm&quot;, Thread.currentThread().getName()+&quot;   doInBackground&quot;);</div><div class="line"></div><div class="line">            return params[0];</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>分别打印出来在我们new的线程中的线程名字，doInBackground的线程名字，以及onPostExecute的线程名字</p>
+<p><img src="https://ox.xizero.com/uploads/2017/08/TIM截图20170815140550.png" alt=""></p>
+<p>一目了然，还是回调到了主线程中</p>
+<p>所以！之前在网上看别人总结AsyncTask必须在主线程中调用是错误的…可能之前较早的版本需要吧..找了好久没有找到正确的…</p>
+<p>好了言归正传，我们看了一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">executeOnExecutor(sDefaultExecutor, params);</div></pre></td></tr></table></figure>
+<p>传入的一个是我们的参数，一个是什么呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;</div></pre></td></tr></table></figure>
+<p>哦~原来是Executor的实例</p>
+<p>SERIAL_EXECUTOR是什么呢</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public static final Executor SERIAL_EXECUTOR = new SerialExecutor();</div></pre></td></tr></table></figure>
+<p>SerialExecutor是一个实现Executor接口的内部静态私有类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">private static class SerialExecutor implements Executor &#123;</div><div class="line">    final ArrayDeque&lt;Runnable&gt; mTasks = new ArrayDeque&lt;Runnable&gt;();</div><div class="line">    Runnable mActive;</div><div class="line"></div><div class="line">    public synchronized void execute(final Runnable r) &#123;</div><div class="line">        mTasks.offer(new Runnable() &#123;</div><div class="line">            public void run() &#123;</div><div class="line">                try &#123;</div><div class="line">                    r.run();</div><div class="line">                &#125; finally &#123;</div><div class="line">                    scheduleNext();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        if (mActive == null) &#123;</div><div class="line">            scheduleNext();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected synchronized void scheduleNext() &#123;</div><div class="line">        if ((mActive = mTasks.poll()) != null) &#123;</div><div class="line">            THREAD_POOL_EXECUTOR.execute(mActive);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到里面有我们线程的队列，以及当前执行的线程</p>
+<p>然后下面的代码有点难理解了！！！</p>
+<p>怎么在这个队列中添加的新线程中调用外部的线程呢？其实就是一次包装而已</p>
+<p>首先调用的外部的r.run()方法就是我们在编程中写的代码，在这个地方执行而已没有别的</p>
+<p>然后会继续执行scheduleNext方法，这个是必须执行的</p>
+<p>可以看到这个方法会把线程出队列，然后线程池执行我们的runable。</p>
+<p>可能有点不太好理解继续往下看源码，这只是分析了sDefaultExecutor究竟是什么</p>
+<p>我们继续看executeOnExecutor方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@MainThread</div><div class="line">public final AsyncTask&lt;Params, Progress, Result&gt; executeOnExecutor(Executor exec,</div><div class="line">        Params... params) &#123;</div><div class="line">    if (mStatus != Status.PENDING) &#123;</div><div class="line">        switch (mStatus) &#123;</div><div class="line">            case RUNNING:</div><div class="line">                throw new IllegalStateException(&quot;Cannot execute task:&quot;</div><div class="line">                        + &quot; the task is already running.&quot;);</div><div class="line">            case FINISHED:</div><div class="line">                throw new IllegalStateException(&quot;Cannot execute task:&quot;</div><div class="line">                        + &quot; the task has already been executed &quot;</div><div class="line">                        + &quot;(a task can be executed only once)&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mStatus = Status.RUNNING;</div><div class="line"></div><div class="line">    onPreExecute();</div><div class="line"></div><div class="line">    mWorker.mParams = params;</div><div class="line">    exec.execute(mFuture);</div><div class="line"></div><div class="line">    return this;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先是判断…看代码很好理解吧~当这个任务执行过或者正在执行则会抛出对应的异常~</p>
+<p>然后设置我们的任务是运行状态，调用onPreExecute();方法，是不是很熟悉了~</p>
+<p>可以看到我们的任务是串行的~</p>
+<p>然后看看他的构造方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public AsyncTask() &#123;</div><div class="line">    mWorker = new WorkerRunnable&lt;Params, Result&gt;() &#123;</div><div class="line">        public Result call() throws Exception &#123;</div><div class="line">            mTaskInvoked.set(true);</div><div class="line">            Result result = null;</div><div class="line">            try &#123;</div><div class="line">                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);</div><div class="line">                //noinspection unchecked</div><div class="line">                result = doInBackground(mParams);</div><div class="line">                Binder.flushPendingCommands();</div><div class="line">            &#125; catch (Throwable tr) &#123;</div><div class="line">                mCancelled.set(true);</div><div class="line">                throw tr;</div><div class="line">            &#125; finally &#123;</div><div class="line">                postResult(result);</div><div class="line">            &#125;</div><div class="line">            return result;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    mFuture = new FutureTask&lt;Result&gt;(mWorker) &#123;</div><div class="line">        @Override</div><div class="line">        protected void done() &#123;</div><div class="line">            try &#123;</div><div class="line">                postResultIfNotInvoked(get());</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                android.util.Log.w(LOG_TAG, e);</div><div class="line">            &#125; catch (ExecutionException e) &#123;</div><div class="line">                throw new RuntimeException(&quot;An error occurred while executing doInBackground()&quot;,</div><div class="line">                        e.getCause());</div><div class="line">            &#125; catch (CancellationException e) &#123;</div><div class="line">                postResultIfNotInvoked(null);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>穿件一个WorkerRunnable，传入我们之前传入的参数泛型</p>
+<p>创建一个mFuture实例在这里传入了我们的worker实例</p>
+<p>这里看源码可以知道FutureTask是一个实现runnable接口的类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public class FutureTask&lt;V&gt; implements RunnableFuture&lt;V&gt; &#123;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public interface RunnableFuture&lt;V&gt; extends Runnable, Future&lt;V&gt; &#123;</div></pre></td></tr></table></figure>
+<p>而WorkerRunnable是一个实现callable接口的类</p>
+<p>所以和我们之前的代码对应住了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">result = doInBackground(mParams);</div></pre></td></tr></table></figure>
+<p>很熟悉吧，我们自己写的代码返回的result</p>
+<p>最终调用postResult(result);方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">private Result postResult(Result result) &#123;</div><div class="line">    @SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">    Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,</div><div class="line">            new AsyncTaskResult&lt;Result&gt;(this, result));</div><div class="line">    message.sendToTarget();</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就是我们线程切换的秘密</p>
+<p>激动人心的时候来到了！很熟悉吧！内部也是通过handler来实现线程的切换的</p>
+<p>gehandler方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">private static Handler getHandler() &#123;</div><div class="line">    synchronized (AsyncTask.class) &#123;</div><div class="line">        if (sHandler == null) &#123;</div><div class="line">            sHandler = new InternalHandler();</div><div class="line">        &#125;</div><div class="line">        return sHandler;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>是intenthandler实例</p>
+<p>继续看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">private static class InternalHandler extends Handler &#123;</div><div class="line">    public InternalHandler() &#123;</div><div class="line">        super(Looper.getMainLooper());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;RawUseOfParameterizedType&quot;&#125;)</div><div class="line">    @Override</div><div class="line">    public void handleMessage(Message msg) &#123;</div><div class="line">        AsyncTaskResult&lt;?&gt; result = (AsyncTaskResult&lt;?&gt;) msg.obj;</div><div class="line">        switch (msg.what) &#123;</div><div class="line">            case MESSAGE_POST_RESULT:</div><div class="line">                // There is only one result</div><div class="line">                result.mTask.finish(result.mData[0]);</div><div class="line">                break;</div><div class="line">            case MESSAGE_POST_PROGRESS:</div><div class="line">                result.mTask.onProgressUpdate(result.mData);</div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>之所以都能和主线程通信是因为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public InternalHandler() &#123;</div><div class="line">     super(Looper.getMainLooper());</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>这个方法，直接获取的主线程的Looper;</p>
+<p>MESSAGE_POST_RESULT对应的是finish方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">rivate void finish(Result result) &#123;</div><div class="line">    if (isCancelled()) &#123;</div><div class="line">        onCancelled(result);</div><div class="line">    &#125; else &#123;</div><div class="line">        onPostExecute(result);</div><div class="line">    &#125;</div><div class="line">    mStatus = Status.FINISHED;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一目了然不必多说了</p>
+<h2 id="并行执行"><a href="#并行执行" class="headerlink" title="并行执行"></a>并行执行</h2><p>但是我们发现这样的话他是串行执行的！！！这样的话会导致多个任务进行的话很麻烦，有没有办法解决呢？</p>
+<p>当然有的~之所以是串行执行还不是因为我们在之前的方法传入的默认的执行器是串行的？从队列一个一个取出来</p>
+<p>所以只要调用这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myAsycktask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);</div></pre></td></tr></table></figure>
+<p>这样就可以啦~记住啊不要再调用myAsycktask.execute();方法了</p>
+<p>因为我们的execute就是调用的executeOnExecutor方法，所以再调用的话就会出错了</p>
+<p>看下THREAD_POOL_EXECUTOR的源码吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static final Executor THREAD_POOL_EXECUTOR;</div><div class="line"></div><div class="line">static &#123;</div><div class="line">    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(</div><div class="line">            CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,</div><div class="line">            sPoolWorkQueue, sThreadFactory);</div><div class="line">    threadPoolExecutor.allowCoreThreadTimeOut(true);</div><div class="line">    THREAD_POOL_EXECUTOR = threadPoolExecutor;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>线程池~我们最开始的默认串行执行器就是最后用他来执行的！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      AsyncTask是我们学习安卓最开始很容易接触到的一个自带的异步框架，实现起来也是非常的简单，但是我们有没想过他其中的原理呢？如何做到线程的切换呢？为什么一个实例只能execute一次呢？未知的秘密实在是太多了！
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式</title>
@@ -1490,33 +1603,6 @@ Activity可以理解为Android程序我们看到的界面都是承载在Activity
     <summary type="html">
     
       &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
-    
-    </summary>
-    
-    
-      <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>排序（冒泡排序，插入排序）</title>
-    <link href="http://yoursite.com/2017/04/28/%E6%8E%92%E5%BA%8F%EF%BC%88%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%89/"/>
-    <id>http://yoursite.com/2017/04/28/排序（冒泡排序，插入排序）/</id>
-    <published>2017-04-28T10:44:03.000Z</published>
-    <updated>2017-04-28T10:49:33.922Z</updated>
-    
-    <content type="html"><![CDATA[<p>最常见也是最简单的冒泡排序时间复杂度0（n^2）;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">for (int i = 0; i &lt; test.length-1; i++) &#123;</div><div class="line">    for (int j = i+1; j &lt; test.length; j++) &#123;</div><div class="line">        if (test[j] &lt; test[i]) &#123;</div><div class="line">            int temp = test[j];</div><div class="line">            test[j] = test[i];</div><div class="line">            test[i] = temp;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>插入排序；</p>
-<p>数据量较小时速度很快。</p>
-<p>进行局部排序，一部分一部分来。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">private   static  void charu()</div><div class="line"> &#123;</div><div class="line">     int v ,j;</div><div class="line"></div><div class="line">     for (int i=1;i&lt;test.length;i++)&#123;</div><div class="line"></div><div class="line">         v=test[i];</div><div class="line">         j=i;</div><div class="line">         while (test[j-1]&gt;v&amp;&amp;j&gt;=1)&#123;</div><div class="line">             test[j]=test[j-1];</div><div class="line">             j--;</div><div class="line">         &#125;</div><div class="line">         test[j]=v;</div><div class="line"></div><div class="line">     &#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最常见也是最简单的冒泡排序时间复杂度0（n^2）;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;lin
     
     </summary>
     

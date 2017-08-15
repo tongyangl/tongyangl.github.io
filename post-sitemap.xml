@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2017/08/15/AsyncTask%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E6%8E%A2%E7%A9%B6/</loc>
+        <lastmod>2017-08-15T07:31:56.376Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2017/01/14/%E8%87%AA%E5%AE%9A%E4%B9%89View/</loc>
         <lastmod>2017-08-14T09:02:00.338Z</lastmod>
         <changefreq>weekly</changefreq>

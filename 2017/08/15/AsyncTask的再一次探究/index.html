@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Tong Yang" />
+
+
+
+<meta name="description" content="AsyncTask是我们学习安卓最开始很容易接触到的一个自带的异步框架，实现起来也是非常的简单，但是我们有没想过他其中的原理呢？如何做到线程的切换呢？为什么一个实例只能execute一次呢？未知的秘密实在是太多了！">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AsyncTask的再一次探究">
+<meta property="og:url" content="http://yoursite.com/2017/08/15/AsyncTask的再一次探究/index.html">
+<meta property="og:site_name" content="Tong Yang&#39;s Blog">
+<meta property="og:description" content="AsyncTask是我们学习安卓最开始很容易接触到的一个自带的异步框架，实现起来也是非常的简单，但是我们有没想过他其中的原理呢？如何做到线程的切换呢？为什么一个实例只能execute一次呢？未知的秘密实在是太多了！">
+<meta property="og:image" content="https://ox.xizero.com/uploads/2017/08/TIM截图20170815140550.png">
+<meta property="og:updated_time" content="2017-08-15T07:31:56.376Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AsyncTask的再一次探究">
+<meta name="twitter:description" content="AsyncTask是我们学习安卓最开始很容易接触到的一个自带的异步框架，实现起来也是非常的简单，但是我们有没想过他其中的原理呢？如何做到线程的切换呢？为什么一个实例只能execute一次呢？未知的秘密实在是太多了！">
+<meta name="twitter:image" content="https://ox.xizero.com/uploads/2017/08/TIM截图20170815140550.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tong Yang&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>AsyncTask的再一次探究 | Tong Yang&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?d95f5c422e785f859416a9297b6fc0de";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Tong Yang</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Strive</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/1778480884@qq.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/1100412270?refer_flag=1001030102_" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/tongyangl" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa QQ" href="/1778480884" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于Android</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Tong Yang</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Tong Yang</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Strive</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/1778480884@qq.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/1100412270?refer_flag=1001030102_" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/tongyangl" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1778480884" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="article-AsyncTask的再一次探究" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/15/AsyncTask的再一次探究/" class="article-date">
+      <time datetime="2017-08-15T05:29:32.000Z" itemprop="datePublished">2017-08-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AsyncTask的再一次探究
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="AsyncTask"><a href="#AsyncTask" class="headerlink" title="AsyncTask"></a>AsyncTask</h2><p>他是一个抽象类大家都知道了，然后使用就是继承他实现那四个方法，然后传入我们要传入的三个泛型参数，</p>
+<ol>
+<li><strong>Params</strong>：表示我们在调用execute方法时传递的参数类型；</li>
+<li><strong>progress</strong>：表示后台任务的执行进度类型；</li>
+<li><strong>Result</strong>：表示后台任务的返回结果类型</li>
+</ol>
+<p>不多逼逼了，用法大家都知道了。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>AsyncTask类第一次加载必须在主线程中加载（这个不需要我们关系，ActivityThread已经帮我们做了）；</p>
+</li>
+<li><p>AsyncTask对象的创建代码必须在主线程中调用；</p>
+</li>
+<li><p>execute方法必须在主线程中调用；</p>
+</li>
+<li><p>onPreExecute、onPostExecute、doInBackground、onProgressUpdate 四个方法不能在程序中直接调用；</p>
+</li>
+<li><p>一个AsyncTask实例只能调用一次execute方法；</p>
+</li>
+<li><p>AsyncTask执行execute方法时在Android1.6之前串行；Android1.6之后并行；Android3.0后串行。</p>
+<p>​</p>
+</li>
+</ul>
+<p>注意事项还是要注意的，无论面试还是开发都是需要了解的，避免出现问题。</p>
+<h2 id="AsyncTask的源码分析"><a href="#AsyncTask的源码分析" class="headerlink" title="AsyncTask的源码分析"></a>AsyncTask的源码分析</h2><p>大家分析源码都差不多吧~反正我都是从他的调用开始分析的</p>
+<h3 id="异步任务的开始execute方法"><a href="#异步任务的开始execute方法" class="headerlink" title="异步任务的开始execute方法"></a>异步任务的开始execute方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@MainThread</div><div class="line">public final AsyncTask&lt;Params, Progress, Result&gt; execute(Params... params) &#123;</div><div class="line">    return executeOnExecutor(sDefaultExecutor, params);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>嘛，@MainThread 这个注解了解的都知道表示方法必须在主线程调用否则就会提示错误（这句话是百度来的）</p>
+<p>我自己实际操作了一下并没有提示错误…</p>
+<p>我就不截图了…可以试试，可能在最新的版本里和之前的不太一样吧，本着探索精神干脆运行一下看看是否会出现崩溃..结果还是没有，程序正常启动…</p>
+<p>本着探索精神</p>
+<p>贴出的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">           new Thread(new Runnable() &#123;</div><div class="line">               @Override</div><div class="line">               public void run() &#123;</div><div class="line">                   Log.d(&quot;mmmm&quot;, Thread.currentThread().getName()+&quot;   run&quot;);</div><div class="line">                   MyAsycktask myAsycktask=new MyAsycktask();</div><div class="line">                 myAsycktask.execute(&quot;tong&quot;);</div><div class="line"></div><div class="line">               &#125;</div><div class="line">           &#125;).start();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class MyAsycktask extends AsyncTask&lt;String, Void, String&gt; &#123;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        protected void onPostExecute(String s) &#123;</div><div class="line">            super.onPostExecute(s);</div><div class="line">            Log.d(&quot;mmmm&quot;, Thread.currentThread().getName()+&quot;   onPostExecute&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        protected String doInBackground(String... params) &#123;</div><div class="line">            Log.d(&quot;mmmm&quot;, Thread.currentThread().getName()+&quot;   doInBackground&quot;);</div><div class="line"></div><div class="line">            return params[0];</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>分别打印出来在我们new的线程中的线程名字，doInBackground的线程名字，以及onPostExecute的线程名字</p>
+<p><img src="https://ox.xizero.com/uploads/2017/08/TIM截图20170815140550.png" alt=""></p>
+<p>一目了然，还是回调到了主线程中</p>
+<p>所以！之前在网上看别人总结AsyncTask必须在主线程中调用是错误的…可能之前较早的版本需要吧..找了好久没有找到正确的…</p>
+<p>好了言归正传，我们看了一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">executeOnExecutor(sDefaultExecutor, params);</div></pre></td></tr></table></figure>
+<p>传入的一个是我们的参数，一个是什么呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;</div></pre></td></tr></table></figure>
+<p>哦~原来是Executor的实例</p>
+<p>SERIAL_EXECUTOR是什么呢</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public static final Executor SERIAL_EXECUTOR = new SerialExecutor();</div></pre></td></tr></table></figure>
+<p>SerialExecutor是一个实现Executor接口的内部静态私有类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">private static class SerialExecutor implements Executor &#123;</div><div class="line">    final ArrayDeque&lt;Runnable&gt; mTasks = new ArrayDeque&lt;Runnable&gt;();</div><div class="line">    Runnable mActive;</div><div class="line"></div><div class="line">    public synchronized void execute(final Runnable r) &#123;</div><div class="line">        mTasks.offer(new Runnable() &#123;</div><div class="line">            public void run() &#123;</div><div class="line">                try &#123;</div><div class="line">                    r.run();</div><div class="line">                &#125; finally &#123;</div><div class="line">                    scheduleNext();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        if (mActive == null) &#123;</div><div class="line">            scheduleNext();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected synchronized void scheduleNext() &#123;</div><div class="line">        if ((mActive = mTasks.poll()) != null) &#123;</div><div class="line">            THREAD_POOL_EXECUTOR.execute(mActive);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到里面有我们线程的队列，以及当前执行的线程</p>
+<p>然后下面的代码有点难理解了！！！</p>
+<p>怎么在这个队列中添加的新线程中调用外部的线程呢？其实就是一次包装而已</p>
+<p>首先调用的外部的r.run()方法就是我们在编程中写的代码，在这个地方执行而已没有别的</p>
+<p>然后会继续执行scheduleNext方法，这个是必须执行的</p>
+<p>可以看到这个方法会把线程出队列，然后线程池执行我们的runable。</p>
+<p>可能有点不太好理解继续往下看源码，这只是分析了sDefaultExecutor究竟是什么</p>
+<p>我们继续看executeOnExecutor方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@MainThread</div><div class="line">public final AsyncTask&lt;Params, Progress, Result&gt; executeOnExecutor(Executor exec,</div><div class="line">        Params... params) &#123;</div><div class="line">    if (mStatus != Status.PENDING) &#123;</div><div class="line">        switch (mStatus) &#123;</div><div class="line">            case RUNNING:</div><div class="line">                throw new IllegalStateException(&quot;Cannot execute task:&quot;</div><div class="line">                        + &quot; the task is already running.&quot;);</div><div class="line">            case FINISHED:</div><div class="line">                throw new IllegalStateException(&quot;Cannot execute task:&quot;</div><div class="line">                        + &quot; the task has already been executed &quot;</div><div class="line">                        + &quot;(a task can be executed only once)&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    mStatus = Status.RUNNING;</div><div class="line"></div><div class="line">    onPreExecute();</div><div class="line"></div><div class="line">    mWorker.mParams = params;</div><div class="line">    exec.execute(mFuture);</div><div class="line"></div><div class="line">    return this;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先是判断…看代码很好理解吧~当这个任务执行过或者正在执行则会抛出对应的异常~</p>
+<p>然后设置我们的任务是运行状态，调用onPreExecute();方法，是不是很熟悉了~</p>
+<p>可以看到我们的任务是串行的~</p>
+<p>然后看看他的构造方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public AsyncTask() &#123;</div><div class="line">    mWorker = new WorkerRunnable&lt;Params, Result&gt;() &#123;</div><div class="line">        public Result call() throws Exception &#123;</div><div class="line">            mTaskInvoked.set(true);</div><div class="line">            Result result = null;</div><div class="line">            try &#123;</div><div class="line">                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);</div><div class="line">                //noinspection unchecked</div><div class="line">                result = doInBackground(mParams);</div><div class="line">                Binder.flushPendingCommands();</div><div class="line">            &#125; catch (Throwable tr) &#123;</div><div class="line">                mCancelled.set(true);</div><div class="line">                throw tr;</div><div class="line">            &#125; finally &#123;</div><div class="line">                postResult(result);</div><div class="line">            &#125;</div><div class="line">            return result;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    mFuture = new FutureTask&lt;Result&gt;(mWorker) &#123;</div><div class="line">        @Override</div><div class="line">        protected void done() &#123;</div><div class="line">            try &#123;</div><div class="line">                postResultIfNotInvoked(get());</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                android.util.Log.w(LOG_TAG, e);</div><div class="line">            &#125; catch (ExecutionException e) &#123;</div><div class="line">                throw new RuntimeException(&quot;An error occurred while executing doInBackground()&quot;,</div><div class="line">                        e.getCause());</div><div class="line">            &#125; catch (CancellationException e) &#123;</div><div class="line">                postResultIfNotInvoked(null);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>穿件一个WorkerRunnable，传入我们之前传入的参数泛型</p>
+<p>创建一个mFuture实例在这里传入了我们的worker实例</p>
+<p>这里看源码可以知道FutureTask是一个实现runnable接口的类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public class FutureTask&lt;V&gt; implements RunnableFuture&lt;V&gt; &#123;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public interface RunnableFuture&lt;V&gt; extends Runnable, Future&lt;V&gt; &#123;</div></pre></td></tr></table></figure>
+<p>而WorkerRunnable是一个实现callable接口的类</p>
+<p>所以和我们之前的代码对应住了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">result = doInBackground(mParams);</div></pre></td></tr></table></figure>
+<p>很熟悉吧，我们自己写的代码返回的result</p>
+<p>最终调用postResult(result);方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">private Result postResult(Result result) &#123;</div><div class="line">    @SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">    Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,</div><div class="line">            new AsyncTaskResult&lt;Result&gt;(this, result));</div><div class="line">    message.sendToTarget();</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就是我们线程切换的秘密</p>
+<p>激动人心的时候来到了！很熟悉吧！内部也是通过handler来实现线程的切换的</p>
+<p>gehandler方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">private static Handler getHandler() &#123;</div><div class="line">    synchronized (AsyncTask.class) &#123;</div><div class="line">        if (sHandler == null) &#123;</div><div class="line">            sHandler = new InternalHandler();</div><div class="line">        &#125;</div><div class="line">        return sHandler;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>是intenthandler实例</p>
+<p>继续看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">private static class InternalHandler extends Handler &#123;</div><div class="line">    public InternalHandler() &#123;</div><div class="line">        super(Looper.getMainLooper());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;RawUseOfParameterizedType&quot;&#125;)</div><div class="line">    @Override</div><div class="line">    public void handleMessage(Message msg) &#123;</div><div class="line">        AsyncTaskResult&lt;?&gt; result = (AsyncTaskResult&lt;?&gt;) msg.obj;</div><div class="line">        switch (msg.what) &#123;</div><div class="line">            case MESSAGE_POST_RESULT:</div><div class="line">                // There is only one result</div><div class="line">                result.mTask.finish(result.mData[0]);</div><div class="line">                break;</div><div class="line">            case MESSAGE_POST_PROGRESS:</div><div class="line">                result.mTask.onProgressUpdate(result.mData);</div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>之所以都能和主线程通信是因为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public InternalHandler() &#123;</div><div class="line">     super(Looper.getMainLooper());</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>这个方法，直接获取的主线程的Looper;</p>
+<p>MESSAGE_POST_RESULT对应的是finish方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">rivate void finish(Result result) &#123;</div><div class="line">    if (isCancelled()) &#123;</div><div class="line">        onCancelled(result);</div><div class="line">    &#125; else &#123;</div><div class="line">        onPostExecute(result);</div><div class="line">    &#125;</div><div class="line">    mStatus = Status.FINISHED;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一目了然不必多说了</p>
+<h2 id="并行执行"><a href="#并行执行" class="headerlink" title="并行执行"></a>并行执行</h2><p>但是我们发现这样的话他是串行执行的！！！这样的话会导致多个任务进行的话很麻烦，有没有办法解决呢？</p>
+<p>当然有的~之所以是串行执行还不是因为我们在之前的方法传入的默认的执行器是串行的？从队列一个一个取出来</p>
+<p>所以只要调用这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myAsycktask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);</div></pre></td></tr></table></figure>
+<p>这样就可以啦~记住啊不要再调用myAsycktask.execute();方法了</p>
+<p>因为我们的execute就是调用的executeOnExecutor方法，所以再调用的话就会出错了</p>
+<p>看下THREAD_POOL_EXECUTOR的源码吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static final Executor THREAD_POOL_EXECUTOR;</div><div class="line"></div><div class="line">static &#123;</div><div class="line">    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(</div><div class="line">            CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,</div><div class="line">            sPoolWorkQueue, sThreadFactory);</div><div class="line">    threadPoolExecutor.allowCoreThreadTimeOut(true);</div><div class="line">    THREAD_POOL_EXECUTOR = threadPoolExecutor;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>线程池~我们最开始的默认串行执行器就是最后用他来执行的！</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/08/15/AsyncTask的再一次探究/">AsyncTask的再一次探究</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Tong Yang</a></p>
+        <p><span>发布时间:</span>2017-08-15, 13:29:32</p>
+        <p><span>最后更新:</span>2017-08-15, 15:31:56</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/15/AsyncTask的再一次探究/" title="AsyncTask的再一次探究">http://yoursite.com/2017/08/15/AsyncTask的再一次探究/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/15/AsyncTask的再一次探究/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/08/13/设计模式/">
+                    设计模式
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AsyncTask"><span class="toc-number">1.</span> <span class="toc-text">AsyncTask</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">1.1.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AsyncTask的源码分析"><span class="toc-number">2.</span> <span class="toc-text">AsyncTask的源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异步任务的开始execute方法"><span class="toc-number">2.1.</span> <span class="toc-text">异步任务的开始execute方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#并行执行"><span class="toc-number">3.</span> <span class="toc-text">并行执行</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"AsyncTask的再一次探究　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section class="youyan" id="comments">
+    <script>
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://v2.uyan.cc/code/uyan.js?uid=2141539';
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+    <div id="uyan_frame"></div>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/08/13/设计模式/" title="下一篇: 设计模式">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/15/AsyncTask的再一次探究/">AsyncTask的再一次探究</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/13/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/12/Rxjava2.x学习之线程切换/">Rxjava线程切换</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/11/RxJava2-X学习之订阅原理/">RxJava2.X学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/计算机网络复习/">计算机网络复习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/07/数据结构————栈/">数据结构————栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/八大排序java实现/">八大排序java实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/02/Fragment懒加载/">Fragment懒加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/27/自己写一个Handler/">自己写一个Handler</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/23/handler的实现原理/">handler的实现原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/22/Collction接口集合/">Collction接口集合</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/Android四大组件-Broadcas/">Android四大组件-Broadcast</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/Android四大组件-Activity/">Android四大组件-Activity</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/19/JAVA-FIle的一些东西/">JAVA FIle的排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/测试/">测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/11/Android性能优化/">Android性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/图片缓存与bitmap的加载/">图片缓存与bitmap的加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/04/drawable/">drawable</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/02/view的工作原理/">view的工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/希尔排序/">希尔排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/28/排序（冒泡排序，插入排序）/">排序（冒泡排序，插入排序）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/27/排序（选择排序）/">排序（选择排序）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/22/java8-行为参数传递代码/">java8-行为参数传递代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/handler和messsage/">handler和messsage</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/17/bitmap上写字/">bitmap上写字</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/svg/">svg</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/算法基础/">算法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/searchview/">searchview</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/Android头像缓存/">Android头像缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/系统分享/">系统分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/安卓图库那些事/">安卓图库那些事</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/30/发布了人生第一款应用/">发布了人生第一款应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/downloadmangager的使用/">downloadmangager的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/28/RecyclerView的使用/">RecyclerView的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/28/安卓学习路线/">安卓学习路线</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/28/Linux环境下搭建hexo博客/">Linux环境下搭建hexo博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/14/自定义View/">自定义View</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/15/利用序列化器生成xml文件/">利用序列化器生成xml文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/28/测试类测试数据库并且进行增删改查/">测试类测试数据库并且进行增删改查</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/11/handler/">主线程阻塞，使用handler方法消息队列 和子线程请求主线程进行ui变化</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 Tong Yang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
