@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-15T07:31:56.376Z</updated>
+  <updated>2017-08-17T07:09:27.887Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,121 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>线程池~和threadgroup</title>
+    <link href="http://yoursite.com/2017/08/17/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    <id>http://yoursite.com/2017/08/17/线程池/</id>
+    <published>2017-08-17T06:13:45.000Z</published>
+    <updated>2017-08-17T07:09:27.887Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>作用：<strong>利用线程池可以大大减少在创建和销毁线程上所花的时间以及系统资源的开销！</strong></p>
+<h3 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h3><p>这个实现类是我们最常见的线程池方法~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">                          int maximumPoolSize,</div><div class="line">                          long keepAliveTime,</div><div class="line">                          TimeUnit unit,</div><div class="line">                          BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                          ThreadFactory threadFactory,</div><div class="line">                          RejectedExecutionHandler handler) &#123;</div><div class="line">    if (corePoolSize &lt; 0 ||</div><div class="line">        maximumPoolSize &lt;= 0 ||</div><div class="line">        maximumPoolSize &lt; corePoolSize ||</div><div class="line">        keepAliveTime &lt; 0)</div><div class="line">        throw new IllegalArgumentException();</div><div class="line">    if (workQueue == null || threadFactory == null || handler == null)</div><div class="line">        throw new NullPointerException();</div><div class="line">    this.corePoolSize = corePoolSize;</div><div class="line">    this.maximumPoolSize = maximumPoolSize;</div><div class="line">    this.workQueue = workQueue;</div><div class="line">    this.keepAliveTime = unit.toNanos(keepAliveTime);</div><div class="line">    this.threadFactory = threadFactory;</div><div class="line">    this.handler = handler;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是他的构造函数，他有四个，这个是最多的，先了解这个所有的就都了解了。</p>
+<p>先了解这几个参数</p>
+<ul>
+<li>corePoolSize：核心池的大小，在创建了线程池后，默认情况下，线程池中并没有任何线程，而是等待有任务到来才创建线程去执行任务，当有任务来之后，就会创建一个线程去执行任务，当线程池中的线程数目达到corePoolSize后，就会把到达的任务放到缓存队列当中；</li>
+<li>maximumPoolSize：线程池最大线程数；</li>
+<li>keepAliveTime：表示线程没有任务执行时最多保持多久时间会终止；</li>
+<li>unit：参数keepAliveTime的时间单位（DAYS、HOURS、MINUTES、SECONDS 等）；</li>
+<li>workQueue：阻塞队列，用来存储等待执行的任务；<ul>
+<li>ArrayBlockingQueue （有界队列）</li>
+<li>LinkedBlockingQueue （无界队列）</li>
+<li>SynchronousQueue：一个不存储元素的阻塞队列。每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于阻塞状态，吞吐量通常要高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列。</li>
+<li>PriorityBlockingQueue：一个具有优先级得无限阻塞队列。</li>
+</ul>
+</li>
+<li>threadFactory：线程工厂，主要用来创建线程</li>
+<li>handler：拒绝处理任务的策略<ul>
+<li>AbortPolicy：丢弃任务并抛出 RejectedExecutionException 异常。（默认这种）</li>
+<li>DiscardPolicy：也是丢弃任务，但是不抛出异常</li>
+<li>DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）</li>
+<li>CallerRunsPolicy：由调用线程处理该任务</li>
+</ul>
+</li>
+</ul>
+<p>挺好理解的！只要看一遍就差不多了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">executor.execute(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">         </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这个是线程池执行一个任务的方法</p>
+<p>最重要也是最常用的了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">executor.shutdown();</div></pre></td></tr></table></figure>
+<p>这个是关闭线程池</p>
+<p>这个线程工厂你可能不太明白</p>
+<h3 id="ThreadFactory"><a href="#ThreadFactory" class="headerlink" title="ThreadFactory"></a>ThreadFactory</h3><p>可以理解为线程的创造工厂</p>
+<p>比如这个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ThreadFactory factory = new ThreadFactory() &#123;</div><div class="line">    AtomicInteger atomicInteger = new AtomicInteger();</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Thread newThread(Runnable r) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        return new Thread(r, atomicInteger.getAndIncrement() + &quot;号线程&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这样的话方便查看线程~</p>
+<h3 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h3><p>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。</p>
+<h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h3><p>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+<h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><p>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。</p>
+<h3 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a>newScheduledThreadPool</h3><p>创建一个定长线程池，支持定时及周期性任务执行。</p>
+<h2 id="ThreadGroup"><a href="#ThreadGroup" class="headerlink" title="ThreadGroup"></a>ThreadGroup</h2><p>这个用的不算多，，但是他比线程池好处就是他可以遍历线程，可以知道哪些线程是运行中，哪些运行完毕了</p>
+<ul>
+<li>int activeCount() </li>
+</ul>
+<p>返回此线程组中活动线程的估计数。 </p>
+<ul>
+<li>int activeGroupCount() </li>
+</ul>
+<p>返回此线程组中活动线程组的估计数。 </p>
+<ul>
+<li>String getName() </li>
+</ul>
+<p>返回此线程组的名称。 </p>
+<ul>
+<li>ThreadGroup getParent() </li>
+</ul>
+<p>返回此线程组的父线程组。 </p>
+<ul>
+<li>void resume() </li>
+</ul>
+<p>已过时。 此方法只用于联合 Thread.suspend 和 ThreadGroup.suspend 时，因为它们所固有的容易导致死锁的特性，所以两者都已废弃。有关详细信息，请参阅 Thread.suspend()。 </p>
+<ul>
+<li>void setDaemon(boolean daemon) </li>
+</ul>
+<p>更改此线程组的后台程序状态。 </p>
+<ul>
+<li>void setMaxPriority(int pri) </li>
+</ul>
+<p>设置线程组的最高优先级。 </p>
+<ul>
+<li>void stop() </li>
+</ul>
+<p>已过时。 </p>
+]]></content>
+    
+    <summary type="html">
+    
+      线程池~开发的过程中多多少少都会遇到这个东西，因为性能比我们每次都去new一个线程好多了~而且之前的那篇Asynctask已经说到了，内部就是线程池完成的，但是线程池究竟分几种，怎么用，哪几种用法？一起来复习下吧~
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hashmap</title>
+    <link href="http://yoursite.com/2017/08/15/hashmap/"/>
+    <id>http://yoursite.com/2017/08/15/hashmap/</id>
+    <published>2017-08-15T09:53:15.000Z</published>
+    <updated>2017-08-15T09:53:15.602Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>AsyncTask的再一次探究</title>
     <link href="http://yoursite.com/2017/08/15/AsyncTask%E7%9A%84%E5%86%8D%E4%B8%80%E6%AC%A1%E6%8E%A2%E7%A9%B6/"/>
     <id>http://yoursite.com/2017/08/15/AsyncTask的再一次探究/</id>
     <published>2017-08-15T05:29:32.000Z</published>
-    <updated>2017-08-15T07:31:56.376Z</updated>
+    <updated>2017-08-15T12:47:59.498Z</updated>
     
     <content type="html"><![CDATA[<h2 id="AsyncTask"><a href="#AsyncTask" class="headerlink" title="AsyncTask"></a>AsyncTask</h2><p>他是一个抽象类大家都知道了，然后使用就是继承他实现那四个方法，然后传入我们要传入的三个泛型参数，</p>
 <ol>
@@ -1492,122 +1602,6 @@ Activity可以理解为Android程序我们看到的界面都是承载在Activity
     
     
       <category term="drawable" scheme="http://yoursite.com/tags/drawable/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>view的工作原理</title>
-    <link href="http://yoursite.com/2017/05/02/view%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
-    <id>http://yoursite.com/2017/05/02/view的工作原理/</id>
-    <published>2017-05-02T04:00:35.000Z</published>
-    <updated>2017-05-02T06:02:37.952Z</updated>
-    
-    <content type="html"><![CDATA[<p>ViewRoot是对应ViewRootImpl类，他是连接windowmangager和DecorView的纽带。</p>
-<p>view的三大绘制流程都是从viewroot开始的，在ActivityThread中，activity对象被创建完成后，会把decorview添加到window中。同时创建vIewrootImpl对象。</p>
-<p>view的绘制从viewroot的performTraversals方法开始分别对应 measure，layout，和draw，分别对应</p>
-<ul>
-<li><p>测量宽高</p>
-</li>
-<li><p>确定view在父容器中的位置</p>
-</li>
-<li><p>绘制</p>
-<p>​</p>
-</li>
-</ul>
-<p>performTraversals会依次调用perfromMeasure，performLayout,performDraw 方法，这三个方法会完成顶级view的 三个绘制过程，其中的performMeasure会调用measure ，然后再调用onmeasure</p>
-<p>然后再onmeasure方法中会继续对子view进行measure过程，这样就遍历了整个view树。</p>
-<p>其他两个方法也是类似</p>
-<p>DecorView作为顶级的view其实包含一个linearlayout，分为两个部分，一个titlebar和content，所以我们的oncreate方法中是setcontentview而不是setview</p>
-<h1 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h1><p>measureSpec会根据view的layoutparams和父容器施加的规则转换而来</p>
-<p>MeasureSpec是一个32位的int值，前两位代表测量模式SpecMode，后面代代表SpecSize测量大小</p>
-<p>SpecMode分为三种</p>
-<ul>
-<li><p>UNSPECIFIED 父容器对view的宽高没有任何的限制，要多打给多大，一般出现在系统内部</p>
-</li>
-<li><p>EXACTLY 精确大小，表示view的大小就是spceSize， 如match_parent，或者精确的一个数值</p>
-</li>
-<li><p>AT_MOST 父容器给顶了一个大小，view的大小不能超过它，比如wrap_contet</p>
-<p>​</p>
-</li>
-</ul>
-<p>最顶级的view decorview的大小是由他自己的layoutparams和窗口的尺寸决定，而其他的view都是父容器的规则和自身的layoutparams决定。</p>
-<p>MeasureSpec一旦确定后 onMeasure就可以确定view的最终宽高</p>
-<p>padding代表父容器已经占用的大小，所以实际可用大小为父容器大小减去padding。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int size=Math.max(0,specSize-padding);</div></pre></td></tr></table></figure>
-<h1 id="view的工作流程"><a href="#view的工作流程" class="headerlink" title="view的工作流程"></a>view的工作流程</h1><p>———–Measure————layout———–draw</p>
-<h3 id="measure"><a href="#measure" class="headerlink" title="measure"></a>measure</h3><p>如果是viewgroup则除了测量自己的大小，还要去遍历调用字view 的measure的方法如果是view则只调用measure</p>
-<p>view的measure方法是一个final方法，不能被重写而在measrue方法中会调用onMseasure方法。</p>
-<h5 id="viewgroup的measure过程"><a href="#viewgroup的measure过程" class="headerlink" title="viewgroup的measure过程"></a>viewgroup的measure过程</h5><p>viewgroup是抽象类没有实现onMeasure，但是有一个measureChildren方法。</p>
-<p>之所以它没有实现测量方法，是因为他需要子类去实现这个方法如linearlayout等，因为每个的布局特性导致他们的测量方法不同。</p>
-<p>记住 view的onMeasure过程不是和acitvity同步的，所以在oncreate和onstart或者onresume中无法获取到真正的宽高</p>
-<p>所以要使用如下方法调用是比较正确的</p>
-<ul>
-<li>通过onWindowFocusChanged方法</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public void onWindowFocusChanged(boolean hasFocus)&#123;</div><div class="line">  surper.onWindowFocusChanged(hasFocus);</div><div class="line">  if(hasFocus)&#123;</div><div class="line">    int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>通过view.post方法</p>
-<p>post一个runable投入到消息队列，然后等待Looper调用runable的时候view已经初始化好了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">view.post(new runable()&#123;</div><div class="line">  @Override</div><div class="line">  public void run()&#123;</div><div class="line">  </div><div class="line">  // 获取宽高</div><div class="line">   int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-<li><p>通过ViewTreeObserver的回调方法</p>
-</li>
-<li><p>通过view.measure(int WidthMeasureSpec,int HeightMeasureSpec)</p>
-<p> match_parent  直接放弃，无法获取</p>
-<p>具体的数值 </p>
-</li>
-</ul>
-<p>​        warp_content</p>
-<h3 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h3><p>ViewGroup调用layout方法确定自己的位置，当自己的位置确定后他会调用onlayout方法遍历子元素的laout方法，然后子元素在去调用layout方法 </p>
-<p>layout方法确定本身的位置，onlayout确定子元素的位置</p>
-<p>layout方法会通过 setfrme 确定view的四个顶点位置mLeft，mRight,mTop,mbottom.四个点确定了位置也就确定了然后调用onlayout方法 ，它和onmeasure方法一样，viewgroup没有具体的实现，</p>
-<h3 id="draw"><a href="#draw" class="headerlink" title="draw"></a>draw</h3><p>draw的过程遵循四步骤</p>
-<ul>
-<li><p>绘制背景</p>
-</li>
-<li><p>绘制自己（onDraw）</p>
-</li>
-<li><p>绘制children（dispatchDraw）</p>
-</li>
-<li><p>绘制装饰（onDrawScrollBars）</p>
-</li>
-</ul>
-<p>View的特殊方法 ——–setWillNotDraw</p>
-<p>表示一个view如果不需要绘制则可以设置为ture，这样系统会进行优化。viewgroup会默认的开启这个方法，如果我们的自定义view需要onDraw方法来绘制东西，则我们需要关闭这个方法</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;ViewRoot是对应ViewRootImpl类，他是连接windowmangager和DecorView的纽带。&lt;/p&gt;
-&lt;p&gt;view的三大绘制流程都是从viewroot开始的，在ActivityThread中，activity对象被创建完成后，会把decorview添
-    
-    </summary>
-    
-    
-      <category term="view" scheme="http://yoursite.com/tags/view/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>希尔排序</title>
-    <link href="http://yoursite.com/2017/04/28/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/"/>
-    <id>http://yoursite.com/2017/04/28/希尔排序/</id>
-    <published>2017-04-28T10:51:28.000Z</published>
-    <updated>2017-04-29T04:23:00.931Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">static void xier()&#123;</div><div class="line">    int i,j,h,v;</div><div class="line">    for (h=1;h==test.length/9;h=h*3+1);</div><div class="line">    for (;h&gt;0;h=h/3)&#123;</div><div class="line">       for (i=h+1;i==test.length;i+=1)&#123;</div><div class="line"></div><div class="line">           v=test[i];</div><div class="line">           j=i;</div><div class="line">           while (j&gt;h&amp;&amp;test[j-h]&gt;v)</div><div class="line">           &#123;</div><div class="line">               test[j]=test[j-h];</div><div class="line">                j-=h;</div><div class="line"></div><div class="line">           &#125;</div><div class="line">           test[j]=v;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>通过设置一个间距在可以在较远的距离进行位置交换，并且不断缩小这个间距知道距离变为1，这个时候的数组已经变得基本有序，最后的一次排序也就成为了插入排序，但是因为数组有序度高所以耗时短、</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
-    
-    </summary>
-    
-    
-      <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   

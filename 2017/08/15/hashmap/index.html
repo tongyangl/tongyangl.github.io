@@ -15,17 +15,16 @@
 
 
 
-<meta name="description" content="Activity作为Android四大组件之一想必重要性不用多说。 Activity可以理解为Android程序我们看到的界面都是承载在Activity上。">
-<meta name="keywords" content="Android">
+<meta name="description" content="١���Ĳ���">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android四大组件-Activity">
-<meta property="og:url" content="http://yoursite.com/2017/07/20/Android四大组件-Activity/index.html">
+<meta property="og:title" content="hashmap">
+<meta property="og:url" content="http://yoursite.com/2017/08/15/hashmap/index.html">
 <meta property="og:site_name" content="Tong Yang&#39;s Blog">
-<meta property="og:description" content="Activity作为Android四大组件之一想必重要性不用多说。 Activity可以理解为Android程序我们看到的界面都是承载在Activity上。">
-<meta property="og:updated_time" content="2017-08-14T08:51:33.937Z">
+<meta property="og:description" content="١���Ĳ���">
+<meta property="og:updated_time" content="2017-08-15T09:53:15.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android四大组件-Activity">
-<meta name="twitter:description" content="Activity作为Android四大组件之一想必重要性不用多说。 Activity可以理解为Android程序我们看到的界面都是承载在Activity上。">
+<meta name="twitter:title" content="hashmap">
+<meta name="twitter:description" content="١���Ĳ���">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Android四大组件-Activity | Tong Yang&#39;s Blog</title>
+<title>hashmap | Tong Yang&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -240,11 +239,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="article-Android四大组件-Activity" class="article article-type-article" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="article-hashmap" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/20/Android四大组件-Activity/" class="article-date">
-      <time datetime="2017-07-20T05:33:07.000Z" itemprop="datePublished">2017-07-20</time>
+      <a href="/2017/08/15/hashmap/" class="article-date">
+      <time datetime="2017-08-15T09:53:15.000Z" itemprop="datePublished">2017-08-15</time>
 </a>
 
 
@@ -259,7 +258,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android四大组件-Activity
+      hashmap
     </h1>
   
 
@@ -267,16 +266,8 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -284,61 +275,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="" alt="http://img.blog.csdn.net/20160717151833576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
-<p>  正常Activity的启动经历以下过程</p>
-<ul>
-<li><p>onCreat</p>
-<p>Activity的创建，做一切初始化的操作，这个时候Activity还不可见。</p>
-</li>
-<li><p>onStart</p>
-<p>Activity已经展现在前台页面，但是还是不可以交互。</p>
-</li>
-<li><p>onResume</p>
-<p>Activity可见，并且可以交互。可以做一些onPause或者onStop释放资源的的回收操作</p>
-</li>
-<li><p>Activity进入运行状态</p>
-</li>
-<li><p>onPause</p>
-<p>Activity进入后台之前可见的时候做一些回收工作，只有当前Activity的onpause方法执行完事之后下个Activity的onResume方法才会执行</p>
-</li>
-<li><p>onStop</p>
-<p>Activity不可见。回收操作，不能太过于耗时。</p>
-</li>
-<li><p>onDestory</p>
-<p>Activity销毁，可以做一些大量的回收操作</p>
-<p>​</p>
-</li>
-</ul>
-<p>如果ACtivity在进入onStop方法后未被销毁，而又被展现到前台页面则会调用onRestart()方法</p>
-<p>onCreate的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>其中savedInstanceState是一个Bundle类型的参数，会在onPause()或onStop()之前执行，在她和map差不多，都是键值对形式，我们可以在Activity快被销毁的时候储存一些东西</p>
-<p>调用方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onSaveInstanceState(Bundle outState) &#123;</div><div class="line">    super.onSaveInstanceState(outState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里进行存储。</p>
-<p>onRestoreInstanceState</p>
-<p>这个方法会在Activity真正被销毁的时候才会执行。比如按下bcak键。</p>
-<h3 id="Activity的四种LaunchMode"><a href="#Activity的四种LaunchMode" class="headerlink" title="Activity的四种LaunchMode"></a>Activity的四种LaunchMode</h3><ul>
-<li>standard 模式</li>
-</ul>
-<p>这是默认模式，每次激活Activity时都会创建Activity实例，并放入任务栈中。使用场景：大多数Activity。</p>
-<ul>
-<li>singleTop 模式</li>
-</ul>
-<p>如果在任务的栈顶正好存在该Activity的实例，就重用该实例( 会调用实例的 onNewIntent() )，否则就会创建新的实例并放入栈顶，即使栈中已经存在该Activity的实例，只要不在栈顶，都会创建新的实例。使用场景如新闻类或者阅读类App的内容页面。</p>
-<ul>
-<li>singleTask 模式</li>
-</ul>
-<p>如果在栈中已经有该Activity的实例，就重用该实例(会调用实例的 onNewIntent() )。重用时，会让该实例回到栈顶，因此在它上面的实例将会被移出栈。如果栈中不存在该实例，将会创建新的实例放入栈中。使用场景如浏览器的主界面。不管从多少个应用启动浏览器，只会启动主界面一次，其余情况都会走onNewIntent，并且会清空主界面上面的其他页面。</p>
-<ul>
-<li>singleInstance 模式</li>
-</ul>
-<p>在一个新栈中创建该Activity的实例，并让多个应用共享该栈中的该Activity实例。一旦该模式的Activity实例已经存在于某个栈中，任何应用再激活该Activity时都会重用该栈中的实例( 会调用实例的 onNewIntent() )。其效果相当于多个应用共享一个应用，不管谁激活该 Activity 都会进入同一个应用中。使用场景如闹铃提醒，将闹铃提醒与闹铃设置分离。singleInstance不要用于中间页面，如果用于中间页面，跳转会有问题，比如：A -&gt; B (singleInstance) -&gt; C，完全退出后，在此启动，首先打开的是B。</p>
-<p>如何判断一个Activity加载完毕。使用onResume方法？  错。。这个不知道为啥就是错误的，</p>
-<p>因为之前做过一个播放器，里面的mediaController是一个自定义的Popuwindow，需要加载玩Activity就显示，但是我放在onResume里面总是报错，显示窗口泄露，找不到Activity于是高了半天才发现这个方法。这个方法表示Activity加载完毕，可以做一些加载完毕就做得事情，如popuwindow的展示，测量加载完毕的View长度，如果在其他方法里面测量的话会导致长度错误或者为0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onConfigurationChanged(Configuration newConfig) &#123;</div><div class="line">    super.onConfigurationChanged(newConfig);</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个方法是屏幕的旋转。当屏幕旋转的时候可以在这个方法进行操作。</p>
-
+        
       
     </div>
     
@@ -346,13 +283,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/07/20/Android四大组件-Activity/">Android四大组件-Activity</a></p>
+        <p><span>本文标题:</span><a href="/2017/08/15/hashmap/">hashmap</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Tong Yang</a></p>
-        <p><span>发布时间:</span>2017-07-20, 13:33:07</p>
-        <p><span>最后更新:</span>2017-08-14, 16:51:33</p>
+        <p><span>发布时间:</span>2017-08-15, 17:53:15</p>
+        <p><span>最后更新:</span>2017-08-15, 17:53:15</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/07/20/Android四大组件-Activity/" title="Android四大组件-Activity">http://yoursite.com/2017/07/20/Android四大组件-Activity/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/07/20/Android四大组件-Activity/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/15/hashmap/" title="hashmap">http://yoursite.com/2017/08/15/hashmap/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/15/hashmap/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -365,15 +302,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/07/20/Android四大组件-Broadcas/">
-                    Android四大组件-Broadcast
+                <a href="/2017/08/17/线程池/">
+                    线程池~和threadgroup
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/07/19/JAVA-FIle的一些东西/">
-                    JAVA FIle的排序
+                <a href="/2017/08/15/AsyncTask的再一次探究/">
+                    AsyncTask的再一次探究
                 </a>
             </div>
         
@@ -385,7 +322,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity的生命周期"><span class="toc-number">1.</span> <span class="toc-text">Activity的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity的四种LaunchMode"><span class="toc-number">2.</span> <span class="toc-text">Activity的四种LaunchMode</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -421,7 +358,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Android四大组件-Activity　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"hashmap　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -455,7 +392,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/07/20/Android四大组件-Broadcas/" title="上一篇: Android四大组件-Broadcast">
+            <a href="/2017/08/17/线程池/" title="上一篇: 线程池~和threadgroup">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -463,7 +400,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/07/19/JAVA-FIle的一些东西/" title="下一篇: JAVA FIle的排序">
+            <a href="/2017/08/15/AsyncTask的再一次探究/" title="下一篇: AsyncTask的再一次探究">
                 <i class="fa fa-angle-right"></i>
             </a>
         

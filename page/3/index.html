@@ -247,6 +247,199 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="article-view的工作原理" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/02/view的工作原理/" class="article-date">
+      <time datetime="2017-05-02T04:00:35.000Z" itemprop="datePublished">2017-05-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/02/view的工作原理/">view的工作原理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>ViewRoot是对应ViewRootImpl类，他是连接windowmangager和DecorView的纽带。</p>
+<p>view的三大绘制流程都是从viewroot开始的，在ActivityThread中，activity对象被创建完成后，会把decorview添加到window中。同时创建vIewrootImpl对象。</p>
+<p>view的绘制从viewroot的performTraversals方法开始分别对应 measure，layout，和draw，分别对应</p>
+<ul>
+<li><p>测量宽高</p>
+</li>
+<li><p>确定view在父容器中的位置</p>
+</li>
+<li><p>绘制</p>
+<p>​</p>
+</li>
+</ul>
+<p>performTraversals会依次调用perfromMeasure，performLayout,performDraw 方法，这三个方法会完成顶级view的 三个绘制过程，其中的performMeasure会调用measure ，然后再调用onmeasure</p>
+<p>然后再onmeasure方法中会继续对子view进行measure过程，这样就遍历了整个view树。</p>
+<p>其他两个方法也是类似</p>
+<p>DecorView作为顶级的view其实包含一个linearlayout，分为两个部分，一个titlebar和content，所以我们的oncreate方法中是setcontentview而不是setview</p>
+<h1 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h1><p>measureSpec会根据view的layoutparams和父容器施加的规则转换而来</p>
+<p>MeasureSpec是一个32位的int值，前两位代表测量模式SpecMode，后面代代表SpecSize测量大小</p>
+<p>SpecMode分为三种</p>
+<ul>
+<li><p>UNSPECIFIED 父容器对view的宽高没有任何的限制，要多打给多大，一般出现在系统内部</p>
+</li>
+<li><p>EXACTLY 精确大小，表示view的大小就是spceSize， 如match_parent，或者精确的一个数值</p>
+</li>
+<li><p>AT_MOST 父容器给顶了一个大小，view的大小不能超过它，比如wrap_contet</p>
+<p>​</p>
+</li>
+</ul>
+<p>最顶级的view decorview的大小是由他自己的layoutparams和窗口的尺寸决定，而其他的view都是父容器的规则和自身的layoutparams决定。</p>
+<p>MeasureSpec一旦确定后 onMeasure就可以确定view的最终宽高</p>
+<p>padding代表父容器已经占用的大小，所以实际可用大小为父容器大小减去padding。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int size=Math.max(0,specSize-padding);</div></pre></td></tr></table></figure>
+<h1 id="view的工作流程"><a href="#view的工作流程" class="headerlink" title="view的工作流程"></a>view的工作流程</h1><p>———–Measure————layout———–draw</p>
+<h3 id="measure"><a href="#measure" class="headerlink" title="measure"></a>measure</h3><p>如果是viewgroup则除了测量自己的大小，还要去遍历调用字view 的measure的方法如果是view则只调用measure</p>
+<p>view的measure方法是一个final方法，不能被重写而在measrue方法中会调用onMseasure方法。</p>
+<h5 id="viewgroup的measure过程"><a href="#viewgroup的measure过程" class="headerlink" title="viewgroup的measure过程"></a>viewgroup的measure过程</h5><p>viewgroup是抽象类没有实现onMeasure，但是有一个measureChildren方法。</p>
+<p>之所以它没有实现测量方法，是因为他需要子类去实现这个方法如linearlayout等，因为每个的布局特性导致他们的测量方法不同。</p>
+<p>记住 view的onMeasure过程不是和acitvity同步的，所以在oncreate和onstart或者onresume中无法获取到真正的宽高</p>
+<p>所以要使用如下方法调用是比较正确的</p>
+<ul>
+<li>通过onWindowFocusChanged方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public void onWindowFocusChanged(boolean hasFocus)&#123;</div><div class="line">  surper.onWindowFocusChanged(hasFocus);</div><div class="line">  if(hasFocus)&#123;</div><div class="line">    int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>通过view.post方法</p>
+<p>post一个runable投入到消息队列，然后等待Looper调用runable的时候view已经初始化好了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">view.post(new runable()&#123;</div><div class="line">  @Override</div><div class="line">  public void run()&#123;</div><div class="line">  </div><div class="line">  // 获取宽高</div><div class="line">   int height=view.getmeasureheight（）；</div><div class="line">     int width=view.getmeasureWidth（）；</div><div class="line">  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>通过ViewTreeObserver的回调方法</p>
+</li>
+<li><p>通过view.measure(int WidthMeasureSpec,int HeightMeasureSpec)</p>
+<p> match_parent  直接放弃，无法获取</p>
+<p>具体的数值 </p>
+</li>
+</ul>
+<p>​        warp_content</p>
+<h3 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h3><p>ViewGroup调用layout方法确定自己的位置，当自己的位置确定后他会调用onlayout方法遍历子元素的laout方法，然后子元素在去调用layout方法 </p>
+<p>layout方法确定本身的位置，onlayout确定子元素的位置</p>
+<p>layout方法会通过 setfrme 确定view的四个顶点位置mLeft，mRight,mTop,mbottom.四个点确定了位置也就确定了然后调用onlayout方法 ，它和onmeasure方法一样，viewgroup没有具体的实现，</p>
+<h3 id="draw"><a href="#draw" class="headerlink" title="draw"></a>draw</h3><p>draw的过程遵循四步骤</p>
+<ul>
+<li><p>绘制背景</p>
+</li>
+<li><p>绘制自己（onDraw）</p>
+</li>
+<li><p>绘制children（dispatchDraw）</p>
+</li>
+<li><p>绘制装饰（onDrawScrollBars）</p>
+</li>
+</ul>
+<p>View的特殊方法 ——–setWillNotDraw</p>
+<p>表示一个view如果不需要绘制则可以设置为ture，这样系统会进行优化。viewgroup会默认的开启这个方法，如果我们的自定义view需要onDraw方法来绘制东西，则我们需要关闭这个方法</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/">view</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="article-希尔排序" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/28/希尔排序/" class="article-date">
+      <time datetime="2017-04-28T10:51:28.000Z" itemprop="datePublished">2017-04-28</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/28/希尔排序/">希尔排序</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">static void xier()&#123;</div><div class="line">    int i,j,h,v;</div><div class="line">    for (h=1;h==test.length/9;h=h*3+1);</div><div class="line">    for (;h&gt;0;h=h/3)&#123;</div><div class="line">       for (i=h+1;i==test.length;i+=1)&#123;</div><div class="line"></div><div class="line">           v=test[i];</div><div class="line">           j=i;</div><div class="line">           while (j&gt;h&amp;&amp;test[j-h]&gt;v)</div><div class="line">           &#123;</div><div class="line">               test[j]=test[j-h];</div><div class="line">                j-=h;</div><div class="line"></div><div class="line">           &#125;</div><div class="line">           test[j]=v;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过设置一个间距在可以在较远的距离进行位置交换，并且不断缩小这个间距知道距离变为1，这个时候的数组已经变得基本有序，最后的一次排序也就成为了插入排序，但是因为数组有序度高所以耗时短、</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="article-排序（冒泡排序，插入排序）" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -763,145 +956,9 @@
 
 
   
-    <article id="article-Android头像缓存" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/08/Android头像缓存/" class="article-date">
-      <time datetime="2017-04-08T11:04:34.000Z" itemprop="datePublished">2017-04-08</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/08/Android头像缓存/">Android头像缓存</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="其实没那么难！"><a href="#其实没那么难！" class="headerlink" title="其实没那么难！"></a>其实没那么难！</h3><p>之前一直抵触写这些东西，而且很多都是直接百度的，根本没有去想怎么回事。这不，今天下午有遇到这些问题了，无奈找了个网上的例子，看似很简单，可是使用中却发现根本不是那回事！</p>
-<p>当我们遇到listview 或者recycleview加载图片或者头像的时候 如果直接在getview的方法里面写一个异步的方法来加载图片的话写起来是简单，但是这样会导致item每次被重绘的时候都会去执行这个异步任务！导致app变卡，以及耗费流量等等有损用户体验的事情！</p>
-<p>于是今天下午自己逼着自己写了一个！才发现其实根本没有那么难。。。</p>
-<h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><p>其实就是每次加载的时候去你的本地文件夹判断是否有这个图片，如果有就直接加载，如果没有就去网络获取加载，在保存到本地！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">String path=context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath();</div><div class="line">       imageView.setBackgroundResource(R.drawable.ic_img_load);</div><div class="line">       final File file = new File(path + &quot;/iv2ex&quot;);</div><div class="line">       String u = url.replace(&quot;/&quot;, &quot;!&quot;);</div><div class="line">       u = u.replace(&quot;.&quot;, &quot;!&quot;);</div><div class="line">       if (!file.exists()) &#123;</div><div class="line">           file.mkdirs();</div><div class="line">       &#125;</div><div class="line">       final File f = new File(file, u );</div></pre></td></tr></table></figure>
-<p>这是文件夹的判断，如果没有父类文件夹直接创建！，然后记得吧图片的地址给转义下里面的“ /”不然会导致找不到文件。然后如果文件存在直接加载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (f.exists()) &#123;</div><div class="line">            try &#123;</div><div class="line">                FileInputStream fos = new FileInputStream(f);</div><div class="line">                Bitmap bitmap = BitmapFactory.decodeStream(fos);</div><div class="line">                Drawable drawable = new BitmapDrawable(bitmap);</div><div class="line">                imageView.setImageDrawable(drawable);</div><div class="line">            &#125; catch (FileNotFoundException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">                imageView.setBackgroundResource(R.drawable.ic_person_outline_black_24dp);</div><div class="line">            &#125;</div></pre></td></tr></table></figure>
-<p>如果文件不存在！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">URL picUrl = null;</div><div class="line">                  try &#123;</div><div class="line">                      picUrl = new URL(url);</div><div class="line"></div><div class="line">                      Bitmap bitmap = BitmapFactory.decodeStream(picUrl.openStream());</div><div class="line">                      OutputStream os = new FileOutputStream(f);</div><div class="line">                      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);</div><div class="line">                      os.flush();</div><div class="line">                      os.close();</div><div class="line">                      subscriber.onNext(bitmap);</div><div class="line">                      subscriber.onCompleted();</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Drawable drable = new BitmapDrawable(bitmap);</div><div class="line">                          imageView.setImageDrawable(drable);</div></pre></td></tr></table></figure>
-<p>我的异步任务是用rxjava写的。。很方便链式的。。 到这里就结束了，其实真的很简单，之前总是把事情想的非常复杂。。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="article-系统分享" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/04/系统分享/" class="article-date">
-      <time datetime="2017-04-04T11:49:06.000Z" itemprop="datePublished">2017-04-04</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/04/系统分享/">系统分享</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="系统分享"><a href="#系统分享" class="headerlink" title="系统分享"></a>系统分享</h3><p>Android手机调用系统分享是个很常见的事情，所以今天来总结下分享的功能。</p>
-<p>当分享单个文本的时候</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Intent shareIntent = new Intent();</div><div class="line">      shareIntent.setAction(Intent.ACTION_SEND);</div><div class="line">      shareIntent.putExtra(Intent.EXTRA_TEXT, &quot;你要分享的文本&quot;);</div><div class="line">      shareIntent.setType(&quot;text/plain&quot;);</div><div class="line"> </div><div class="line">      //设置分享列表的标题，并且每次都显示分享列表</div><div class="line">      startActivity(Intent.createChooser(shareIntent, &quot;分享到&quot;));//分享的标题</div></pre></td></tr></table></figure>
-<p>分享单个照片的时候</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">String imagePath =&quot;-------------&quot;</div><div class="line">//由文件得到uri</div><div class="line">Uri imageUri = Uri.fromFile(new File(imagePath));</div><div class="line">Log.d(&quot;share&quot;, &quot;uri:&quot; + imageUri);  //输出：</div><div class="line"></div><div class="line">Intent shareIntent = new Intent();</div><div class="line">shareIntent.setAction(Intent.ACTION_SEND);</div><div class="line">shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);</div><div class="line">shareIntent.setType(&quot;image/*&quot;);</div><div class="line">startActivity(Intent.createChooser(shareIntent, &quot;分享到&quot;));</div></pre></td></tr></table></figure>
-<p>分享多个照片的时候</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ArrayList&lt;uri&gt; uriList = new ArrayList&lt;&gt;();</div><div class="line">String path = Environment.getExternalStorageDirectory() + File.separator;</div><div class="line">uriList.add(Uri.fromFile(new File(path+&quot;1.jpg&quot;)));</div><div class="line">uriList.add(Uri.fromFile(new File(path+&quot;2.jpg&quot;)));</div><div class="line">uriList.add(Uri.fromFile(new File(path+&quot;3.jpg&quot;)));</div><div class="line"></div><div class="line">Intent shareIntent = new Intent();</div><div class="line">shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);</div><div class="line">shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList);</div><div class="line">shareIntent.setType(&quot;image/*&quot;);</div><div class="line">startActivity(Intent.createChooser(shareIntent, &quot;分享到&quot;));</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>

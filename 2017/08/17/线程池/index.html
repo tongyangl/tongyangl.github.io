@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="Activity作为Android四大组件之一想必重要性不用多说。 Activity可以理解为Android程序我们看到的界面都是承载在Activity上。">
-<meta name="keywords" content="Android">
+<meta name="description" content="线程池~开发的过程中多多少少都会遇到这个东西，因为性能比我们每次都去new一个线程好多了~而且之前的那篇Asynctask已经说到了，内部就是线程池完成的，但是线程池究竟分几种，怎么用，哪几种用法？一起来复习下吧~">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android四大组件-Activity">
-<meta property="og:url" content="http://yoursite.com/2017/07/20/Android四大组件-Activity/index.html">
+<meta property="og:title" content="线程池~和threadgroup">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/线程池/index.html">
 <meta property="og:site_name" content="Tong Yang&#39;s Blog">
-<meta property="og:description" content="Activity作为Android四大组件之一想必重要性不用多说。 Activity可以理解为Android程序我们看到的界面都是承载在Activity上。">
-<meta property="og:updated_time" content="2017-08-14T08:51:33.937Z">
+<meta property="og:description" content="线程池~开发的过程中多多少少都会遇到这个东西，因为性能比我们每次都去new一个线程好多了~而且之前的那篇Asynctask已经说到了，内部就是线程池完成的，但是线程池究竟分几种，怎么用，哪几种用法？一起来复习下吧~">
+<meta property="og:updated_time" content="2017-08-17T07:09:27.887Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android四大组件-Activity">
-<meta name="twitter:description" content="Activity作为Android四大组件之一想必重要性不用多说。 Activity可以理解为Android程序我们看到的界面都是承载在Activity上。">
+<meta name="twitter:title" content="线程池~和threadgroup">
+<meta name="twitter:description" content="线程池~开发的过程中多多少少都会遇到这个东西，因为性能比我们每次都去new一个线程好多了~而且之前的那篇Asynctask已经说到了，内部就是线程池完成的，但是线程池究竟分几种，怎么用，哪几种用法？一起来复习下吧~">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Android四大组件-Activity | Tong Yang&#39;s Blog</title>
+<title>线程池~和threadgroup | Tong Yang&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -240,11 +240,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="article-Android四大组件-Activity" class="article article-type-article" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="article-线程池" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/20/Android四大组件-Activity/" class="article-date">
-      <time datetime="2017-07-20T05:33:07.000Z" itemprop="datePublished">2017-07-20</time>
+      <a href="/2017/08/17/线程池/" class="article-date">
+      <time datetime="2017-08-17T06:13:45.000Z" itemprop="datePublished">2017-08-17</time>
 </a>
 
 
@@ -259,7 +259,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android四大组件-Activity
+      线程池~和threadgroup
     </h1>
   
 
@@ -268,13 +268,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
+    <a class="article-category-link" href="/categories/java/">java</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -284,60 +284,80 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="" alt="http://img.blog.csdn.net/20160717151833576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
-<p>  正常Activity的启动经历以下过程</p>
+        <h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>作用：<strong>利用线程池可以大大减少在创建和销毁线程上所花的时间以及系统资源的开销！</strong></p>
+<h3 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h3><p>这个实现类是我们最常见的线程池方法~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">                          int maximumPoolSize,</div><div class="line">                          long keepAliveTime,</div><div class="line">                          TimeUnit unit,</div><div class="line">                          BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                          ThreadFactory threadFactory,</div><div class="line">                          RejectedExecutionHandler handler) &#123;</div><div class="line">    if (corePoolSize &lt; 0 ||</div><div class="line">        maximumPoolSize &lt;= 0 ||</div><div class="line">        maximumPoolSize &lt; corePoolSize ||</div><div class="line">        keepAliveTime &lt; 0)</div><div class="line">        throw new IllegalArgumentException();</div><div class="line">    if (workQueue == null || threadFactory == null || handler == null)</div><div class="line">        throw new NullPointerException();</div><div class="line">    this.corePoolSize = corePoolSize;</div><div class="line">    this.maximumPoolSize = maximumPoolSize;</div><div class="line">    this.workQueue = workQueue;</div><div class="line">    this.keepAliveTime = unit.toNanos(keepAliveTime);</div><div class="line">    this.threadFactory = threadFactory;</div><div class="line">    this.handler = handler;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是他的构造函数，他有四个，这个是最多的，先了解这个所有的就都了解了。</p>
+<p>先了解这几个参数</p>
 <ul>
-<li><p>onCreat</p>
-<p>Activity的创建，做一切初始化的操作，这个时候Activity还不可见。</p>
+<li>corePoolSize：核心池的大小，在创建了线程池后，默认情况下，线程池中并没有任何线程，而是等待有任务到来才创建线程去执行任务，当有任务来之后，就会创建一个线程去执行任务，当线程池中的线程数目达到corePoolSize后，就会把到达的任务放到缓存队列当中；</li>
+<li>maximumPoolSize：线程池最大线程数；</li>
+<li>keepAliveTime：表示线程没有任务执行时最多保持多久时间会终止；</li>
+<li>unit：参数keepAliveTime的时间单位（DAYS、HOURS、MINUTES、SECONDS 等）；</li>
+<li>workQueue：阻塞队列，用来存储等待执行的任务；<ul>
+<li>ArrayBlockingQueue （有界队列）</li>
+<li>LinkedBlockingQueue （无界队列）</li>
+<li>SynchronousQueue：一个不存储元素的阻塞队列。每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于阻塞状态，吞吐量通常要高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列。</li>
+<li>PriorityBlockingQueue：一个具有优先级得无限阻塞队列。</li>
+</ul>
 </li>
-<li><p>onStart</p>
-<p>Activity已经展现在前台页面，但是还是不可以交互。</p>
-</li>
-<li><p>onResume</p>
-<p>Activity可见，并且可以交互。可以做一些onPause或者onStop释放资源的的回收操作</p>
-</li>
-<li><p>Activity进入运行状态</p>
-</li>
-<li><p>onPause</p>
-<p>Activity进入后台之前可见的时候做一些回收工作，只有当前Activity的onpause方法执行完事之后下个Activity的onResume方法才会执行</p>
-</li>
-<li><p>onStop</p>
-<p>Activity不可见。回收操作，不能太过于耗时。</p>
-</li>
-<li><p>onDestory</p>
-<p>Activity销毁，可以做一些大量的回收操作</p>
-<p>​</p>
+<li>threadFactory：线程工厂，主要用来创建线程</li>
+<li>handler：拒绝处理任务的策略<ul>
+<li>AbortPolicy：丢弃任务并抛出 RejectedExecutionException 异常。（默认这种）</li>
+<li>DiscardPolicy：也是丢弃任务，但是不抛出异常</li>
+<li>DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）</li>
+<li>CallerRunsPolicy：由调用线程处理该任务</li>
+</ul>
 </li>
 </ul>
-<p>如果ACtivity在进入onStop方法后未被销毁，而又被展现到前台页面则会调用onRestart()方法</p>
-<p>onCreate的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>其中savedInstanceState是一个Bundle类型的参数，会在onPause()或onStop()之前执行，在她和map差不多，都是键值对形式，我们可以在Activity快被销毁的时候储存一些东西</p>
-<p>调用方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onSaveInstanceState(Bundle outState) &#123;</div><div class="line">    super.onSaveInstanceState(outState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里进行存储。</p>
-<p>onRestoreInstanceState</p>
-<p>这个方法会在Activity真正被销毁的时候才会执行。比如按下bcak键。</p>
-<h3 id="Activity的四种LaunchMode"><a href="#Activity的四种LaunchMode" class="headerlink" title="Activity的四种LaunchMode"></a>Activity的四种LaunchMode</h3><ul>
-<li>standard 模式</li>
-</ul>
-<p>这是默认模式，每次激活Activity时都会创建Activity实例，并放入任务栈中。使用场景：大多数Activity。</p>
+<p>挺好理解的！只要看一遍就差不多了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">executor.execute(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">         </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这个是线程池执行一个任务的方法</p>
+<p>最重要也是最常用的了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">executor.shutdown();</div></pre></td></tr></table></figure>
+<p>这个是关闭线程池</p>
+<p>这个线程工厂你可能不太明白</p>
+<h3 id="ThreadFactory"><a href="#ThreadFactory" class="headerlink" title="ThreadFactory"></a>ThreadFactory</h3><p>可以理解为线程的创造工厂</p>
+<p>比如这个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ThreadFactory factory = new ThreadFactory() &#123;</div><div class="line">    AtomicInteger atomicInteger = new AtomicInteger();</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Thread newThread(Runnable r) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        return new Thread(r, atomicInteger.getAndIncrement() + &quot;号线程&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这样的话方便查看线程~</p>
+<h3 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h3><p>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。</p>
+<h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h3><p>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+<h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h3><p>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。</p>
+<h3 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a>newScheduledThreadPool</h3><p>创建一个定长线程池，支持定时及周期性任务执行。</p>
+<h2 id="ThreadGroup"><a href="#ThreadGroup" class="headerlink" title="ThreadGroup"></a>ThreadGroup</h2><p>这个用的不算多，，但是他比线程池好处就是他可以遍历线程，可以知道哪些线程是运行中，哪些运行完毕了</p>
 <ul>
-<li>singleTop 模式</li>
+<li>int activeCount() </li>
 </ul>
-<p>如果在任务的栈顶正好存在该Activity的实例，就重用该实例( 会调用实例的 onNewIntent() )，否则就会创建新的实例并放入栈顶，即使栈中已经存在该Activity的实例，只要不在栈顶，都会创建新的实例。使用场景如新闻类或者阅读类App的内容页面。</p>
+<p>返回此线程组中活动线程的估计数。 </p>
 <ul>
-<li>singleTask 模式</li>
+<li>int activeGroupCount() </li>
 </ul>
-<p>如果在栈中已经有该Activity的实例，就重用该实例(会调用实例的 onNewIntent() )。重用时，会让该实例回到栈顶，因此在它上面的实例将会被移出栈。如果栈中不存在该实例，将会创建新的实例放入栈中。使用场景如浏览器的主界面。不管从多少个应用启动浏览器，只会启动主界面一次，其余情况都会走onNewIntent，并且会清空主界面上面的其他页面。</p>
+<p>返回此线程组中活动线程组的估计数。 </p>
 <ul>
-<li>singleInstance 模式</li>
+<li>String getName() </li>
 </ul>
-<p>在一个新栈中创建该Activity的实例，并让多个应用共享该栈中的该Activity实例。一旦该模式的Activity实例已经存在于某个栈中，任何应用再激活该Activity时都会重用该栈中的实例( 会调用实例的 onNewIntent() )。其效果相当于多个应用共享一个应用，不管谁激活该 Activity 都会进入同一个应用中。使用场景如闹铃提醒，将闹铃提醒与闹铃设置分离。singleInstance不要用于中间页面，如果用于中间页面，跳转会有问题，比如：A -&gt; B (singleInstance) -&gt; C，完全退出后，在此启动，首先打开的是B。</p>
-<p>如何判断一个Activity加载完毕。使用onResume方法？  错。。这个不知道为啥就是错误的，</p>
-<p>因为之前做过一个播放器，里面的mediaController是一个自定义的Popuwindow，需要加载玩Activity就显示，但是我放在onResume里面总是报错，显示窗口泄露，找不到Activity于是高了半天才发现这个方法。这个方法表示Activity加载完毕，可以做一些加载完毕就做得事情，如popuwindow的展示，测量加载完毕的View长度，如果在其他方法里面测量的话会导致长度错误或者为0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onConfigurationChanged(Configuration newConfig) &#123;</div><div class="line">    super.onConfigurationChanged(newConfig);</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个方法是屏幕的旋转。当屏幕旋转的时候可以在这个方法进行操作。</p>
+<p>返回此线程组的名称。 </p>
+<ul>
+<li>ThreadGroup getParent() </li>
+</ul>
+<p>返回此线程组的父线程组。 </p>
+<ul>
+<li>void resume() </li>
+</ul>
+<p>已过时。 此方法只用于联合 Thread.suspend 和 ThreadGroup.suspend 时，因为它们所固有的容易导致死锁的特性，所以两者都已废弃。有关详细信息，请参阅 Thread.suspend()。 </p>
+<ul>
+<li>void setDaemon(boolean daemon) </li>
+</ul>
+<p>更改此线程组的后台程序状态。 </p>
+<ul>
+<li>void setMaxPriority(int pri) </li>
+</ul>
+<p>设置线程组的最高优先级。 </p>
+<ul>
+<li>void stop() </li>
+</ul>
+<p>已过时。 </p>
 
       
     </div>
@@ -346,13 +366,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/07/20/Android四大组件-Activity/">Android四大组件-Activity</a></p>
+        <p><span>本文标题:</span><a href="/2017/08/17/线程池/">线程池~和threadgroup</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Tong Yang</a></p>
-        <p><span>发布时间:</span>2017-07-20, 13:33:07</p>
-        <p><span>最后更新:</span>2017-08-14, 16:51:33</p>
+        <p><span>发布时间:</span>2017-08-17, 14:13:45</p>
+        <p><span>最后更新:</span>2017-08-17, 15:09:27</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/07/20/Android四大组件-Activity/" title="Android四大组件-Activity">http://yoursite.com/2017/07/20/Android四大组件-Activity/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/07/20/Android四大组件-Activity/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/17/线程池/" title="线程池~和threadgroup">http://yoursite.com/2017/08/17/线程池/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/17/线程池/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -364,16 +384,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/07/20/Android四大组件-Broadcas/">
-                    Android四大组件-Broadcast
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/07/19/JAVA-FIle的一些东西/">
-                    JAVA FIle的排序
+                <a href="/2017/08/15/hashmap/">
+                    hashmap
                 </a>
             </div>
         
@@ -385,7 +399,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity的生命周期"><span class="toc-number">1.</span> <span class="toc-text">Activity的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity的四种LaunchMode"><span class="toc-number">2.</span> <span class="toc-text">Activity的四种LaunchMode</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程池"><span class="toc-number">1.</span> <span class="toc-text">线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadPoolExecutor"><span class="toc-number">1.1.</span> <span class="toc-text">ThreadPoolExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadFactory"><span class="toc-number">1.2.</span> <span class="toc-text">ThreadFactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newFixedThreadPool"><span class="toc-number">1.3.</span> <span class="toc-text">newFixedThreadPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newSingleThreadExecutor"><span class="toc-number">1.4.</span> <span class="toc-text">newSingleThreadExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newCachedThreadPool"><span class="toc-number">1.5.</span> <span class="toc-text">newCachedThreadPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newScheduledThreadPool"><span class="toc-number">1.6.</span> <span class="toc-text">newScheduledThreadPool</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ThreadGroup"><span class="toc-number">2.</span> <span class="toc-text">ThreadGroup</span></a></li></ol>
         
     </div>
     <style>
@@ -421,7 +435,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Android四大组件-Activity　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"线程池~和threadgroup　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -455,15 +469,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/07/20/Android四大组件-Broadcas/" title="上一篇: Android四大组件-Broadcast">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/07/19/JAVA-FIle的一些东西/" title="下一篇: JAVA FIle的排序">
+            <a href="/2017/08/15/hashmap/" title="下一篇: hashmap">
                 <i class="fa fa-angle-right"></i>
             </a>
         

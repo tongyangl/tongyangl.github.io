@@ -247,6 +247,142 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="article-Android头像缓存" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/08/Android头像缓存/" class="article-date">
+      <time datetime="2017-04-08T11:04:34.000Z" itemprop="datePublished">2017-04-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/08/Android头像缓存/">Android头像缓存</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="其实没那么难！"><a href="#其实没那么难！" class="headerlink" title="其实没那么难！"></a>其实没那么难！</h3><p>之前一直抵触写这些东西，而且很多都是直接百度的，根本没有去想怎么回事。这不，今天下午有遇到这些问题了，无奈找了个网上的例子，看似很简单，可是使用中却发现根本不是那回事！</p>
+<p>当我们遇到listview 或者recycleview加载图片或者头像的时候 如果直接在getview的方法里面写一个异步的方法来加载图片的话写起来是简单，但是这样会导致item每次被重绘的时候都会去执行这个异步任务！导致app变卡，以及耗费流量等等有损用户体验的事情！</p>
+<p>于是今天下午自己逼着自己写了一个！才发现其实根本没有那么难。。。</p>
+<h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><p>其实就是每次加载的时候去你的本地文件夹判断是否有这个图片，如果有就直接加载，如果没有就去网络获取加载，在保存到本地！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">String path=context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath();</div><div class="line">       imageView.setBackgroundResource(R.drawable.ic_img_load);</div><div class="line">       final File file = new File(path + &quot;/iv2ex&quot;);</div><div class="line">       String u = url.replace(&quot;/&quot;, &quot;!&quot;);</div><div class="line">       u = u.replace(&quot;.&quot;, &quot;!&quot;);</div><div class="line">       if (!file.exists()) &#123;</div><div class="line">           file.mkdirs();</div><div class="line">       &#125;</div><div class="line">       final File f = new File(file, u );</div></pre></td></tr></table></figure>
+<p>这是文件夹的判断，如果没有父类文件夹直接创建！，然后记得吧图片的地址给转义下里面的“ /”不然会导致找不到文件。然后如果文件存在直接加载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (f.exists()) &#123;</div><div class="line">            try &#123;</div><div class="line">                FileInputStream fos = new FileInputStream(f);</div><div class="line">                Bitmap bitmap = BitmapFactory.decodeStream(fos);</div><div class="line">                Drawable drawable = new BitmapDrawable(bitmap);</div><div class="line">                imageView.setImageDrawable(drawable);</div><div class="line">            &#125; catch (FileNotFoundException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">                imageView.setBackgroundResource(R.drawable.ic_person_outline_black_24dp);</div><div class="line">            &#125;</div></pre></td></tr></table></figure>
+<p>如果文件不存在！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">URL picUrl = null;</div><div class="line">                  try &#123;</div><div class="line">                      picUrl = new URL(url);</div><div class="line"></div><div class="line">                      Bitmap bitmap = BitmapFactory.decodeStream(picUrl.openStream());</div><div class="line">                      OutputStream os = new FileOutputStream(f);</div><div class="line">                      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);</div><div class="line">                      os.flush();</div><div class="line">                      os.close();</div><div class="line">                      subscriber.onNext(bitmap);</div><div class="line">                      subscriber.onCompleted();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Drawable drable = new BitmapDrawable(bitmap);</div><div class="line">                          imageView.setImageDrawable(drable);</div></pre></td></tr></table></figure>
+<p>我的异步任务是用rxjava写的。。很方便链式的。。 到这里就结束了，其实真的很简单，之前总是把事情想的非常复杂。。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="article-系统分享" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/04/系统分享/" class="article-date">
+      <time datetime="2017-04-04T11:49:06.000Z" itemprop="datePublished">2017-04-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/04/系统分享/">系统分享</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="系统分享"><a href="#系统分享" class="headerlink" title="系统分享"></a>系统分享</h3><p>Android手机调用系统分享是个很常见的事情，所以今天来总结下分享的功能。</p>
+<p>当分享单个文本的时候</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Intent shareIntent = new Intent();</div><div class="line">      shareIntent.setAction(Intent.ACTION_SEND);</div><div class="line">      shareIntent.putExtra(Intent.EXTRA_TEXT, &quot;你要分享的文本&quot;);</div><div class="line">      shareIntent.setType(&quot;text/plain&quot;);</div><div class="line"> </div><div class="line">      //设置分享列表的标题，并且每次都显示分享列表</div><div class="line">      startActivity(Intent.createChooser(shareIntent, &quot;分享到&quot;));//分享的标题</div></pre></td></tr></table></figure>
+<p>分享单个照片的时候</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">String imagePath =&quot;-------------&quot;</div><div class="line">//由文件得到uri</div><div class="line">Uri imageUri = Uri.fromFile(new File(imagePath));</div><div class="line">Log.d(&quot;share&quot;, &quot;uri:&quot; + imageUri);  //输出：</div><div class="line"></div><div class="line">Intent shareIntent = new Intent();</div><div class="line">shareIntent.setAction(Intent.ACTION_SEND);</div><div class="line">shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);</div><div class="line">shareIntent.setType(&quot;image/*&quot;);</div><div class="line">startActivity(Intent.createChooser(shareIntent, &quot;分享到&quot;));</div></pre></td></tr></table></figure>
+<p>分享多个照片的时候</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ArrayList&lt;uri&gt; uriList = new ArrayList&lt;&gt;();</div><div class="line">String path = Environment.getExternalStorageDirectory() + File.separator;</div><div class="line">uriList.add(Uri.fromFile(new File(path+&quot;1.jpg&quot;)));</div><div class="line">uriList.add(Uri.fromFile(new File(path+&quot;2.jpg&quot;)));</div><div class="line">uriList.add(Uri.fromFile(new File(path+&quot;3.jpg&quot;)));</div><div class="line"></div><div class="line">Intent shareIntent = new Intent();</div><div class="line">shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);</div><div class="line">shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList);</div><div class="line">shareIntent.setType(&quot;image/*&quot;);</div><div class="line">startActivity(Intent.createChooser(shareIntent, &quot;分享到&quot;));</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="article-安卓图库那些事" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -834,129 +970,9 @@
 
 
   
-    <article id="article-测试类测试数据库并且进行增删改查" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/28/测试类测试数据库并且进行增删改查/" class="article-date">
-      <time datetime="2016-10-28T11:22:03.000Z" itemprop="datePublished">2016-10-28</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/28/测试类测试数据库并且进行增删改查/">测试类测试数据库并且进行增删改查</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div></pre></td><td class="code"><pre><div class="line">public class TestCase extends AndroidTestCase &#123;</div><div class="line"></div><div class="line">    //此时测试框架还没有初始化完毕，没有虚拟上下文对象</div><div class="line"></div><div class="line">//    private MyOpenHelper oh = new MyOpenHelper(getContext(), &quot;people.db&quot;, null, 1);</div><div class="line"></div><div class="line">    private MyOpenHelper oh;</div><div class="line"></div><div class="line">    private SQLiteDatabase db;</div><div class="line"></div><div class="line">    public void test()&#123;</div><div class="line"></div><div class="line">        //getContext():获取一个虚拟的上下文</div><div class="line"></div><div class="line">        MyOpenHelper oh = new MyOpenHelper(getContext(), &quot;people.db&quot;, null, 1);</div><div class="line"></div><div class="line">        //如果数据库不存在，先创建数据库，再获取可读可写的数据库对象，如果数据库存在，就直接打开</div><div class="line"></div><div class="line">        SQLiteDatabase db = oh.getWritableDatabase();</div><div class="line"></div><div class="line">        //如果存储空间满了，那么返回只读数据库对象</div><div class="line"></div><div class="line">//        SQLiteDatabase db = oh.getReadableDatabase();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //测试框架初始化完毕之后，在测试方法执行之前，此方法调用</div><div class="line"></div><div class="line">    @Override</div><div class="line"></div><div class="line">    protected void setUp() throws Exception &#123;</div><div class="line"></div><div class="line">        super.setUp();</div><div class="line"></div><div class="line">        oh = new MyOpenHelper(getContext(), &quot;people.db&quot;, null, 1);</div><div class="line"></div><div class="line">        db = oh.getWritableDatabase();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //测试方法执行完毕之后，此方法调用</div><div class="line"></div><div class="line">    @Override</div><div class="line"></div><div class="line">    protected void tearDown() throws Exception &#123;</div><div class="line"></div><div class="line">        // TODO Auto-generated method stub</div><div class="line"></div><div class="line">        super.tearDown();</div><div class="line"></div><div class="line">        db.close();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void insert()&#123;</div><div class="line"></div><div class="line">//        db.execSQL(&quot;insert into person (name, salary, phone)values(?, ?, ?)&quot;, new Object[]&#123;&quot;小志的老婆[1]&quot;, &quot;13000&quot;, 138438&#125;);</div><div class="line"></div><div class="line">//        db.execSQL(&quot;insert into person (name, salary, phone)values(?, ?, ?)&quot;, new Object[]&#123;&quot;小志的儿子&quot;, 14000, &quot;13888&quot;&#125;);</div><div class="line"></div><div class="line">        db.execSQL(&quot;insert into person (name, salary, phone)values(?, ?, ?)&quot;, new Object[]&#123;&quot;小志&quot;, 14000, &quot;13888&quot;&#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void delete()&#123;</div><div class="line"></div><div class="line">        db.execSQL(&quot;delete from person where name = ?&quot;, new Object[]&#123;&quot;小志&quot;&#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void update()&#123;</div><div class="line"></div><div class="line">        db.execSQL(&quot;update person set phone = ? where name = ?&quot;, new Object[]&#123;186666, &quot;小志的儿子&quot;&#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void select()&#123;</div><div class="line"></div><div class="line">        Cursor cursor = db.rawQuery(&quot;select name, salary from person&quot;, null);</div><div class="line"></div><div class="line">        while(cursor.moveToNext())&#123;</div><div class="line"></div><div class="line">            //通过列索引获取列的值</div><div class="line"></div><div class="line">            String name = cursor.getString(cursor.getColumnIndex(&quot;name&quot;));</div><div class="line"></div><div class="line">            String salary = cursor.getString(1);</div><div class="line"></div><div class="line">            System.out.println(name + &quot;;&quot; + salary);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void insertApi()&#123;</div><div class="line"></div><div class="line">        //把要插入的数据全部封装至ContentValues对象</div><div class="line"></div><div class="line">        ContentValues values = new ContentValues();</div><div class="line"></div><div class="line">        values.put(&quot;name&quot;, &quot;游天龙&quot;);</div><div class="line"></div><div class="line">        values.put(&quot;phone&quot;, &quot;15999&quot;);</div><div class="line"></div><div class="line">        values.put(&quot;salary&quot;, 16000);</div><div class="line"></div><div class="line">        db.insert(&quot;person&quot;, null, values);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void deleteApi()&#123;</div><div class="line"></div><div class="line">        int i = db.delete(&quot;person&quot;, &quot;name = ? and _id = ?&quot;, new String[]&#123;&quot;小志的儿子&quot;, &quot;3&quot;&#125;);</div><div class="line"></div><div class="line">        System.out.println(i);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void updateApi()&#123;</div><div class="line"></div><div class="line">        ContentValues values = new ContentValues();</div><div class="line"></div><div class="line">        values.put(&quot;salary&quot;, 26000);</div><div class="line"></div><div class="line">        int i = db.update(&quot;person&quot;, values, &quot;name = ?&quot;, new String[]&#123;&quot;游天龙&quot;&#125;);</div><div class="line"></div><div class="line">        System.out.println(i);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void selectApi()&#123;</div><div class="line"></div><div class="line">        Cursor cursor = db.query(&quot;person&quot;, null, null, null, null, null, null, null);</div><div class="line"></div><div class="line">        while(cursor.moveToNext())&#123;</div><div class="line"></div><div class="line">            String name = cursor.getString(cursor.getColumnIndex(&quot;name&quot;));</div><div class="line"></div><div class="line">            String phone = cursor.getString(cursor.getColumnIndex(&quot;phone&quot;));</div><div class="line"></div><div class="line">            String salary = cursor.getString(cursor.getColumnIndex(&quot;salary&quot;));</div><div class="line"></div><div class="line">            System.out.println(name + &quot;;&quot; + phone + &quot;;&quot; + salary);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void transaction()&#123;</div><div class="line"></div><div class="line">        try&#123;</div><div class="line"></div><div class="line">            //开启事务</div><div class="line"></div><div class="line">            db.beginTransaction();</div><div class="line"></div><div class="line">            ContentValues values = new ContentValues();</div><div class="line"></div><div class="line">            values.put(&quot;salary&quot;, 12000);</div><div class="line"></div><div class="line">            db.update(&quot;person&quot;, values, &quot;name = ?&quot;, new String[]&#123;&quot;小志&quot;&#125;);</div><div class="line"></div><div class="line">            values.clear();</div><div class="line"></div><div class="line">            values.put(&quot;salary&quot;, 16000);</div><div class="line"></div><div class="line">            db.update(&quot;person&quot;, values, &quot;name = ?&quot;, new String[]&#123;&quot;小志的儿子&quot;&#125;);</div><div class="line"></div><div class="line">            int i = 3/0;</div><div class="line"></div><div class="line">            //设置  事务执行成功</div><div class="line"></div><div class="line">            db.setTransactionSuccessful();</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        finally&#123;</div><div class="line"></div><div class="line">            //关闭事务，同时提交，如果已经设置事务执行成功，那么sql语句就生效了，反之，sql语句回滚</div><div class="line"></div><div class="line">            db.endTransaction();</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="article-handler" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/11/handler/" class="article-date">
-      <time datetime="2016-06-11T15:22:24.000Z" itemprop="datePublished">2016-06-11</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/11/handler/">主线程阻塞，使用handler方法消息队列 和子线程请求主线程进行ui变化</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line">static ImageView iv;</div><div class="line">static MainActivity ma;</div><div class="line">static Handler handler = new Handler() &#123;</div><div class="line">@Override</div><div class="line">public void handleMessage(Message msg) &#123;</div><div class="line">switch (msg.what) &#123;</div><div class="line">case 1:</div><div class="line"></div><div class="line">iv.setImageBitmap((Bitmap) msg.obj);</div><div class="line">break;</div><div class="line">case 2:</div><div class="line">                    Toast.makeText(ma, &quot;请求失败&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">break;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">iv = (ImageView) findViewById(R.id.iv);</div><div class="line">ma = this;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">public void click(View v) &#123;</div><div class="line">final String path = &quot;http://192.168.74.154:8080/a.jpg&quot;;</div><div class="line">final File file = new File(getFilesDir(), getPathName(path));</div><div class="line">if (file.exists()) &#123;</div><div class="line">            Log.d(&quot;======&quot;, &quot;1111 &quot;);</div><div class="line">            Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());</div><div class="line">iv.setImageBitmap(bm);</div><div class="line">        &#125; else &#123;</div><div class="line">            Thread t = new Thread() &#123;</div><div class="line">public void run() &#123;</div><div class="line">try &#123;</div><div class="line">                        URL url = new URL(path);</div><div class="line"></div><div class="line">                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();</div><div class="line">                        conn.setRequestMethod(&quot;GET&quot;);</div><div class="line">                        conn.setReadTimeout(5000);</div><div class="line">                        conn.setConnectTimeout(5000);</div><div class="line">                        conn.connect();</div><div class="line">if (conn.getResponseCode() == 200) &#123;</div><div class="line">                            InputStream is = conn.getInputStream();</div><div class="line">byte[] b = new byte[1024];</div><div class="line">                            FileOutputStream fos = new FileOutputStream(file);</div><div class="line">int len = 0;</div><div class="line">while ((len = is.read(b)) != -1) &#123;</div><div class="line">                                fos.write(b, 0, len);</div><div class="line">                            &#125;</div><div class="line">                            fos.close();</div><div class="line">                            Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());</div><div class="line">                            Message msg = handler.obtainMessage();</div><div class="line">                            msg.obj = bm;</div><div class="line">                            msg.what = 1;</div><div class="line">handler.sendMessage(msg);</div><div class="line">                        &#125; else &#123;</div><div class="line">                            Message msg = handler.obtainMessage();</div><div class="line">                            msg.what = 1;</div><div class="line">                        &#125;</div><div class="line">                    &#125; catch (Exception e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line">            t.start();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">public String getPathName(String path) &#123;</div><div class="line">int index = path.lastIndexOf(&quot;/&quot;);</div><div class="line">return path.substring(index + 1);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 </div>
