@@ -15,16 +15,17 @@
 
 
 
-<meta name="description" content="١���Ĳ���">
+<meta name="description" content="下拉刷新框架在目前可以说是数不胜数~眼花缭乱，有的出的很早兼容性更高，有的出的很晚，但是支持的样式和功能也更多，而且谷歌官方也推出了自己的下拉刷新控件SwipeRefreshLayout">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hashmap">
-<meta property="og:url" content="http://yoursite.com/2017/08/15/hashmap/index.html">
+<meta property="og:title" content="自己写一个下拉刷新框架(1)">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/自己写一个下拉刷新框架-1/index.html">
 <meta property="og:site_name" content="Tong Yang&#39;s Blog">
-<meta property="og:description" content="١���Ĳ���">
-<meta property="og:updated_time" content="2017-08-15T09:53:15.602Z">
+<meta property="og:description" content="下拉刷新框架在目前可以说是数不胜数~眼花缭乱，有的出的很早兼容性更高，有的出的很晚，但是支持的样式和功能也更多，而且谷歌官方也推出了自己的下拉刷新控件SwipeRefreshLayout">
+<meta property="og:updated_time" content="2017-08-17T09:24:56.843Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hashmap">
-<meta name="twitter:description" content="١���Ĳ���">
+<meta name="twitter:title" content="自己写一个下拉刷新框架(1)">
+<meta name="twitter:description" content="下拉刷新框架在目前可以说是数不胜数~眼花缭乱，有的出的很早兼容性更高，有的出的很晚，但是支持的样式和功能也更多，而且谷歌官方也推出了自己的下拉刷新控件SwipeRefreshLayout">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>hashmap | Tong Yang&#39;s Blog</title>
+<title>自己写一个下拉刷新框架(1) | Tong Yang&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -239,11 +240,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="article-hashmap" class="article article-type-article" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="article-自己写一个下拉刷新框架-1" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/15/hashmap/" class="article-date">
-      <time datetime="2017-08-15T09:53:15.000Z" itemprop="datePublished">2017-08-15</time>
+      <a href="/2017/08/17/自己写一个下拉刷新框架-1/" class="article-date">
+      <time datetime="2017-08-17T08:33:49.000Z" itemprop="datePublished">2017-08-17</time>
 </a>
 
 
@@ -258,7 +259,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hashmap
+      自己写一个下拉刷新框架(1)
     </h1>
   
 
@@ -266,8 +267,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -275,7 +284,28 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <p>所以我决定利用自己的空余时间写一个，也不多，每天一二个小时~</p>
+<p>我之所以把这个叫做自己写一个下拉刷新框架(1) 是因为我要分好几个部分来写，</p>
+<p>我把这（1）的目标就定为如下几个</p>
+<ul>
+<li>内部嵌套view可以正常实现下拉刷新</li>
+<li>实现常用的几个方法如<ul>
+<li>setRefreshing</li>
+<li>setonRefreshListner</li>
+<li>isRefreshing()</li>
+</ul>
+</li>
+<li>动画先用一块VIew代替</li>
+</ul>
+<p>这就相当于完成了内测的0.1版本~</p>
+<p>记住自己写这些东西的时候按着之前使用过的一些框架的记忆来写就行，千万别照着别人的写，不然就剩下抄了</p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>自己写的这个肯定是要继承于一个ViewGroup的，是直接继承ViewGroup？还是他的实现类呢？</p>
+<p>因为我们的第一篇的实现要求特别低，所以我就直接继承FrameLayout了。</p>
+<p>然后定义我们的接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">package com.example.simplerefreshlayout.refresh;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/17.</div><div class="line"> */</div><div class="line"></div><div class="line">public interface onRefreshListener &#123;</div><div class="line"></div><div class="line">    void onRefresh();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public void setonRefreshListener(onRefreshListener refreshListener) &#123;</div><div class="line">    if (refreshListener == null)</div><div class="line">        throw new NullPointerException();</div><div class="line">    this.refreshListener = refreshListener;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public boolean isRefreshing() &#123;</div><div class="line"></div><div class="line"></div><div class="line">    return isRefresh;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -283,13 +313,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/08/15/hashmap/">hashmap</a></p>
+        <p><span>本文标题:</span><a href="/2017/08/17/自己写一个下拉刷新框架-1/">自己写一个下拉刷新框架(1)</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Tong Yang</a></p>
-        <p><span>发布时间:</span>2017-08-15, 17:53:15</p>
-        <p><span>最后更新:</span>2017-08-15, 17:53:15</p>
+        <p><span>发布时间:</span>2017-08-17, 16:33:49</p>
+        <p><span>最后更新:</span>2017-08-17, 17:24:56</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/08/15/hashmap/" title="hashmap">http://yoursite.com/2017/08/15/hashmap/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/15/hashmap/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/17/自己写一个下拉刷新框架-1/" title="自己写一个下拉刷新框架(1)">http://yoursite.com/2017/08/17/自己写一个下拉刷新框架-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/17/自己写一个下拉刷新框架-1/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -302,15 +332,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/08/17/线程池/">
-                    线程池~和threadgroup
+                <a href="/2017/08/18/设计模式复习/">
+                    设计模式总结
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/08/15/AsyncTask的再一次探究/">
-                    AsyncTask的再一次探究
+                <a href="/2017/08/17/线程池/">
+                    线程池~和threadgroup
                 </a>
             </div>
         
@@ -322,7 +352,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步"><span class="toc-number">1.</span> <span class="toc-text">第一步</span></a></li></ol>
         
     </div>
     <style>
@@ -358,7 +388,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"hashmap　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"自己写一个下拉刷新框架(1)　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -392,7 +422,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/08/17/线程池/" title="上一篇: 线程池~和threadgroup">
+            <a href="/2017/08/18/设计模式复习/" title="上一篇: 设计模式总结">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -400,7 +430,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/08/15/AsyncTask的再一次探究/" title="下一篇: AsyncTask的再一次探究">
+            <a href="/2017/08/17/线程池/" title="下一篇: 线程池~和threadgroup">
                 <i class="fa fa-angle-right"></i>
             </a>
         

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-17T07:09:27.887Z</updated>
+  <updated>2017-08-18T05:53:48.247Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,178 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式总结</title>
+    <link href="http://yoursite.com/2017/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://yoursite.com/2017/08/18/设计模式复习/</id>
+    <published>2017-08-18T05:00:44.000Z</published>
+    <updated>2017-08-18T05:53:48.247Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><h3 id="第一种形式"><a href="#第一种形式" class="headerlink" title="第一种形式"></a>第一种形式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class Singleton &#123;</div><div class="line"></div><div class="line">    /* 持有私有静态实例，防止被引用，此处赋值为null，目的是实现延迟加载 */</div><div class="line">    private static Singleton instance = null;</div><div class="line"></div><div class="line">    /* 私有构造方法，防止被实例化 */</div><div class="line">    private Singleton() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /* 懒汉式：第一次调用时初始Singleton，以后就不用再生成了</div><div class="line">    静态方法，创建实例 */</div><div class="line">    public static Singleton getInstance() &#123;</div><div class="line">        if (instance == null) &#123;</div><div class="line">            instance = new Singleton();</div><div class="line">        &#125;</div><div class="line">        return instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>/* 私有构造方法，防止被实例化 */
+private Singleton() {
+}
+</code></pre><p>这个是单例模式的关键，如果构造方法不私有的话，就会有有很多的实例</p>
+<p>但是这个形式存在问题，就是他不同步，记住加个锁就行了~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public static synchronized Singleton getInstance() &#123;  </div><div class="line">    if (instance == null) &#123;  </div><div class="line">        instance = new Singleton();  </div><div class="line">    &#125;  </div><div class="line">    return instance;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public static Singleton getInstance() &#123;  </div><div class="line">     synchronized (Singleton.class) &#123;  </div><div class="line">         if (instance == null) &#123;  </div><div class="line">             instance = new Singleton();  </div><div class="line">         &#125;  </div><div class="line">     &#125;  </div><div class="line">     return instance;  </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>这两种都可以</p>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>　定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。 　<strong>对同一个接口的实现类进行管理和实例化创建</strong></p>
+<p>比如我顶一个接口人类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">interface human &#123;</div><div class="line"></div><div class="line">    void eat();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>都有吃饭这个动作</p>
+<p>但是实现它的类有两个或者多个男人和女人</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class man implements human&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void eat() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class  woman implements  human&#123;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void eat() &#123;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是以后可能会有更多的子类，比如他俩的儿子，女儿，孙子，各种继承导致耦合度高，</p>
+<p>但是我们建立一个工厂类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class Factory &#123;</div><div class="line">	//静态工厂方法</div><div class="line">	//多处调用，不需要实例工厂类 </div><div class="line">	 public static muman muman() &#123;  </div><div class="line">	        return new muman();  </div><div class="line">	    &#125; </div><div class="line">	 public static man man() &#123;  </div><div class="line">	        return new man();  </div><div class="line">	    &#125;</div><div class="line">//当然也可以一个方法，通过传入参数，switch实现</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">human man = Factory.man();</div></pre></td></tr></table></figure>
+<p>这个样只要实例化这个接口就行了，不需要实例具体的子类。封装性很高</p>
+<p>但是这样的话每次都需要在工厂类里面新增方法，违背了闭包的设计原则，于是抽象工厂就诞生了。</p>
+<h3 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h3><p>生产接口Provider：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface Provider &#123;</div><div class="line">	Animal produce(); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>每个产品都有自己的工厂 CatFactory：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public class CatFactory implements Provider&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public Animal produce() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Cat();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>DogFactory：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public class DogFactory implements Provider&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	public Animal produce() &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">		return new Dog();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>产品生产：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Provider provider = new CatFactory();</div><div class="line">Animal cat =provider.produce();</div><div class="line">cat.move();</div></pre></td></tr></table></figure>
+<p>　　现在我们要加入panda，直接新建一个pandaFactory就行了，这样我们系统就非常灵活，具备了动态扩展功能。</p>
+<h2 id="适配器模式（adapter）"><a href="#适配器模式（adapter）" class="headerlink" title="适配器模式（adapter）"></a>适配器模式（adapter）</h2><p><strong>将一个类的接口转换成客户希望的另外一个接口</strong>。</p>
+<blockquote>
+<p>优点</p>
+</blockquote>
+<p>　　系统需要使用现有的类，而此类的接口不符合系统的需要。那么通过适配器模式就可以让这些功能得到<strong>更好的复用</strong>。 　　将目标类和适配者类解耦，通过引入一个适配器类重用现有的适配者类，而无需修改原有代码，<strong>更好的扩展性</strong>。</p>
+<blockquote>
+<p>缺点</p>
+</blockquote>
+<p>　　过多的使用适配器，会让系统非常零乱，不易整体进行把握。比如，明明看到调用的是A接口，其实内部被适配成了B接口的实现。如果不是必要，不要使用适配器，而是直接对系统进行重构。</p>
+<p>具体方法就是我们有一个需要适配的类，但是这个类的接口不符合要求，我们可以实现一个目标类实现这个接口</p>
+<p>然后在这个实现类里的方法中调用这个原来要使用类的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 需要适配的类 </div><div class="line">class Adaptee &#123;  </div><div class="line">    public void specificRequest() &#123;  </div><div class="line">        System.out.println(&quot;需要适配的类&quot;);  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line">  </div><div class="line">// 目标接口  </div><div class="line">interface Target &#123;  </div><div class="line">    public void request();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// 适配器类实现标准接口</div><div class="line">class Adapter implements Target&#123;</div><div class="line">	// 直接关联被适配类</div><div class="line">	private Adaptee adaptee;</div><div class="line">	// 可以通过构造函数传入具体需要适配的被适配类对象</div><div class="line">	public Adapter (Adaptee adaptee) &#123;</div><div class="line">		this.adaptee = adaptee;</div><div class="line">	&#125;</div><div class="line">	public void request() &#123;</div><div class="line">		// 这里是使用委托的方式完成特殊功能</div><div class="line">		this.adaptee.specificRequest();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">// 测试类</div><div class="line">public class Client &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// 需要先创建一个被适配类的对象作为参数</div><div class="line">		Target adapter = new Adapter(new Adaptee());</div><div class="line">		adapter.request();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h2><p>使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。 　　 　　</p>
+<p>发出这个请求的客户端并不知道链上的哪一个对象最终处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织和分配责任。　</p>
+<p>比如我们的 if和else if</p>
+<blockquote>
+<p>责任链模式的优点</p>
+</blockquote>
+<p>　　可以降低系统的耦合度（请求者与处理者代码分离），简化对象的相互连接，同时增强给对象指派职责的灵活性，增加新的请求处理类也很方便；</p>
+<blockquote>
+<p>责任链模式的缺点</p>
+</blockquote>
+<p>　　不能保证请求一定被接收，且对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。 　　每次都是从链头开始，这也正是链表的缺点。</p>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>这个用到的也很多，比如最常用的RXjava就是观察者模式~</p>
+<p>①抽象主题（Subject）</p>
+<p>　　它把所有观察者对象的引用保存到一个聚集里，每个主题都可以有任何数量的观察者。抽象主题提供一个接口，可以增加和删除观察者对象。</p>
+<p>②具体主题（ConcreteSubject）</p>
+<p>　　将有关状态存入具体观察者对象；在具体主题内部状态改变时，给所有登记过的观察者发出通知。</p>
+<p>③抽象观察者（Observer）</p>
+<p>　　为所有的具体观察者定义一个接口，在得到主题通知时更新自己。</p>
+<p>④具体观察者（ConcreteObserver）</p>
+<p>　　实现抽象观察者角色所要求的更新接口，以便使本身的状态与主题状态协调。</p>
+<p>这个是百度的…可能很难理解，但是之前在RXJava源码的分析中我们发现其实就是装饰者模式~我们所定义的观察者和被观察者都有一个具体的接口，但是之间产生订阅关系的则是他们具体实现的包装类</p>
+<h2 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h2><p>是将一个复杂的对象的构建与它的表示分离（同构建不同表示），使得同样的构建过程可以创建不同的表示。</p>
+<p>　将复杂的内部创建封装在内部，对于外部调用的人来说，只需要传入建造者和建造工具，对于内部是如何建造成成品的，调用者无需关心</p>
+<p>建造者模式通常包括下面几个角色：</p>
+<p>①　Builder：一个抽象接口，用来规范产品对象的各个组成成分的建造。</p>
+<p>②　ConcreteBuilder：实现Builder接口，针对不同的商业逻辑，具体化复杂对象的各部分的创建，在建造过程完成后，提供产品的实例。</p>
+<p>③　Director：指导者，调用具体建造者来创建复杂对象的各个部分，不涉及具体产品的信息，只负责保证对象各部分完整创建或按某种顺序创建。</p>
+<p>④　Product：要创建的复杂对象。</p>
+<blockquote>
+<p>优点：</p>
+</blockquote>
+<p>客户端不必知道产品内部组成的细节。</p>
+<p>具体的建造者类之间是相互独立的，对系统的扩展非常有利。</p>
+<p>由于具体的建造者是独立的，因此可以对建造过程逐步细化，而不对其他的模块产生任何影响。</p>
+<blockquote>
+<p>使用场合：</p>
+</blockquote>
+<p>创建一些复杂的对象时，这些对象的内部组成构件间的建造<strong>顺序是稳定</strong>的，但是对象的内<strong>部组成构件面临着复杂的变化</strong>。</p>
+<p>要创建的复杂对象的算法，独立于该对象的组成部分，也独立于组成部分的装配方法时。</p>
+<h2 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h2><p>　备忘录对象是一个用来存储另外一个对象内部状态的快照的对象。备忘录模式的用意是在不破坏封装的条件下，将一个对象的状态捕捉(Capture)住，并外部化，存储起来，从而可以在将来合适的时候把这个对象还原到存储起来的状态。备忘录模式常常与命令模式和迭代子模式一同使用。</p>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><p>　原型模式，能快速克隆出一个与已经存在对象类似的另外一个我们想要的新对象。 　　工作原理是：通过将一个原型对象传给那个要发动创建的对象，这个要发动创建的对象通过请求原型对象拷贝它们自己来实施创建。</p>
+<p>　　分为深拷贝和浅拷贝。深拷贝就是把对象里面的引用的对象也要拷贝一份新的对象，并将这个新的引用对象作为拷贝的对象引用（多读两遍）。</p>
+<p>　一般使用原型模式有个明显的特点，就是实现cloneable的clone()方法。</p>
+<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>定义：有一系列的算法，将每个算法封装起来（每个算法可以封装到不同的类中），各个算法之间可以替换，策略模式让算法独立于使用它的客户而独立变化。</p>
+<h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><p>　　定义：定义一个操作中的算法框架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可重定义该算法的某些特定的步骤。 　　 　　<strong>实现流程已经确定，实现细节由子类完成</strong>。 　　 　　生命周期对于我们都不陌生，它就是典型的Template模式，在具体流程确定的情况下，至于我们要复写生命周期那些方法，实现那些功能由继承activity的子类去具体实现。</p>
+<p>　　关键在于必须有具体的执行流程，比如AsyncTask。</p>
+<h2 id="Proxy（代理模式）"><a href="#Proxy（代理模式）" class="headerlink" title="Proxy（代理模式）"></a>Proxy（代理模式）</h2><p>　　定义：为其他对象提供一种代理以控制对这个对象的访问。 　　代理： 在出发点到目的地之间有一道中间层。</p>
+<p>应用：Android跨进程通信方式 ，建议去了解一下Binder机制。</p>
+<h2 id="Interpreter（解释器模式）"><a href="#Interpreter（解释器模式）" class="headerlink" title="Interpreter（解释器模式）"></a>Interpreter（解释器模式）</h2><p>　　定义语言的文法，并且建立一个解释器来解释该语言中的句子。</p>
+<p>比如Android中通过PackageManagerService来解析AndroidManifest.xml中定义的Activity、service等属性。</p>
+<h2 id="State（状态模式）"><a href="#State（状态模式）" class="headerlink" title="State（状态模式）"></a>State（状态模式）</h2><p>　　行为是由状态来决定的，不同状态下有不同行为。</p>
+<p>　　注意：状态模式的行为是平行的、不可替换的，策略模式的行为是彼此独立可相互替换的。</p>
+<p>　　体现：不同的状态执行不同的行为，当WIFI开启时，自动扫描周围的接入点，然后以列表的形式展示；当wifi关闭时则清空。</p>
+<h2 id="Command（命令模式）"><a href="#Command（命令模式）" class="headerlink" title="Command（命令模式）"></a>Command（命令模式）</h2><p>　　我们有很多命令，把它们放在一个下拉菜单中，用户通过先选择菜单再选择具体命令，这就是Command模式。</p>
+<p>　　本来用户(调用者)是直接调用这些命令的，在菜单上打开文档，就直接指向打开文档的代码，使用Command模式，就是在这两者之间增加一个中间者，将这种直接关系拗断，同时两者之间都隔离,基本没有关系了。 　　 　　显然这样做的好处是符合封装的特性，降低耦合度，有利于代码的健壮性 可维护性 还有复用性。Command是将对行为进行封装的典型模式，Factory是将创建进行封装的模式。</p>
+<p>　　android底层逻辑对事件的转发处理就用到了Command模式。</p>
+<h2 id="Iterator（迭代模式）"><a href="#Iterator（迭代模式）" class="headerlink" title="Iterator（迭代模式）"></a>Iterator（迭代模式）</h2><p>　　提供一种方法顺序访问一个容器对象中的各个元素，而不需要暴露该对象的内部表示。</p>
+<p>应用：</p>
+<p>在Java中的Iterator类。</p>
+<p>Android中的 Cursor。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cursor.moveToFirst();</div></pre></td></tr></table></figure>
+<h2 id="Composite（组合模式）"><a href="#Composite（组合模式）" class="headerlink" title="Composite（组合模式）"></a>Composite（组合模式）</h2><p>　　</p>
+<p>　　将对象以树形结构组织起来，以达成“部分－整体” 的层次结构，使得客户端对单个对象和组合对象的使用具有一致性。</p>
+<p>　　Android中View的结构是树形结构，每个ViewGroup包含一系列的View，而ViewGroup本身又是View。这是Android中非常典型的组合模式。 </p>
+]]></content>
+    
+    <summary type="html">
+    
+      一些常见的设计模式复习，如单例，工厂等等
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自己写一个下拉刷新框架(1)</title>
+    <link href="http://yoursite.com/2017/08/17/%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E6%A1%86%E6%9E%B6-1/"/>
+    <id>http://yoursite.com/2017/08/17/自己写一个下拉刷新框架-1/</id>
+    <published>2017-08-17T08:33:49.000Z</published>
+    <updated>2017-08-17T09:24:56.843Z</updated>
+    
+    <content type="html"><![CDATA[<p>所以我决定利用自己的空余时间写一个，也不多，每天一二个小时~</p>
+<p>我之所以把这个叫做自己写一个下拉刷新框架(1) 是因为我要分好几个部分来写，</p>
+<p>我把这（1）的目标就定为如下几个</p>
+<ul>
+<li>内部嵌套view可以正常实现下拉刷新</li>
+<li>实现常用的几个方法如<ul>
+<li>setRefreshing</li>
+<li>setonRefreshListner</li>
+<li>isRefreshing()</li>
+</ul>
+</li>
+<li>动画先用一块VIew代替</li>
+</ul>
+<p>这就相当于完成了内测的0.1版本~</p>
+<p>记住自己写这些东西的时候按着之前使用过的一些框架的记忆来写就行，千万别照着别人的写，不然就剩下抄了</p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>自己写的这个肯定是要继承于一个ViewGroup的，是直接继承ViewGroup？还是他的实现类呢？</p>
+<p>因为我们的第一篇的实现要求特别低，所以我就直接继承FrameLayout了。</p>
+<p>然后定义我们的接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">package com.example.simplerefreshlayout.refresh;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/17.</div><div class="line"> */</div><div class="line"></div><div class="line">public interface onRefreshListener &#123;</div><div class="line"></div><div class="line">    void onRefresh();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public void setonRefreshListener(onRefreshListener refreshListener) &#123;</div><div class="line">    if (refreshListener == null)</div><div class="line">        throw new NullPointerException();</div><div class="line">    this.refreshListener = refreshListener;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public boolean isRefreshing() &#123;</div><div class="line"></div><div class="line"></div><div class="line">    return isRefresh;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      下拉刷新框架在目前可以说是数不胜数~眼花缭乱，有的出的很早兼容性更高，有的出的很晚，但是支持的样式和功能也更多，而且谷歌官方也推出了自己的下拉刷新控件SwipeRefreshLayout
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>线程池~和threadgroup</title>
@@ -1430,178 +1602,6 @@ Activity可以理解为Android程序我们看到的界面都是承载在Activity
     
     
       <category term="性能优化" scheme="http://yoursite.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>图片缓存与bitmap的加载</title>
-    <link href="http://yoursite.com/2017/05/07/%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98%E4%B8%8Ebitmap%E7%9A%84%E5%8A%A0%E8%BD%BD/"/>
-    <id>http://yoursite.com/2017/05/07/图片缓存与bitmap的加载/</id>
-    <published>2017-05-07T07:08:45.000Z</published>
-    <updated>2017-05-07T11:24:16.581Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="图片" scheme="http://yoursite.com/tags/%E5%9B%BE%E7%89%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>drawable</title>
-    <link href="http://yoursite.com/2017/05/04/drawable/"/>
-    <id>http://yoursite.com/2017/05/04/drawable/</id>
-    <published>2017-05-04T10:36:52.000Z</published>
-    <updated>2017-05-04T12:25:49.502Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="drawable"><a href="#drawable" class="headerlink" title="drawable"></a>drawable</h3><p>他是一个图像的概念，不完全是指图片，一般是通过xml文件定义，她是一个抽象类，有着非常多的子类，子类都是直接继承它。</p>
-<ul>
-<li><p>bitmapdrawable</p>
-<p>代表一张图片.</p>
-<p>xml 属性有几个比较常用</p>
-<ul>
-<li><p>src —代表资源id</p>
-</li>
-<li><p>antialias —抗锯齿（开）</p>
-</li>
-<li><p>dither—抖动效果（开）开启会更好的适配</p>
-</li>
-<li><p>filter —在拉伸等情况下可以更好的显示（开启）</p>
-</li>
-<li><p>gravity—当图片小于容器的时候选择的属性 有很多</p>
-</li>
-<li><p>mipMap— 一种文理映射，不常用</p>
-</li>
-<li><p>titleMode—平铺模式</p>
-<p>​</p>
-</li>
-</ul>
-</li>
-<li><p>ShapeDrawable</p>
-<p>非常常见的drawable</p>
-<ul>
-<li><p>shape :有四个属性</p>
-<ul>
-<li><p>rectangle：矩形</p>
-</li>
-<li><p>oval：椭圆</p>
-</li>
-<li><p>line ：横线</p>
-</li>
-<li><p>ring ：圆环</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>corners :表示shape四个角的角度。只适用于矩形</p>
-<ul>
-<li><p>radius：四个角的角度，优先度低，会被其它属性覆盖</p>
-</li>
-<li><p>topLeftRadius：左上角</p>
-</li>
-<li><p>topRightRadius:右上角</p>
-</li>
-<li><p>bottomLeftRadius：左下角</p>
-</li>
-<li><p>bottomRightRadius：右下角</p>
-<p>​</p>
-</li>
-</ul>
-</li>
-<li><p>gradient 和solid 互斥，表示渐变，而solid表示纯色填充</p>
-<ul>
-<li><p>angle :渐变的角度，默认为0,值必须是45的倍数，0表示从左到右，90表示从上到下</p>
-</li>
-<li><p>centerX：渐变的中心横坐标</p>
-</li>
-<li><p>centerY：渐变中心的纵坐标</p>
-</li>
-<li><p>startColor：渐变变的起始颜色</p>
-</li>
-<li><p>centerColor：渐变的中间色</p>
-</li>
-<li><p>endColor：渐变的结束颜色</p>
-</li>
-<li><p>gradientRadius：渐变半径</p>
-</li>
-<li><p>useLevel：一半为false，当drawable作为statelistDrawable的时候为true</p>
-</li>
-<li><p>type：渐变类别，linear（线性）radoal（径向渐变）sweep（扫描渐变）</p>
-<p>​</p>
-</li>
-</ul>
-</li>
-<li><p>solid:填充的颜色，全色填充</p>
-</li>
-<li><p>stroke:shape的描边</p>
-<ul>
-<li><p>width:描边的宽度</p>
-</li>
-<li><p>color：描边的颜色</p>
-</li>
-<li><p>dashWidth：虚线的线段宽度</p>
-</li>
-<li><p>dashGap：虚线的线段之间的间隔</p>
-<p>​</p>
-</li>
-</ul>
-</li>
-<li><p>padding 表示空白，表示包含它的view的空白</p>
-</li>
-<li><p>size shape的大小</p>
-<p>​</p>
-</li>
-</ul>
-<ul>
-<li><p>LayerDrawable 层次化的drawable集合，标签为<layer-list> ,通过item实现叠加效果</layer-list></p>
-</li>
-<li><p>StateListDrawable <selector>标签，表示Drawable集合，每个drawable对应着view的一种状态</selector></p>
-<p>比如button的点击等等</p>
-<p>view的常见状态</p>
-<ul>
-<li><p>state_pressed，表示按下的状态，比如button被按下，但是没有松开</p>
-</li>
-<li><p>state_focused ,表示view获取了焦点</p>
-</li>
-<li><p>state_selected,表示选择了view</p>
-</li>
-<li><p>state_checked,表示用户选中的view 一般在checkbox</p>
-</li>
-<li><p>state_enabled,表示view处于可用状态</p>
-<p>​</p>
-</li>
-</ul>
-</li>
-<li><p>TransitionDrawable <transition>  用于实现两个Drawable之间的淡入淡出效果</transition></p>
-</li>
-<li><p>insetDrawable <insert> 可以将其他Drawable内嵌到自己当中并且可以在四周留出间距</insert></p>
-<p>当自己的drawable需要和实际的view有大小区别的时候</p>
-</li>
-<li><p>scale 根据自己等级 level将指定的Drawable缩放到一定的比例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;   </div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;   </div><div class="line">&lt;scale     </div><div class="line">    android:interpolator= &quot;@android:anim/decelerate_interpolator&quot;         </div><div class="line">    android:fromXScale=&quot;0.0&quot;     </div><div class="line">    android:toXScale=&quot;1.5&quot;     </div><div class="line">    android:fromYScale=&quot;0.0&quot;     </div><div class="line">    android:toYScale=&quot;1.5&quot;     </div><div class="line">    android:pivotX=&quot;50%&quot;     </div><div class="line">    android:pivotY=&quot;50%&quot;     </div><div class="line">    android:startOffset=&quot;0&quot;     </div><div class="line">    android:duration=&quot;10000&quot;    </div><div class="line">    android:repeatCount=&quot;1&quot;     </div><div class="line">    android:repeatMode=&quot;reverse&quot;  /&gt;   </div><div class="line">&lt;/set&gt;   </div><div class="line">  </div><div class="line">&lt;!--    </div><div class="line">fromXDelta,fromYDelta       起始时X，Y座标,屏幕右下角的座标是X:320,Y:480   </div><div class="line">toXDelta， toYDelta      动画结束时X,Y的座标 --&gt; &lt;!--    </div><div class="line">interpolator                    指定动画插入器  </div><div class="line">常见的有加速减速插入器         accelerate_decelerate_interpolator  </div><div class="line">加速插入器               accelerate_interpolator，  </div><div class="line">减速插入器               decelerate_interpolator。   </div><div class="line">fromXScale,fromYScale，         动画开始前X,Y的缩放，0.0为不显示，  1.0为正常大小  </div><div class="line">toXScale，toYScale，          动画最终缩放的倍数， 1.0为正常大小，大于1.0放大  </div><div class="line">pivotX，  pivotY         动画起始位置，相对于屏幕的百分比,两个都为50%表示动画从屏幕中间开始   </div><div class="line">startOffset，                动画多次执行的间隔时间，如果只执行一次，执行前会暂停这段时间，  </div><div class="line">                    单位毫秒 duration，一次动画效果消耗的时间，单位毫秒，  </div><div class="line">                    值越小动画速度越快 repeatCount，动画重复的计数，动画将会执行该值+1次   </div><div class="line">                    repeatMode，动画重复的模式，reverse为反向，当第偶次执行时，动画方向会相反。  </div><div class="line">                    restart为重新执行，方向不变 --&gt;</div></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-<li><p>CliPDrawable <clip> 可以通过自己等级来剪裁另一个Drawable</clip></p>
-<p>clipOrientation表示剪裁的方向</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">testClipDrawable.setLevel(3000)</div></pre></td></tr></table></figure>
-<p>level 为0-10000 ，例如3000表示剪裁了30%；</p>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;drawable&quot;&gt;&lt;a href=&quot;#drawable&quot; class=&quot;headerlink&quot; title=&quot;drawable&quot;&gt;&lt;/a&gt;drawable&lt;/h3&gt;&lt;p&gt;他是一个图像的概念，不完全是指图片，一般是通过xml文件定义，她是一个抽象类，有着非常多的子
-    
-    </summary>
-    
-    
-      <category term="drawable" scheme="http://yoursite.com/tags/drawable/"/>
     
   </entry>
   

@@ -247,6 +247,260 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="article-图片缓存与bitmap的加载" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/07/图片缓存与bitmap的加载/" class="article-date">
+      <time datetime="2017-05-07T07:08:45.000Z" itemprop="datePublished">2017-05-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/07/图片缓存与bitmap的加载/">图片缓存与bitmap的加载</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片/">图片</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="articile-drawable" class="article article-type-articile" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/04/drawable/" class="article-date">
+      <time datetime="2017-05-04T10:36:52.000Z" itemprop="datePublished">2017-05-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/04/drawable/">drawable</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="drawable"><a href="#drawable" class="headerlink" title="drawable"></a>drawable</h3><p>他是一个图像的概念，不完全是指图片，一般是通过xml文件定义，她是一个抽象类，有着非常多的子类，子类都是直接继承它。</p>
+<ul>
+<li><p>bitmapdrawable</p>
+<p>代表一张图片.</p>
+<p>xml 属性有几个比较常用</p>
+<ul>
+<li><p>src —代表资源id</p>
+</li>
+<li><p>antialias —抗锯齿（开）</p>
+</li>
+<li><p>dither—抖动效果（开）开启会更好的适配</p>
+</li>
+<li><p>filter —在拉伸等情况下可以更好的显示（开启）</p>
+</li>
+<li><p>gravity—当图片小于容器的时候选择的属性 有很多</p>
+</li>
+<li><p>mipMap— 一种文理映射，不常用</p>
+</li>
+<li><p>titleMode—平铺模式</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>ShapeDrawable</p>
+<p>非常常见的drawable</p>
+<ul>
+<li><p>shape :有四个属性</p>
+<ul>
+<li><p>rectangle：矩形</p>
+</li>
+<li><p>oval：椭圆</p>
+</li>
+<li><p>line ：横线</p>
+</li>
+<li><p>ring ：圆环</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>corners :表示shape四个角的角度。只适用于矩形</p>
+<ul>
+<li><p>radius：四个角的角度，优先度低，会被其它属性覆盖</p>
+</li>
+<li><p>topLeftRadius：左上角</p>
+</li>
+<li><p>topRightRadius:右上角</p>
+</li>
+<li><p>bottomLeftRadius：左下角</p>
+</li>
+<li><p>bottomRightRadius：右下角</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>gradient 和solid 互斥，表示渐变，而solid表示纯色填充</p>
+<ul>
+<li><p>angle :渐变的角度，默认为0,值必须是45的倍数，0表示从左到右，90表示从上到下</p>
+</li>
+<li><p>centerX：渐变的中心横坐标</p>
+</li>
+<li><p>centerY：渐变中心的纵坐标</p>
+</li>
+<li><p>startColor：渐变变的起始颜色</p>
+</li>
+<li><p>centerColor：渐变的中间色</p>
+</li>
+<li><p>endColor：渐变的结束颜色</p>
+</li>
+<li><p>gradientRadius：渐变半径</p>
+</li>
+<li><p>useLevel：一半为false，当drawable作为statelistDrawable的时候为true</p>
+</li>
+<li><p>type：渐变类别，linear（线性）radoal（径向渐变）sweep（扫描渐变）</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>solid:填充的颜色，全色填充</p>
+</li>
+<li><p>stroke:shape的描边</p>
+<ul>
+<li><p>width:描边的宽度</p>
+</li>
+<li><p>color：描边的颜色</p>
+</li>
+<li><p>dashWidth：虚线的线段宽度</p>
+</li>
+<li><p>dashGap：虚线的线段之间的间隔</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>padding 表示空白，表示包含它的view的空白</p>
+</li>
+<li><p>size shape的大小</p>
+<p>​</p>
+</li>
+</ul>
+<ul>
+<li><p>LayerDrawable 层次化的drawable集合，标签为<layer-list> ,通过item实现叠加效果</layer-list></p>
+</li>
+<li><p>StateListDrawable <selector>标签，表示Drawable集合，每个drawable对应着view的一种状态</selector></p>
+<p>比如button的点击等等</p>
+<p>view的常见状态</p>
+<ul>
+<li><p>state_pressed，表示按下的状态，比如button被按下，但是没有松开</p>
+</li>
+<li><p>state_focused ,表示view获取了焦点</p>
+</li>
+<li><p>state_selected,表示选择了view</p>
+</li>
+<li><p>state_checked,表示用户选中的view 一般在checkbox</p>
+</li>
+<li><p>state_enabled,表示view处于可用状态</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>TransitionDrawable <transition>  用于实现两个Drawable之间的淡入淡出效果</transition></p>
+</li>
+<li><p>insetDrawable <insert> 可以将其他Drawable内嵌到自己当中并且可以在四周留出间距</insert></p>
+<p>当自己的drawable需要和实际的view有大小区别的时候</p>
+</li>
+<li><p>scale 根据自己等级 level将指定的Drawable缩放到一定的比例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;   </div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;   </div><div class="line">&lt;scale     </div><div class="line">    android:interpolator= &quot;@android:anim/decelerate_interpolator&quot;         </div><div class="line">    android:fromXScale=&quot;0.0&quot;     </div><div class="line">    android:toXScale=&quot;1.5&quot;     </div><div class="line">    android:fromYScale=&quot;0.0&quot;     </div><div class="line">    android:toYScale=&quot;1.5&quot;     </div><div class="line">    android:pivotX=&quot;50%&quot;     </div><div class="line">    android:pivotY=&quot;50%&quot;     </div><div class="line">    android:startOffset=&quot;0&quot;     </div><div class="line">    android:duration=&quot;10000&quot;    </div><div class="line">    android:repeatCount=&quot;1&quot;     </div><div class="line">    android:repeatMode=&quot;reverse&quot;  /&gt;   </div><div class="line">&lt;/set&gt;   </div><div class="line">  </div><div class="line">&lt;!--    </div><div class="line">fromXDelta,fromYDelta       起始时X，Y座标,屏幕右下角的座标是X:320,Y:480   </div><div class="line">toXDelta， toYDelta      动画结束时X,Y的座标 --&gt; &lt;!--    </div><div class="line">interpolator                    指定动画插入器  </div><div class="line">常见的有加速减速插入器         accelerate_decelerate_interpolator  </div><div class="line">加速插入器               accelerate_interpolator，  </div><div class="line">减速插入器               decelerate_interpolator。   </div><div class="line">fromXScale,fromYScale，         动画开始前X,Y的缩放，0.0为不显示，  1.0为正常大小  </div><div class="line">toXScale，toYScale，          动画最终缩放的倍数， 1.0为正常大小，大于1.0放大  </div><div class="line">pivotX，  pivotY         动画起始位置，相对于屏幕的百分比,两个都为50%表示动画从屏幕中间开始   </div><div class="line">startOffset，                动画多次执行的间隔时间，如果只执行一次，执行前会暂停这段时间，  </div><div class="line">                    单位毫秒 duration，一次动画效果消耗的时间，单位毫秒，  </div><div class="line">                    值越小动画速度越快 repeatCount，动画重复的计数，动画将会执行该值+1次   </div><div class="line">                    repeatMode，动画重复的模式，reverse为反向，当第偶次执行时，动画方向会相反。  </div><div class="line">                    restart为重新执行，方向不变 --&gt;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>CliPDrawable <clip> 可以通过自己等级来剪裁另一个Drawable</clip></p>
+<p>clipOrientation表示剪裁的方向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">testClipDrawable.setLevel(3000)</div></pre></td></tr></table></figure>
+<p>level 为0-10000 ，例如3000表示剪裁了30%；</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/drawable/">drawable</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="article-view的工作原理" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -811,132 +1065,6 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/svg/">svg</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="article-算法基础" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/10/算法基础/" class="article-date">
-      <time datetime="2017-04-10T05:20:32.000Z" itemprop="datePublished">2017-04-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/10/算法基础/">算法基础</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="articile-searchview" class="article article-type-articile" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/10/searchview/" class="article-date">
-      <time datetime="2017-04-10T04:44:54.000Z" itemprop="datePublished">2017-04-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/10/searchview/">searchview</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="toolbar"><a href="#toolbar" class="headerlink" title="toolbar"></a>toolbar</h3><p> toolbar自带的搜索框其实非常实用</p>
-<p>首先就是穿件menu的菜单！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public boolean onCreateOptionsMenu(Menu menu) &#123;</div><div class="line"></div><div class="line">       getMenuInflater().inflate(R.menu.search, menu);</div><div class="line">       SearchManager searchManager =</div><div class="line">               (SearchManager) getSystemService(Context.SEARCH_SERVICE);</div><div class="line">       searchView =</div><div class="line">               (SearchView) menu.findItem(R.id.ab_search).getActionView();</div><div class="line">       searchView.setSearchableInfo(</div><div class="line">               searchManager.getSearchableInfo(getComponentName()));</div><div class="line">       searchView.setOnQueryTextListener(this);</div><div class="line">       return true;</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<h3 id="search-xml-menu"><a href="#search-xml-menu" class="headerlink" title="search.xml (menu)"></a>search.xml (menu)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">    &lt;item</div><div class="line">        android:id=&quot;@+id/ab_search&quot;</div><div class="line">        android:orderInCategory=&quot;60&quot;</div><div class="line">        android:title=&quot;action_search&quot;</div><div class="line">        app:actionViewClass=&quot;android.support.v7.widget.SearchView&quot;</div><div class="line">        app:showAsAction=&quot;ifRoom&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/menu&gt;</div></pre></td></tr></table></figure>
-<h3 id="xml"><a href="#xml" class="headerlink" title="xml"></a>xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;searchable xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:label=&quot;@string/app_name&quot;</div><div class="line">    android:imeOptions=&quot;actionSearch&quot;</div><div class="line">    android:hint=&quot;搜索&quot; /&gt;</div></pre></td></tr></table></figure>
-<p>上面这三行代码就是为了创建菜单而实现的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">searchView.setOnQueryTextListener(this);</div><div class="line">实现setOnQueryTextListener接口判断数据的变化</div></pre></td></tr></table></figure>
-<h3 id="和listview或者recycleview实现实时数据的搜索！"><a href="#和listview或者recycleview实现实时数据的搜索！" class="headerlink" title="和listview或者recycleview实现实时数据的搜索！"></a>和listview或者recycleview实现实时数据的搜索！</h3><p>这个刚开始觉得挺难的，试着写了一下，其实还可以！</p>
-<p>这需要adapter实现 filter的接口</p>
-<p>重写 publishResults 和performFiltering方法！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public Filter getFilter() &#123;</div><div class="line"></div><div class="line">       return new Filter() &#123;</div><div class="line">           @Override</div><div class="line">           protected FilterResults performFiltering(CharSequence constraint) &#123;</div><div class="line">               FilterResults results = new FilterResults();</div><div class="line">               List&lt;Map&lt;String, String&gt;&gt; datalist = new ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">               for (int i = 0; i &lt; mlist.size(); i++) &#123;</div><div class="line">                   if (mlist.get(i).get(&quot;title&quot;).contains(constraint)) &#123;</div><div class="line">                       datalist.add(mlist.get(i));</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line">               results.values = datalist;</div><div class="line">               return results;</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           @Override</div><div class="line">           protected void publishResults(CharSequence constraint, FilterResults results) &#123;</div><div class="line"></div><div class="line">               list=((List&lt;Map&lt;String, String&gt;&gt;) results.values);</div><div class="line">               notifyDataSetChanged();</div><div class="line"></div><div class="line">           &#125;</div><div class="line">       &#125;;</div></pre></td></tr></table></figure>
-<p>这里需要注意一下！因为你的数据实在实时刷新的，所以一旦回删数据的时候会导致数据恢复不了，所以初始化数据的时候一定要注意初始化一个 mdatalist 用来存放所有的数据，list用来实时更新加载数据！</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/toolbar的搜索框/">toolbar的搜索框</a></li></ul>
     </div>
 
       

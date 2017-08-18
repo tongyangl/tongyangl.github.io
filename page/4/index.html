@@ -247,6 +247,132 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="article-算法基础" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/10/算法基础/" class="article-date">
+      <time datetime="2017-04-10T05:20:32.000Z" itemprop="datePublished">2017-04-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/10/算法基础/">算法基础</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="articile-searchview" class="article article-type-articile" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/10/searchview/" class="article-date">
+      <time datetime="2017-04-10T04:44:54.000Z" itemprop="datePublished">2017-04-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/10/searchview/">searchview</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="toolbar"><a href="#toolbar" class="headerlink" title="toolbar"></a>toolbar</h3><p> toolbar自带的搜索框其实非常实用</p>
+<p>首先就是穿件menu的菜单！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public boolean onCreateOptionsMenu(Menu menu) &#123;</div><div class="line"></div><div class="line">       getMenuInflater().inflate(R.menu.search, menu);</div><div class="line">       SearchManager searchManager =</div><div class="line">               (SearchManager) getSystemService(Context.SEARCH_SERVICE);</div><div class="line">       searchView =</div><div class="line">               (SearchView) menu.findItem(R.id.ab_search).getActionView();</div><div class="line">       searchView.setSearchableInfo(</div><div class="line">               searchManager.getSearchableInfo(getComponentName()));</div><div class="line">       searchView.setOnQueryTextListener(this);</div><div class="line">       return true;</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h3 id="search-xml-menu"><a href="#search-xml-menu" class="headerlink" title="search.xml (menu)"></a>search.xml (menu)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">    &lt;item</div><div class="line">        android:id=&quot;@+id/ab_search&quot;</div><div class="line">        android:orderInCategory=&quot;60&quot;</div><div class="line">        android:title=&quot;action_search&quot;</div><div class="line">        app:actionViewClass=&quot;android.support.v7.widget.SearchView&quot;</div><div class="line">        app:showAsAction=&quot;ifRoom&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/menu&gt;</div></pre></td></tr></table></figure>
+<h3 id="xml"><a href="#xml" class="headerlink" title="xml"></a>xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;searchable xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:label=&quot;@string/app_name&quot;</div><div class="line">    android:imeOptions=&quot;actionSearch&quot;</div><div class="line">    android:hint=&quot;搜索&quot; /&gt;</div></pre></td></tr></table></figure>
+<p>上面这三行代码就是为了创建菜单而实现的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">searchView.setOnQueryTextListener(this);</div><div class="line">实现setOnQueryTextListener接口判断数据的变化</div></pre></td></tr></table></figure>
+<h3 id="和listview或者recycleview实现实时数据的搜索！"><a href="#和listview或者recycleview实现实时数据的搜索！" class="headerlink" title="和listview或者recycleview实现实时数据的搜索！"></a>和listview或者recycleview实现实时数据的搜索！</h3><p>这个刚开始觉得挺难的，试着写了一下，其实还可以！</p>
+<p>这需要adapter实现 filter的接口</p>
+<p>重写 publishResults 和performFiltering方法！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public Filter getFilter() &#123;</div><div class="line"></div><div class="line">       return new Filter() &#123;</div><div class="line">           @Override</div><div class="line">           protected FilterResults performFiltering(CharSequence constraint) &#123;</div><div class="line">               FilterResults results = new FilterResults();</div><div class="line">               List&lt;Map&lt;String, String&gt;&gt; datalist = new ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">               for (int i = 0; i &lt; mlist.size(); i++) &#123;</div><div class="line">                   if (mlist.get(i).get(&quot;title&quot;).contains(constraint)) &#123;</div><div class="line">                       datalist.add(mlist.get(i));</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line">               results.values = datalist;</div><div class="line">               return results;</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           @Override</div><div class="line">           protected void publishResults(CharSequence constraint, FilterResults results) &#123;</div><div class="line"></div><div class="line">               list=((List&lt;Map&lt;String, String&gt;&gt;) results.values);</div><div class="line">               notifyDataSetChanged();</div><div class="line"></div><div class="line">           &#125;</div><div class="line">       &#125;;</div></pre></td></tr></table></figure>
+<p>这里需要注意一下！因为你的数据实在实时刷新的，所以一旦回删数据的时候会导致数据恢复不了，所以初始化数据的时候一定要注意初始化一个 mdatalist 用来存放所有的数据，list用来实时更新加载数据！</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/toolbar的搜索框/">toolbar的搜索框</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="article-Android头像缓存" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -820,137 +946,6 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="article-自定义View" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/14/自定义View/" class="article-date">
-      <time datetime="2017-01-14T09:00:32.000Z" itemprop="datePublished">2017-01-14</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/14/自定义View/">自定义View</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              开发过程中难免会遇到一些需要自己自定义的view 他可能直接继承某个控件如textview，button等
-也可能继承view。
-学了这么久安卓，今天终于闲下来搞了搞自定义view。。先从最简单的来我们直接继承view 画一个圆
-我们要重写onDraw的方法，就要了解下这三个东西 Paint ，Canvas，和draw
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/01/14/自定义View/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="article-利用序列化器生成xml文件" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/15/利用序列化器生成xml文件/" class="article-date">
-      <time datetime="2016-11-15T11:30:20.000Z" itemprop="datePublished">2016-11-15</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/15/利用序列化器生成xml文件/">利用序列化器生成xml文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line">List&lt;Message&gt; smsList;</div><div class="line">        // 虚拟10条短信</div><div class="line">        smsList = new ArrayList&lt;Message&gt;();</div><div class="line">        for (int i = 0; i &lt; 10; i++) &#123;</div><div class="line">            Message sms = new Message(&quot;小志好棒&quot; + i, System.currentTimeMillis()</div><div class="line">                    + &quot;&quot;, &quot;138&quot; + i + i, &quot;1&quot;);</div><div class="line">            smsList.add(sms);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public void click(View v)&#123;</div><div class="line">        //使用xml序列化器生成xml文件</div><div class="line">        //1.拿到序列化器对象</div><div class="line">        XmlSerializer xs = Xml.newSerializer();</div><div class="line">        //2.初始化</div><div class="line">        File file = new File(&quot;sdcard/sms2.xml&quot;);</div><div class="line">        try &#123;</div><div class="line">            FileOutputStream fos = new FileOutputStream(file);</div><div class="line">            //enconding:指定用什么编码生成xml文件</div><div class="line">            xs.setOutput(fos, &quot;utf-8&quot;);</div><div class="line">             //3.开始生成xml文件</div><div class="line">            //enconding:指定头结点中的enconding属性的值</div><div class="line">            xs.startDocument(&quot;utf-8&quot;, true);</div><div class="line">            xs.startTag(null, &quot;message&quot;);</div><div class="line">            for (Message sms : smsList) &#123;</div><div class="line">                xs.startTag(null, &quot;sms&quot;);</div><div class="line"></div><div class="line">                xs.startTag(null, &quot;body&quot;);</div><div class="line">                xs.text(sms.getBody() + &quot;&lt;body&gt;&quot;);</div><div class="line">                xs.endTag(null, &quot;body&quot;);</div><div class="line">                xs.endTag(null, &quot;sms&quot;);</div><div class="line">            &#125;</div><div class="line">            xs.endTag(null, &quot;message&quot;);</div><div class="line">            //告诉序列化器，文件生成完毕</div><div class="line">            xs.endDocument();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            // TODO Auto-generated catch block</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; </div><div class="line">    &#125;</div><div class="line">================================================================</div><div class="line">================================================================</div><div class="line">================================================================</div><div class="line">package com.itheima.createxml.domain;</div><div class="line"></div><div class="line">public class Message &#123;</div><div class="line"></div><div class="line">    private String body;</div><div class="line">    private String date;</div><div class="line">    private String address;</div><div class="line">    private String type;</div><div class="line">    public String getBody() &#123;</div><div class="line">        return body;</div><div class="line">    &#125;</div><div class="line">    public void setBody(String body) &#123;</div><div class="line">        this.body = body;</div><div class="line">    &#125;</div><div class="line">    public String getDate() &#123;</div><div class="line">        return date;</div><div class="line">    &#125;</div><div class="line">    public void setDate(String date) &#123;</div><div class="line">        this.date = date;</div><div class="line">    &#125;</div><div class="line">    public String getAddress() &#123;</div><div class="line">        return address;</div><div class="line">    &#125;</div><div class="line">    public void setAddress(String address) &#123;</div><div class="line">        this.address = address;</div><div class="line">    &#125;</div><div class="line">    public String getType() &#123;</div><div class="line">        return type;</div><div class="line">    &#125;</div><div class="line">    public void setType(String type) &#123;</div><div class="line">        this.type = type;</div><div class="line">    &#125;</div><div class="line">    public Message(String body, String date, String address, String type) &#123;</div><div class="line">        super();</div><div class="line">        this.body = body;</div><div class="line">        this.date = date;</div><div class="line">        this.address = address;</div><div class="line">        this.type = type;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
     </div>
 
       
