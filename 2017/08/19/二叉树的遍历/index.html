@@ -15,16 +15,17 @@
 
 
 
-<meta name="description" content="١���Ĳ���">
+<meta name="description" content="二叉树的各种遍历方法">
+<meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java8-行为参数传递代码">
-<meta property="og:url" content="http://yoursite.com/2017/04/22/java8-行为参数传递代码/index.html">
+<meta property="og:title" content="二叉树的遍历">
+<meta property="og:url" content="http://yoursite.com/2017/08/19/二叉树的遍历/index.html">
 <meta property="og:site_name" content="Tong Yang&#39;s Blog">
-<meta property="og:description" content="١���Ĳ���">
-<meta property="og:updated_time" content="2017-04-22T05:01:29.098Z">
+<meta property="og:description" content="二叉树的各种遍历方法">
+<meta property="og:updated_time" content="2017-08-19T07:13:16.295Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java8-行为参数传递代码">
-<meta name="twitter:description" content="١���Ĳ���">
+<meta name="twitter:title" content="二叉树的遍历">
+<meta name="twitter:description" content="二叉树的各种遍历方法">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>java8-行为参数传递代码 | Tong Yang&#39;s Blog</title>
+<title>二叉树的遍历 | Tong Yang&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -239,11 +240,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="articile-java8-行为参数传递代码" class="article article-type-articile" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="article-二叉树的遍历" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/22/java8-行为参数传递代码/" class="article-date">
-      <time datetime="2017-04-22T05:01:29.000Z" itemprop="datePublished">2017-04-22</time>
+      <a href="/2017/08/19/二叉树的遍历/" class="article-date">
+      <time datetime="2017-08-19T06:41:40.000Z" itemprop="datePublished">2017-08-19</time>
 </a>
 
 
@@ -258,7 +259,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java8-行为参数传递代码
+      二叉树的遍历
     </h1>
   
 
@@ -266,8 +267,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/数据结构/">数据结构</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -275,7 +284,21 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>二叉树（Binary tree）是每个节点最多有两个子树的树结构。二叉树的子树有左右之分，次序不能颠倒。</p>
+<p>最多有 2^i-1个节点</p>
+<p>第i层最多有2^(i-1)个节点</p>
+<p>二叉树可以用数组或者链表存储</p>
+<p>如果一个结点的索引为i，它的子结点能在索引2i+1和2i+2找到，并且它的父节点（如果有）能在索引floor((i-1)/2)找到（假设根节点的索引为0）。</p>
+<h2 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"> private class Node&#123;  </div><div class="line">//      左节点  </div><div class="line">        private Node leftChild;  </div><div class="line">//      右节点  </div><div class="line">        private Node rightChild;  </div><div class="line">//      节点对应的值  </div><div class="line">        private int data;  </div><div class="line">          </div><div class="line">        public Node(int data)&#123;  </div><div class="line">            this.leftChild = null;  </div><div class="line">            this.rightChild = null;  </div><div class="line">            this.data = data;  </div><div class="line">        &#125;  </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h3><h4 id="递归遍历："><a href="#递归遍历：" class="headerlink" title="递归遍历："></a>递归遍历：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public void preOrder(Node node)&#123;  </div><div class="line">       if(node != null)&#123;  </div><div class="line">           System.out.print(node.data);  </div><div class="line">           preOrder(node.leftChild);  </div><div class="line">           preOrder(node.rightChild);  </div><div class="line">       &#125;  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h4 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">* 利用栈实现循环先序遍历二叉树 </div><div class="line">* 这种实现类似于图的深度优先遍历（DFS） </div><div class="line">* 维护一个栈，将根节点入栈，然后只要栈不为空，出栈并访问，接着依次将访问节点的右节点、左节点入栈。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public static void preOrderStack(Node root)&#123;  </div><div class="line">     if(root==null)return;  </div><div class="line">     Stack&lt;Node&gt; s=new Stack&lt;Node&gt;();  </div><div class="line">     s.push(root);  </div><div class="line">     while(!s.isEmpty())&#123;  </div><div class="line">         Node temp=s.pop();  </div><div class="line">         System.out.println(temp.value);  </div><div class="line">         if(temp.right!=null) s.push(temp.right);  </div><div class="line">         if(temp.left!=null) s.push(temp.left);  </div><div class="line">     &#125;  </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public void inOrder(Node node)&#123;  </div><div class="line">      if(node != null)&#123;  </div><div class="line">          inOrder(node.leftChild);  </div><div class="line">          System.out.print(node.data);  </div><div class="line">          inOrder(node.rightChild);  </div><div class="line">      &#125;  </div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h4 id="非递归-1"><a href="#非递归-1" class="headerlink" title="非递归"></a>非递归</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">利用栈模拟递归过程实现循环中序遍历二叉树 </div><div class="line">访问的时间是在左子树都处理完直到null的时候出栈并访问。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public static void inOrderStack(Node root)&#123;  </div><div class="line">    if(root==null)return;  </div><div class="line">    Stack&lt;Node&gt; s=new Stack&lt;Node&gt;();  </div><div class="line">    while(root!=null||!s.isEmpty())&#123;  </div><div class="line">        while(root!=null)&#123;  </div><div class="line">            s.push(root);//先访问再入栈  </div><div class="line">            root=root.left;  </div><div class="line">        &#125;  </div><div class="line">        root=s.pop();  </div><div class="line">        System.out.println(root.value);  </div><div class="line">        root=root.right;//如果是null，出栈并处理右子树  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><h3 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public void postOrder(Node node)&#123;  </div><div class="line">      if(node != null)&#123;  </div><div class="line">          postOrder(node.leftChild);  </div><div class="line">          postOrder(node.rightChild);  </div><div class="line">          System.out.print(node.data);              </div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+<h3 id="非递归-2"><a href="#非递归-2" class="headerlink" title="非递归"></a>非递归</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">后序遍历不同于先序和中序，它是要先处理完左右子树，然后再处理根(回溯)，所以需要一个记录哪些节点已经被访问的结构(可以在树结构里面加一个标记)，这里可以用map实现 </div><div class="line"> </div><div class="line">    public static void postOrderStack(Node root)&#123;  </div><div class="line">        if(root==null)return;  </div><div class="line">        Stack&lt;Node&gt; s=new Stack&lt;Node&gt;();  </div><div class="line">        Map&lt;Node,Boolean&gt; map=new HashMap&lt;Node,Boolean&gt;();   </div><div class="line">        s.push(root);  </div><div class="line">        while(!s.isEmpty())&#123;  </div><div class="line">            Node temp=s.peek();  </div><div class="line">            if(temp.left!=null&amp;&amp;!map.containsKey(temp.left))&#123;  </div><div class="line">                temp=temp.left;  </div><div class="line">                while(temp!=null)&#123;  </div><div class="line">                    if(map.containsKey(temp))break;  </div><div class="line">                    else s.push(temp);  </div><div class="line">                    temp=temp.left;  </div><div class="line">                &#125;  </div><div class="line">                continue;  </div><div class="line">            &#125;  </div><div class="line">            if(temp.right!=null&amp;&amp;!map.containsKey(temp.right))&#123;  </div><div class="line">                s.push(temp.right);  </div><div class="line">                continue;  </div><div class="line">            &#125;  </div><div class="line">            Node t=s.pop();  </div><div class="line">            map.put(t,true);  </div><div class="line">            System.out.println(t.value);  </div><div class="line">        &#125;  </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="广度优先（层次遍历）"><a href="#广度优先（层次遍历）" class="headerlink" title="广度优先（层次遍历）"></a>广度优先（层次遍历）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public static void levelTravel(Node root)&#123;  </div><div class="line">       if(root==null)return;  </div><div class="line">       Queue&lt;Node&gt; q=new LinkedList&lt;Node&gt;();  </div><div class="line">       q.add(root);  </div><div class="line">       while(!q.isEmpty())&#123;  </div><div class="line">           Node temp =  q.poll();  </div><div class="line">           System.out.println(temp.value);  </div><div class="line">           if(temp.left!=null)q.add(temp.left);  </div><div class="line">           if(temp.right!=null)q.add(temp.right);  </div><div class="line">       &#125;  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -283,13 +306,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/04/22/java8-行为参数传递代码/">java8-行为参数传递代码</a></p>
+        <p><span>本文标题:</span><a href="/2017/08/19/二叉树的遍历/">二叉树的遍历</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Tong Yang</a></p>
-        <p><span>发布时间:</span>2017-04-22, 13:01:29</p>
-        <p><span>最后更新:</span>2017-04-22, 13:01:29</p>
+        <p><span>发布时间:</span>2017-08-19, 14:41:40</p>
+        <p><span>最后更新:</span>2017-08-19, 15:13:16</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/04/22/java8-行为参数传递代码/" title="java8-行为参数传递代码">http://yoursite.com/2017/04/22/java8-行为参数传递代码/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/04/22/java8-行为参数传递代码/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/19/二叉树的遍历/" title="二叉树的遍历">http://yoursite.com/2017/08/19/二叉树的遍历/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/19/二叉树的遍历/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -301,16 +324,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/27/排序（选择排序）/">
-                    排序（选择排序）
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/04/19/handler和messsage/">
-                    handler和messsage
+                <a href="/2017/08/19/数据结构-图/">
+                    数据结构-图
                 </a>
             </div>
         
@@ -322,7 +339,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树"><span class="toc-number">1.</span> <span class="toc-text">二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遍历方法"><span class="toc-number">2.</span> <span class="toc-text">遍历方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#前序遍历"><span class="toc-number">2.1.</span> <span class="toc-text">前序遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#递归遍历："><span class="toc-number">2.1.1.</span> <span class="toc-text">递归遍历：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非递归"><span class="toc-number">2.1.2.</span> <span class="toc-text">非递归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中序遍历"><span class="toc-number">2.2.</span> <span class="toc-text">中序遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#递归"><span class="toc-number">2.2.1.</span> <span class="toc-text">递归</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非递归-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">非递归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后序遍历"><span class="toc-number">2.3.</span> <span class="toc-text">后序遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#递归-1"><span class="toc-number">2.4.</span> <span class="toc-text">递归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非递归-2"><span class="toc-number">2.5.</span> <span class="toc-text">非递归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#广度优先（层次遍历）"><span class="toc-number">2.6.</span> <span class="toc-text">广度优先（层次遍历）</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -358,7 +375,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"java8-行为参数传递代码　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"二叉树的遍历　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -392,15 +409,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/27/排序（选择排序）/" title="上一篇: 排序（选择排序）">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/04/19/handler和messsage/" title="下一篇: handler和messsage">
+            <a href="/2017/08/19/数据结构-图/" title="下一篇: 数据结构-图">
                 <i class="fa fa-angle-right"></i>
             </a>
         
