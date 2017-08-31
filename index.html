@@ -247,6 +247,75 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="article-随笔" class="article article-type-article" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/27/随笔/" class="article-date">
+      <time datetime="2017-08-27T05:16:48.000Z" itemprop="datePublished">2017-08-27</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/27/随笔/">随笔（二叉树反转）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>刚看到有个人在掘金讨论这个问题，，他说应届生都会做然而我咋没做过0.0于是自己搞了一下</p>
+<p>先自己顶一个树</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">static class TreeNode&lt;T&gt; &#123;</div><div class="line">    TreeNode&lt;T&gt; leftRoot = null;</div><div class="line">    TreeNode&lt;T&gt; rightRoot = null;</div><div class="line">    T t = null;</div><div class="line"></div><div class="line">    public TreeNode(T t) &#123;</div><div class="line">        this.t = t;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    public void setDate(T t) &#123;</div><div class="line">        this.t = t;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public T getDate() &#123;</div><div class="line"></div><div class="line">        return t;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后为这个二叉树赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">public static void main(String[] args) &#123;</div><div class="line">    int arr[];</div><div class="line">    arr = new int[15];</div><div class="line"></div><div class="line">    LinkedList&lt;TreeNode&gt; linkedList = new LinkedList();</div><div class="line">    for (int i = 0; i &lt; arr.length; i++) &#123;</div><div class="line"></div><div class="line">        linkedList.add(new TreeNode&lt;Integer&gt;(i));</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    int lastParentIndex = arr.length / 2 - 1;</div><div class="line">    linkedList.get(lastParentIndex).leftRoot = linkedList</div><div class="line">            .get(lastParentIndex * 2 + 1);</div><div class="line"></div><div class="line">    if (arr.length % 2 == 1) &#123;</div><div class="line"></div><div class="line">        linkedList.get(lastParentIndex).rightRoot = linkedList</div><div class="line">                .get(lastParentIndex * 2 + 2);</div><div class="line">    &#125;</div><div class="line">    for (int i = 0; i &lt; arr.length / 2 - 1; i++) &#123;</div><div class="line">        linkedList.get(i).leftRoot = linkedList.get(i * 2 + 1);</div><div class="line">        linkedList.get(i).rightRoot = linkedList.get(i * 2 + 2);</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>先把这个二叉树的值赋值到一个数组里，然后配合list；</p>
+<p>最后对最后一个节点有无右节点判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">static TreeNode invertTree(TreeNode treeNode) &#123;</div><div class="line">    if (treeNode != null) &#123;</div><div class="line">        TreeNode temp = treeNode.leftRoot;</div><div class="line">        treeNode.leftRoot = treeNode.rightRoot;</div><div class="line">        treeNode.rightRoot = temp;</div><div class="line"></div><div class="line">    &#125; else &#123;</div><div class="line"></div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    invertTree(treeNode.leftRoot);</div><div class="line">    invertTree(treeNode.rightRoot);</div><div class="line">    return treeNode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是转换方法。。很好理解哇</p>
+<p>然后配合一个队列打印出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Queue&lt;TreeNode&gt; queue = new LinkedBlockingQueue&lt;&gt;();</div><div class="line">queue.add(linkedList.get(0));</div><div class="line">while (queue.peek() != null) &#123;</div><div class="line">    TreeNode root = queue.poll();</div><div class="line">    System.out.println(root.getDate());</div><div class="line"></div><div class="line">    if (root.leftRoot != null) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        queue.add(root.leftRoot);</div><div class="line">    &#125;</div><div class="line">    if (root.rightRoot != null) &#123;</div><div class="line">        queue.add(root.rightRoot);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="article-二叉树的遍历" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -820,74 +889,6 @@
       
         <p class="article-more-link">
           <a href="/2017/08/12/Rxjava2.x学习之线程切换/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="article-RxJava2-X学习之订阅原理" class="article article-type-article" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/11/RxJava2-X学习之订阅原理/" class="article-date">
-      <time datetime="2017-08-11T08:13:49.000Z" itemprop="datePublished">2017-08-11</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/11/RxJava2-X学习之订阅原理/">RxJava2.X学习</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              RXJava究竟是如何完成观察者个监听者之间的订阅的呢？上游是如何下发到下游的数据呢？
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/rxjava/">rxjava</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjava/">rxjava</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/08/11/RxJava2-X学习之订阅原理/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
