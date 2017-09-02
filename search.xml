@@ -12,11 +12,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[sqlite和Android数据库]]></title>
-    <url>%2F2017%2F08%2F31%2Fsqlite%E5%92%8CAndroid%E6%95%B0%E6%8D%AE%E5%BA%93%2F</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[随笔（二叉树反转）]]></title>
     <url>%2F2017%2F08%2F27%2F%E9%9A%8F%E7%AC%94%2F</url>
     <content type="text"><![CDATA[刚看到有个人在掘金讨论这个问题，，他说应届生都会做然而我咋没做过0.0于是自己搞了一下 先自己顶一个树 1234567891011121314151617181920static class TreeNode&lt;T&gt; &#123; TreeNode&lt;T&gt; leftRoot = null; TreeNode&lt;T&gt; rightRoot = null; T t = null; public TreeNode(T t) &#123; this.t = t; &#125; public void setDate(T t) &#123; this.t = t; &#125; public T getDate() &#123; return t; &#125;&#125; 然后为这个二叉树赋值 123456789101112131415161718192021222324public static void main(String[] args) &#123; int arr[]; arr = new int[15]; LinkedList&lt;TreeNode&gt; linkedList = new LinkedList(); for (int i = 0; i &lt; arr.length; i++) &#123; linkedList.add(new TreeNode&lt;Integer&gt;(i)); &#125; int lastParentIndex = arr.length / 2 - 1; linkedList.get(lastParentIndex).leftRoot = linkedList .get(lastParentIndex * 2 + 1); if (arr.length % 2 == 1) &#123; linkedList.get(lastParentIndex).rightRoot = linkedList .get(lastParentIndex * 2 + 2); &#125; for (int i = 0; i &lt; arr.length / 2 - 1; i++) &#123; linkedList.get(i).leftRoot = linkedList.get(i * 2 + 1); linkedList.get(i).rightRoot = linkedList.get(i * 2 + 2); &#125; 先把这个二叉树的值赋值到一个数组里，然后配合list； 最后对最后一个节点有无右节点判断 123456789101112131415static TreeNode invertTree(TreeNode treeNode) &#123; if (treeNode != null) &#123; TreeNode temp = treeNode.leftRoot; treeNode.leftRoot = treeNode.rightRoot; treeNode.rightRoot = temp; &#125; else &#123; return null; &#125; invertTree(treeNode.leftRoot); invertTree(treeNode.rightRoot); return treeNode;&#125; 这是转换方法。。很好理解哇 然后配合一个队列打印出来 1234567891011121314151617Queue&lt;TreeNode&gt; queue = new LinkedBlockingQueue&lt;&gt;();queue.add(linkedList.get(0));while (queue.peek() != null) &#123; TreeNode root = queue.poll(); System.out.println(root.getDate()); if (root.leftRoot != null) &#123; queue.add(root.leftRoot); &#125; if (root.rightRoot != null) &#123; queue.add(root.rightRoot); &#125;&#125;]]></content>

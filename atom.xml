@@ -64,20 +64,6 @@
   </entry>
   
   <entry>
-    <title>sqlite和Android数据库</title>
-    <link href="http://yoursite.com/2017/08/31/sqlite%E5%92%8CAndroid%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    <id>http://yoursite.com/2017/08/31/sqlite和Android数据库/</id>
-    <published>2017-08-31T06:41:24.000Z</published>
-    <updated>2017-08-31T06:41:24.518Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>随笔（二叉树反转）</title>
     <link href="http://yoursite.com/2017/08/27/%E9%9A%8F%E7%AC%94/"/>
     <id>http://yoursite.com/2017/08/27/随笔/</id>
@@ -1517,6 +1503,74 @@ private Singleton() {
     
     
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android四大组件-Broadcast</title>
+    <link href="http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Broadcas/"/>
+    <id>http://yoursite.com/2017/07/20/Android四大组件-Broadcas/</id>
+    <published>2017-07-20T09:37:54.000Z</published>
+    <updated>2017-08-14T08:50:59.734Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="BroadcastReceiver"><a href="#BroadcastReceiver" class="headerlink" title="BroadcastReceiver"></a>BroadcastReceiver</h3><p>我们自定义的BroadcastReceiver需要继承BroadcastReceiver这个抽象基类，并且实现抽象方法onReceive(context, intent)。这个方法也是运行在UI线程的，所以也不要在这个方法中作过多了耗时操作。。不然就ANR了。。</p>
+<p>例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class MyBroadcastReceiver   extends BroadcastReceiver&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onReceive(Context context, Intent intent) &#123;</div><div class="line">        Log.d(&quot;MyBroadcastReceiver:&quot;,intent.getStringExtra(&quot;name&quot;));</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>广播的注册类型分为两种，一种是静态注册一种是动态注册</p>
+<h3 id="动态注册"><a href="#动态注册" class="headerlink" title="动态注册"></a>动态注册</h3><p>动态注册时，无须在AndroidManifest中注册<receiver>组件。直接在代码中通过调用Context的registerReceiver函数，可以在程序中动态注册BroadcastReceiver。registerReceiver的定义形式如下：</receiver></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity  &#123;</div><div class="line">   private MyBroadcastReceiver receiver;</div><div class="line">    @Override</div><div class="line"></div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        IntentFilter intentFilter=new IntentFilter();</div><div class="line"></div><div class="line">        intentFilter.addAction(&quot;MyBroadcastReceiver&quot;);</div><div class="line">         receiver=new MyBroadcastReceiver();</div><div class="line"></div><div class="line">        registerReceiver(receiver,intentFilter);</div><div class="line">        Intent intent=new Intent();</div><div class="line">        intent.setAction(&quot;MyBroadcastReceiver&quot;);</div><div class="line">        intent.putExtra(&quot;name&quot;,&quot;name&quot;);</div><div class="line">        sendBroadcast(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">         unregisterReceiver(receiver);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class MyBroadcastReceiver   extends BroadcastReceiver&#123;</div><div class="line"></div><div class="line">      @Override</div><div class="line">      public void onReceive(Context context, Intent intent) &#123;</div><div class="line">          Log.d(&quot;MyBroadcastReceiver:&quot;,intent.getStringExtra(&quot;name&quot;));</div><div class="line"></div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当此Activity实例化时，会动态将MyBroadcastReceiver注册到系统中。当此Activity销毁时，动态注册的MyBroadcastReceiver将不再接收到相应的广播。</p>
+<p>切记一定要进行解绑定unregisterReceiver(mBroadcastReceiver)。</p>
+<h3 id="静态注册"><a href="#静态注册" class="headerlink" title="静态注册"></a>静态注册</h3><p>直接在配置文件AndroidManifest.xml进行注册。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;receiver android:enabled=[&quot;true&quot; | &quot;false&quot;]</div><div class="line">android:exported=[&quot;true&quot; | &quot;false&quot;]</div><div class="line">android:icon=&quot;drawable resource&quot;</div><div class="line">android:label=&quot;string resource&quot;</div><div class="line">android:name=&quot;string&quot;</div><div class="line">android:permission=&quot;string&quot;</div><div class="line">android:process=&quot;string&quot; &gt;</div><div class="line">. . .</div><div class="line">&lt;/receiver&gt;</div></pre></td></tr></table></figure>
+<p>其中，需要注意的属性<br>android:exported  ——此broadcastReceiver能否接收其他App的发出的广播，这个属性默认值有点意思，其默认值是由receiver中有无intent-filter决定的，如果有intent-filter，默认值为true，否则为false。（同样的，activity/service中的此属性默认值一样遵循此规则）同时，需要注意的是，这个值的设定是以application或者application user id为界的，而非进程为界（一个应用中可能含有多个进程）；<br>android:name  —— 此broadcastReceiver类名；<br>android:permission  ——如果设置，具有相应权限的广播发送方发送的广播才能被此broadcastReceiver所接收；<br>android:process  ——broadcastReceiver运行所处的进程。默认为app的进程。可以指定独立的进程（Android四大基本组件都可以通过此属性指定自己的独立进程）</p>
+<h3 id="广播的类型"><a href="#广播的类型" class="headerlink" title="广播的类型"></a>广播的类型</h3><ul>
+<li><p>Normal Broadcast：普通广播</p>
+<p>此处将普通广播界定为：开发者自己定义的intent，以context.sendBroadcast_”AsUser”(intent, …)形式。具体可以使用的方法有：<br>sendBroadcast(intent)/sendBroadcast(intent, receiverPermission)/sendBroadcastAsUser(intent, userHandler)/sendBroadcastAsUser(intent, userHandler,receiverPermission)。<br>普通广播会被注册了的相应的感兴趣（intent-filter匹配）接收，且顺序是无序的。如果发送广播时有相应的权限要求，BroadCastReceiver如果想要接收此广播，也需要有相应的权限。</p>
+</li>
+<li><p>System Broadcast: 系统广播</p>
+<p>Android系统中内置了多个系统广播，只要涉及到手机的基本操作，基本上都会发出相应的系统广播。如：开启启动，网络状态改变，拍照，屏幕关闭与开启，点亮不足等等。每个系统广播都具有特定的intent-filter，其中主要包括具体的action，系统广播发出后，将被相应的BroadcastReceiver接收。系统广播在系统内部当特定事件发生时，有系统自动发出。</p>
+</li>
+<li><p><strong>Ordered broadcast：有序广播</strong></p>
+<p>有序广播的有序广播中的“有序”是针对广播接收者而言的，指的是发送出去的广播被BroadcastReceiver按照先后循序接收。有序广播的定义过程与普通广播无异，只是其的主要发送方式变为：sendOrderedBroadcast(intent, receiverPermission, …)。</p>
+<p>对于有序广播，其主要特点总结如下：</p>
+<p>1&gt;多个具当前已经注册且有效的BroadcastReceiver接收有序广播时，是按照先后顺序接收的，先后顺序判定标准遵循为：将当前系统中所有有效的动态注册和静态注册的BroadcastReceiver按照priority属性值从大到小排序，对于具有相同的priority的动态广播和静态广播，动态广播会排在前面。</p>
+<p>2&gt;先接收的BroadcastReceiver可以对此有序广播进行截断，使后面的BroadcastReceiver不再接收到此广播，也可以对广播进行修改，使后面的BroadcastReceiver接收到广播后解析得到错误的参数值。当然，一般情况下，不建议对有序广播进行此类操作，尤其是针对系统中的有序广播。</p>
+</li>
+<li><p><strong>Sticky Broadcast：粘性广播(在 android 5.0/api 21中deprecated,不再推荐使用，相应的还有粘性有序广播，同样已经deprecated)。</strong></p>
+<p>既然已经deprecated，此处不再多做总结。</p>
+</li>
+<li><p><strong>Local Broadcast：App应用内广播（此处的App应用以App应用进程为界</strong></p>
+<p>由前文阐述可知，Android中的广播可以跨进程甚至跨App直接通信，且注册是exported对于有intent-filter的情况下默认值是true，由此将可能出现安全隐患如下：</p>
+<p>1.其他App可能会针对性的发出与当前App intent-filter相匹配的广播，由此导致当前App不断接收到广播并处理；</p>
+<p>2.其他App可以注册与当前App一致的intent-filter用于接收广播，获取广播具体信息。</p>
+<p>无论哪种情形，这些安全隐患都确实是存在的。由此，最常见的增加安全性的方案是：</p>
+<p>1.对于同一App内部发送和接收广播，将exported属性人为设置成false，使得非本App内部发出的此广播不被接收；</p>
+<p>2.在广播发送和接收时，都增加上相应的permission，用于权限验证；</p>
+<p>3.发送广播时，指定特定广播接收器所在的包名，具体是通过intent.setPackage(packageName)指定在，这样此广播将只会发送到此包中的App内与之相匹配的有效广播接收器中。</p>
+<p>App应用内广播可以理解成一种局部广播的形式，广播的发送者和接收者都同属于一个App。实际的业务需求中，App应用内广播确实可能需要用到。同时，之所以使用应用内广播时，而不是使用全局广播的形式，更多的考虑到的是Android广播机制中的安全性问题。</p>
+<p>相比于全局广播，App应用内广播优势体现在：</p>
+<p>1.安全性更高；</p>
+<p>2.更加高效。</p>
+<p>​</p>
+<p>1).对于静态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是ReceiverRestrictedContext；</p>
+<p>2).对于全局广播的动态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是Activity Context；</p>
+<p>3).对于通过LocalBroadcastManager动态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是Application Context。</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      广播作为四大组件之一，平时我们也不少用到，广播广播，顾名思自然有发送者和接受者，广播作为Android组件之间的通讯方式，有如下五中使用场景
+- 同一app内部的同一组件内的消息通信（单个或多个线程之间）； - 同一app内部的不同组件之间的消息通信（单个进程）； - 同一app具有多个进程的不同组件之间的消息通信； - 不同app之间的组件之间消息通信； - Android系统在特定情况下与App之间的消息通信。
+    
+    </summary>
+    
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
   </entry>
   
