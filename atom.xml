@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-27T06:59:24.973Z</updated>
+  <updated>2017-09-02T06:57:13.355Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>堆排序</title>
+    <link href="http://yoursite.com/2017/09/02/%E5%A0%86%E6%8E%92%E5%BA%8F/"/>
+    <id>http://yoursite.com/2017/09/02/堆排序/</id>
+    <published>2017-09-02T03:24:40.000Z</published>
+    <updated>2017-09-02T06:57:13.355Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆排序其实就是利用堆的性质进行的选择排序而已~。</p>
+<p>然后堆其实就是一颗完全二叉树，这里区分一下，完全二叉树和满二叉树的区别。。别搞混了</p>
+<p>堆的性质：任一个节点都大于等于或者小于等于它左右子树的节点。</p>
+<p>分为大颈堆和小颈堆！顾名思义，大的的就是大于，小的就是小于。</p>
+<h3 id="数组与堆"><a href="#数组与堆" class="headerlink" title="数组与堆"></a>数组与堆</h3><p>我们的堆都是根据完全二叉树的性质来实现的一个数组。如果一个数组他满足完全二叉树的性质，那么这个数组的任意一个非叶子节点i那么他的左右孩子则为（如果存在的话）2i+1;和2i+2。当然这个是根根据我们数组从零开始的性质，如果我们把根当作1的话那么对应的左右孩子则为2i和2i+1;</p>
+<p>我们这里的例子都是从0开始的。因为和数组一起使用很方便。</p>
+<p>好了废话不逼逼现在开始</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>堆排序堆排序，虽然数组是二叉树的形式存放的，但是他还不是一个堆啊…所以第一步构建堆</p>
+<h4 id="构建堆"><a href="#构建堆" class="headerlink" title="构建堆"></a>构建堆</h4><p>首先找第一个非叶子节点~从他开始</p>
+<p>如果它比他的左右节点小则交换他们的位置，直到以它为根节点的子树满足大颈堆的性质，这样依次遍历，直到根节点。</p>
+<p>就这样一个堆就构建好啦</p>
+<p>首先需要一个保证堆的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">static void HeapAdjust(int[] arr, int i, int Size) &#123;</div><div class="line"></div><div class="line">    int leftchild = i * 2 + 1;//左孩子</div><div class="line">    int rightchild = i * 2 + 2;//右孩子</div><div class="line">    int max = i;//设置当前最大的节点为i；</div><div class="line">    if (i &lt;= Size / 2 - 1) &#123;   //判断当前节点i是否是非叶子节点</div><div class="line">        if (leftchild &lt; Size &amp;&amp; arr[leftchild] &gt; arr[max])//注意这里leftchild &lt; Size写在前面，下同</div><div class="line">                                                            // 因为短路原因，否则会产生数组越界</div><div class="line">            max = leftchild;</div><div class="line"></div><div class="line">        if (rightchild &lt; Size &amp;&amp; arr[rightchild] &gt; arr[max])//</div><div class="line">            max = rightchild;</div><div class="line"></div><div class="line">        if (i != max) &#123;     //如果有交换的话则交换掉</div><div class="line">            swap(arr, i, max); </div><div class="line">            HeapAdjust(arr, max, Size); //再次重新建堆因为这次交换后max可能是叶子节点也可能不是</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">static void buildHeap(int[] arr) &#123;</div><div class="line"></div><div class="line"></div><div class="line">    int size = arr.length;</div><div class="line"></div><div class="line">    for (int i = size / 2 - 1; i &gt;= 0; i--) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        HeapAdjust(arr, i, size);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个是建堆方法，很简单吧，(int i = size / 2 - 1 第一个非叶子节点开始分别建堆</p>
+<p>然后就是排序了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">static void HeapSort(int arr[]) &#123;</div><div class="line">    buildHeap(arr);</div><div class="line">    int size = arr.length;</div><div class="line">    for (int i = size - 1; i &gt;= 0; i--) &#123;</div><div class="line"></div><div class="line">        swap(arr, 0, i);</div><div class="line">        HeapAdjust(arr, 0, i);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>先建堆，然后从最后一个值到一个值之间交换位置，再建堆，这样就排好序啦</p>
+<p>可能头有点晕，我刚开始也是很难理解的</p>
+<p>我，们在从头梳理一遍过程</p>
+<ul>
+<li>首先写好建堆的方法，方法逻辑大概如下，找到这三个节点的最大值，使得传入的父节点为最大的，然后如果节点产生了交换的话则再次递归一次</li>
+<li>然后就是建堆了，从第一个非叶子节点开始</li>
+<li>最后排序就是很简单的，从最后一个点到第一点一次和第一个点交换，建堆。</li>
+</ul>
+<p>注意：因为数组从0开始计算的所以第一个非叶子节点为 n/2-1而不是n/2;</p>
+]]></content>
+    
+    <summary type="html">
+    
+      堆排序说简单不简单，说难不难，但是自己一直模棱两可的，虽然自己知道原理，但是一到自己写的时候就会想半天，还可能错了，之前阿里的面试就是，哎，所以这里在总结一下吧。自己从头到尾按着思路自己写一遍。
+    
+    </summary>
+    
+      <category term="算法" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqlite和Android数据库</title>
+    <link href="http://yoursite.com/2017/08/31/sqlite%E5%92%8CAndroid%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>http://yoursite.com/2017/08/31/sqlite和Android数据库/</id>
+    <published>2017-08-31T06:41:24.000Z</published>
+    <updated>2017-08-31T06:41:24.518Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>随笔（二叉树反转）</title>
@@ -1455,151 +1517,6 @@ private Singleton() {
     
     
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android四大组件-Broadcast</title>
-    <link href="http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Broadcas/"/>
-    <id>http://yoursite.com/2017/07/20/Android四大组件-Broadcas/</id>
-    <published>2017-07-20T09:37:54.000Z</published>
-    <updated>2017-08-14T08:50:59.734Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="BroadcastReceiver"><a href="#BroadcastReceiver" class="headerlink" title="BroadcastReceiver"></a>BroadcastReceiver</h3><p>我们自定义的BroadcastReceiver需要继承BroadcastReceiver这个抽象基类，并且实现抽象方法onReceive(context, intent)。这个方法也是运行在UI线程的，所以也不要在这个方法中作过多了耗时操作。。不然就ANR了。。</p>
-<p>例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class MyBroadcastReceiver   extends BroadcastReceiver&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onReceive(Context context, Intent intent) &#123;</div><div class="line">        Log.d(&quot;MyBroadcastReceiver:&quot;,intent.getStringExtra(&quot;name&quot;));</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>广播的注册类型分为两种，一种是静态注册一种是动态注册</p>
-<h3 id="动态注册"><a href="#动态注册" class="headerlink" title="动态注册"></a>动态注册</h3><p>动态注册时，无须在AndroidManifest中注册<receiver>组件。直接在代码中通过调用Context的registerReceiver函数，可以在程序中动态注册BroadcastReceiver。registerReceiver的定义形式如下：</receiver></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity  &#123;</div><div class="line">   private MyBroadcastReceiver receiver;</div><div class="line">    @Override</div><div class="line"></div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        IntentFilter intentFilter=new IntentFilter();</div><div class="line"></div><div class="line">        intentFilter.addAction(&quot;MyBroadcastReceiver&quot;);</div><div class="line">         receiver=new MyBroadcastReceiver();</div><div class="line"></div><div class="line">        registerReceiver(receiver,intentFilter);</div><div class="line">        Intent intent=new Intent();</div><div class="line">        intent.setAction(&quot;MyBroadcastReceiver&quot;);</div><div class="line">        intent.putExtra(&quot;name&quot;,&quot;name&quot;);</div><div class="line">        sendBroadcast(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">         unregisterReceiver(receiver);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class MyBroadcastReceiver   extends BroadcastReceiver&#123;</div><div class="line"></div><div class="line">      @Override</div><div class="line">      public void onReceive(Context context, Intent intent) &#123;</div><div class="line">          Log.d(&quot;MyBroadcastReceiver:&quot;,intent.getStringExtra(&quot;name&quot;));</div><div class="line"></div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当此Activity实例化时，会动态将MyBroadcastReceiver注册到系统中。当此Activity销毁时，动态注册的MyBroadcastReceiver将不再接收到相应的广播。</p>
-<p>切记一定要进行解绑定unregisterReceiver(mBroadcastReceiver)。</p>
-<h3 id="静态注册"><a href="#静态注册" class="headerlink" title="静态注册"></a>静态注册</h3><p>直接在配置文件AndroidManifest.xml进行注册。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;receiver android:enabled=[&quot;true&quot; | &quot;false&quot;]</div><div class="line">android:exported=[&quot;true&quot; | &quot;false&quot;]</div><div class="line">android:icon=&quot;drawable resource&quot;</div><div class="line">android:label=&quot;string resource&quot;</div><div class="line">android:name=&quot;string&quot;</div><div class="line">android:permission=&quot;string&quot;</div><div class="line">android:process=&quot;string&quot; &gt;</div><div class="line">. . .</div><div class="line">&lt;/receiver&gt;</div></pre></td></tr></table></figure>
-<p>其中，需要注意的属性<br>android:exported  ——此broadcastReceiver能否接收其他App的发出的广播，这个属性默认值有点意思，其默认值是由receiver中有无intent-filter决定的，如果有intent-filter，默认值为true，否则为false。（同样的，activity/service中的此属性默认值一样遵循此规则）同时，需要注意的是，这个值的设定是以application或者application user id为界的，而非进程为界（一个应用中可能含有多个进程）；<br>android:name  —— 此broadcastReceiver类名；<br>android:permission  ——如果设置，具有相应权限的广播发送方发送的广播才能被此broadcastReceiver所接收；<br>android:process  ——broadcastReceiver运行所处的进程。默认为app的进程。可以指定独立的进程（Android四大基本组件都可以通过此属性指定自己的独立进程）</p>
-<h3 id="广播的类型"><a href="#广播的类型" class="headerlink" title="广播的类型"></a>广播的类型</h3><ul>
-<li><p>Normal Broadcast：普通广播</p>
-<p>此处将普通广播界定为：开发者自己定义的intent，以context.sendBroadcast_”AsUser”(intent, …)形式。具体可以使用的方法有：<br>sendBroadcast(intent)/sendBroadcast(intent, receiverPermission)/sendBroadcastAsUser(intent, userHandler)/sendBroadcastAsUser(intent, userHandler,receiverPermission)。<br>普通广播会被注册了的相应的感兴趣（intent-filter匹配）接收，且顺序是无序的。如果发送广播时有相应的权限要求，BroadCastReceiver如果想要接收此广播，也需要有相应的权限。</p>
-</li>
-<li><p>System Broadcast: 系统广播</p>
-<p>Android系统中内置了多个系统广播，只要涉及到手机的基本操作，基本上都会发出相应的系统广播。如：开启启动，网络状态改变，拍照，屏幕关闭与开启，点亮不足等等。每个系统广播都具有特定的intent-filter，其中主要包括具体的action，系统广播发出后，将被相应的BroadcastReceiver接收。系统广播在系统内部当特定事件发生时，有系统自动发出。</p>
-</li>
-<li><p><strong>Ordered broadcast：有序广播</strong></p>
-<p>有序广播的有序广播中的“有序”是针对广播接收者而言的，指的是发送出去的广播被BroadcastReceiver按照先后循序接收。有序广播的定义过程与普通广播无异，只是其的主要发送方式变为：sendOrderedBroadcast(intent, receiverPermission, …)。</p>
-<p>对于有序广播，其主要特点总结如下：</p>
-<p>1&gt;多个具当前已经注册且有效的BroadcastReceiver接收有序广播时，是按照先后顺序接收的，先后顺序判定标准遵循为：将当前系统中所有有效的动态注册和静态注册的BroadcastReceiver按照priority属性值从大到小排序，对于具有相同的priority的动态广播和静态广播，动态广播会排在前面。</p>
-<p>2&gt;先接收的BroadcastReceiver可以对此有序广播进行截断，使后面的BroadcastReceiver不再接收到此广播，也可以对广播进行修改，使后面的BroadcastReceiver接收到广播后解析得到错误的参数值。当然，一般情况下，不建议对有序广播进行此类操作，尤其是针对系统中的有序广播。</p>
-</li>
-<li><p><strong>Sticky Broadcast：粘性广播(在 android 5.0/api 21中deprecated,不再推荐使用，相应的还有粘性有序广播，同样已经deprecated)。</strong></p>
-<p>既然已经deprecated，此处不再多做总结。</p>
-</li>
-<li><p><strong>Local Broadcast：App应用内广播（此处的App应用以App应用进程为界</strong></p>
-<p>由前文阐述可知，Android中的广播可以跨进程甚至跨App直接通信，且注册是exported对于有intent-filter的情况下默认值是true，由此将可能出现安全隐患如下：</p>
-<p>1.其他App可能会针对性的发出与当前App intent-filter相匹配的广播，由此导致当前App不断接收到广播并处理；</p>
-<p>2.其他App可以注册与当前App一致的intent-filter用于接收广播，获取广播具体信息。</p>
-<p>无论哪种情形，这些安全隐患都确实是存在的。由此，最常见的增加安全性的方案是：</p>
-<p>1.对于同一App内部发送和接收广播，将exported属性人为设置成false，使得非本App内部发出的此广播不被接收；</p>
-<p>2.在广播发送和接收时，都增加上相应的permission，用于权限验证；</p>
-<p>3.发送广播时，指定特定广播接收器所在的包名，具体是通过intent.setPackage(packageName)指定在，这样此广播将只会发送到此包中的App内与之相匹配的有效广播接收器中。</p>
-<p>App应用内广播可以理解成一种局部广播的形式，广播的发送者和接收者都同属于一个App。实际的业务需求中，App应用内广播确实可能需要用到。同时，之所以使用应用内广播时，而不是使用全局广播的形式，更多的考虑到的是Android广播机制中的安全性问题。</p>
-<p>相比于全局广播，App应用内广播优势体现在：</p>
-<p>1.安全性更高；</p>
-<p>2.更加高效。</p>
-<p>​</p>
-<p>1).对于静态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是ReceiverRestrictedContext；</p>
-<p>2).对于全局广播的动态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是Activity Context；</p>
-<p>3).对于通过LocalBroadcastManager动态注册的ContextReceiver，回调onReceive(context, intent)中的context具体指的是Application Context。</p>
-</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      广播作为四大组件之一，平时我们也不少用到，广播广播，顾名思自然有发送者和接受者，广播作为Android组件之间的通讯方式，有如下五中使用场景
-- 同一app内部的同一组件内的消息通信（单个或多个线程之间）； - 同一app内部的不同组件之间的消息通信（单个进程）； - 同一app具有多个进程的不同组件之间的消息通信； - 不同app之间的组件之间消息通信； - Android系统在特定情况下与App之间的消息通信。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android四大组件-Activity</title>
-    <link href="http://yoursite.com/2017/07/20/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6-Activity/"/>
-    <id>http://yoursite.com/2017/07/20/Android四大组件-Activity/</id>
-    <published>2017-07-20T05:33:07.000Z</published>
-    <updated>2017-08-14T08:51:33.937Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="" alt="http://img.blog.csdn.net/20160717151833576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"></p>
-<p>  正常Activity的启动经历以下过程</p>
-<ul>
-<li><p>onCreat</p>
-<p>Activity的创建，做一切初始化的操作，这个时候Activity还不可见。</p>
-</li>
-<li><p>onStart</p>
-<p>Activity已经展现在前台页面，但是还是不可以交互。</p>
-</li>
-<li><p>onResume</p>
-<p>Activity可见，并且可以交互。可以做一些onPause或者onStop释放资源的的回收操作</p>
-</li>
-<li><p>Activity进入运行状态</p>
-</li>
-<li><p>onPause</p>
-<p>Activity进入后台之前可见的时候做一些回收工作，只有当前Activity的onpause方法执行完事之后下个Activity的onResume方法才会执行</p>
-</li>
-<li><p>onStop</p>
-<p>Activity不可见。回收操作，不能太过于耗时。</p>
-</li>
-<li><p>onDestory</p>
-<p>Activity销毁，可以做一些大量的回收操作</p>
-<p>​</p>
-</li>
-</ul>
-<p>如果ACtivity在进入onStop方法后未被销毁，而又被展现到前台页面则会调用onRestart()方法</p>
-<p>onCreate的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>其中savedInstanceState是一个Bundle类型的参数，会在onPause()或onStop()之前执行，在她和map差不多，都是键值对形式，我们可以在Activity快被销毁的时候储存一些东西</p>
-<p>调用方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onSaveInstanceState(Bundle outState) &#123;</div><div class="line">    super.onSaveInstanceState(outState);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里进行存储。</p>
-<p>onRestoreInstanceState</p>
-<p>这个方法会在Activity真正被销毁的时候才会执行。比如按下bcak键。</p>
-<h3 id="Activity的四种LaunchMode"><a href="#Activity的四种LaunchMode" class="headerlink" title="Activity的四种LaunchMode"></a>Activity的四种LaunchMode</h3><ul>
-<li>standard 模式</li>
-</ul>
-<p>这是默认模式，每次激活Activity时都会创建Activity实例，并放入任务栈中。使用场景：大多数Activity。</p>
-<ul>
-<li>singleTop 模式</li>
-</ul>
-<p>如果在任务的栈顶正好存在该Activity的实例，就重用该实例( 会调用实例的 onNewIntent() )，否则就会创建新的实例并放入栈顶，即使栈中已经存在该Activity的实例，只要不在栈顶，都会创建新的实例。使用场景如新闻类或者阅读类App的内容页面。</p>
-<ul>
-<li>singleTask 模式</li>
-</ul>
-<p>如果在栈中已经有该Activity的实例，就重用该实例(会调用实例的 onNewIntent() )。重用时，会让该实例回到栈顶，因此在它上面的实例将会被移出栈。如果栈中不存在该实例，将会创建新的实例放入栈中。使用场景如浏览器的主界面。不管从多少个应用启动浏览器，只会启动主界面一次，其余情况都会走onNewIntent，并且会清空主界面上面的其他页面。</p>
-<ul>
-<li>singleInstance 模式</li>
-</ul>
-<p>在一个新栈中创建该Activity的实例，并让多个应用共享该栈中的该Activity实例。一旦该模式的Activity实例已经存在于某个栈中，任何应用再激活该Activity时都会重用该栈中的实例( 会调用实例的 onNewIntent() )。其效果相当于多个应用共享一个应用，不管谁激活该 Activity 都会进入同一个应用中。使用场景如闹铃提醒，将闹铃提醒与闹铃设置分离。singleInstance不要用于中间页面，如果用于中间页面，跳转会有问题，比如：A -&gt; B (singleInstance) -&gt; C，完全退出后，在此启动，首先打开的是B。</p>
-<p>如何判断一个Activity加载完毕。使用onResume方法？  错。。这个不知道为啥就是错误的，</p>
-<p>因为之前做过一个播放器，里面的mediaController是一个自定义的Popuwindow，需要加载玩Activity就显示，但是我放在onResume里面总是报错，显示窗口泄露，找不到Activity于是高了半天才发现这个方法。这个方法表示Activity加载完毕，可以做一些加载完毕就做得事情，如popuwindow的展示，测量加载完毕的View长度，如果在其他方法里面测量的话会导致长度错误或者为0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onConfigurationChanged(Configuration newConfig) &#123;</div><div class="line">    super.onConfigurationChanged(newConfig);</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个方法是屏幕的旋转。当屏幕旋转的时候可以在这个方法进行操作。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      Activity作为Android四大组件之一想必重要性不用多说。
-Activity可以理解为Android程序我们看到的界面都是承载在Activity上。
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
-    
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
     
   </entry>
   

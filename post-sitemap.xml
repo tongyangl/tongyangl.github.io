@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2017/09/02/%E5%A0%86%E6%8E%92%E5%BA%8F/</loc>
+        <lastmod>2017-09-02T06:57:13.355Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/2017/08/31/sqlite%E5%92%8CAndroid%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+        <lastmod>2017-08-31T06:41:24.518Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2017/08/27/%E9%9A%8F%E7%AC%94/</loc>
         <lastmod>2017-08-27T06:59:24.973Z</lastmod>
         <changefreq>weekly</changefreq>

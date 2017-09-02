@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[堆排序]]></title>
+    <url>%2F2017%2F09%2F02%2F%E5%A0%86%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[堆堆排序其实就是利用堆的性质进行的选择排序而已~。 然后堆其实就是一颗完全二叉树，这里区分一下，完全二叉树和满二叉树的区别。。别搞混了 堆的性质：任一个节点都大于等于或者小于等于它左右子树的节点。 分为大颈堆和小颈堆！顾名思义，大的的就是大于，小的就是小于。 数组与堆我们的堆都是根据完全二叉树的性质来实现的一个数组。如果一个数组他满足完全二叉树的性质，那么这个数组的任意一个非叶子节点i那么他的左右孩子则为（如果存在的话）2i+1;和2i+2。当然这个是根根据我们数组从零开始的性质，如果我们把根当作1的话那么对应的左右孩子则为2i和2i+1; 我们这里的例子都是从0开始的。因为和数组一起使用很方便。 好了废话不逼逼现在开始 堆排序堆排序堆排序，虽然数组是二叉树的形式存放的，但是他还不是一个堆啊…所以第一步构建堆 构建堆首先找第一个非叶子节点~从他开始 如果它比他的左右节点小则交换他们的位置，直到以它为根节点的子树满足大颈堆的性质，这样依次遍历，直到根节点。 就这样一个堆就构建好啦 首先需要一个保证堆的函数 1234567891011121314151617181920212223static void HeapAdjust(int[] arr, int i, int Size) &#123; int leftchild = i * 2 + 1;//左孩子 int rightchild = i * 2 + 2;//右孩子 int max = i;//设置当前最大的节点为i； if (i &lt;= Size / 2 - 1) &#123; //判断当前节点i是否是非叶子节点 if (leftchild &lt; Size &amp;&amp; arr[leftchild] &gt; arr[max])//注意这里leftchild &lt; Size写在前面，下同 // 因为短路原因，否则会产生数组越界 max = leftchild; if (rightchild &lt; Size &amp;&amp; arr[rightchild] &gt; arr[max])// max = rightchild; if (i != max) &#123; //如果有交换的话则交换掉 swap(arr, i, max); HeapAdjust(arr, max, Size); //再次重新建堆因为这次交换后max可能是叶子节点也可能不是 &#125; &#125;&#125; 1234567891011121314static void buildHeap(int[] arr) &#123; int size = arr.length; for (int i = size / 2 - 1; i &gt;= 0; i--) &#123; HeapAdjust(arr, i, size); &#125;&#125; 这个是建堆方法，很简单吧，(int i = size / 2 - 1 第一个非叶子节点开始分别建堆 然后就是排序了 1234567891011static void HeapSort(int arr[]) &#123; buildHeap(arr); int size = arr.length; for (int i = size - 1; i &gt;= 0; i--) &#123; swap(arr, 0, i); HeapAdjust(arr, 0, i); &#125;&#125; 先建堆，然后从最后一个值到一个值之间交换位置，再建堆，这样就排好序啦 可能头有点晕，我刚开始也是很难理解的 我，们在从头梳理一遍过程 首先写好建堆的方法，方法逻辑大概如下，找到这三个节点的最大值，使得传入的父节点为最大的，然后如果节点产生了交换的话则再次递归一次 然后就是建堆了，从第一个非叶子节点开始 最后排序就是很简单的，从最后一个点到第一点一次和第一个点交换，建堆。 注意：因为数组从0开始计算的所以第一个非叶子节点为 n/2-1而不是n/2;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sqlite和Android数据库]]></title>
+    <url>%2F2017%2F08%2F31%2Fsqlite%E5%92%8CAndroid%E6%95%B0%E6%8D%AE%E5%BA%93%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[随笔（二叉树反转）]]></title>
     <url>%2F2017%2F08%2F27%2F%E9%9A%8F%E7%AC%94%2F</url>
     <content type="text"><![CDATA[刚看到有个人在掘金讨论这个问题，，他说应届生都会做然而我咋没做过0.0于是自己搞了一下 先自己顶一个树 1234567891011121314151617181920static class TreeNode&lt;T&gt; &#123; TreeNode&lt;T&gt; leftRoot = null; TreeNode&lt;T&gt; rightRoot = null; T t = null; public TreeNode(T t) &#123; this.t = t; &#125; public void setDate(T t) &#123; this.t = t; &#125; public T getDate() &#123; return t; &#125;&#125; 然后为这个二叉树赋值 123456789101112131415161718192021222324public static void main(String[] args) &#123; int arr[]; arr = new int[15]; LinkedList&lt;TreeNode&gt; linkedList = new LinkedList(); for (int i = 0; i &lt; arr.length; i++) &#123; linkedList.add(new TreeNode&lt;Integer&gt;(i)); &#125; int lastParentIndex = arr.length / 2 - 1; linkedList.get(lastParentIndex).leftRoot = linkedList .get(lastParentIndex * 2 + 1); if (arr.length % 2 == 1) &#123; linkedList.get(lastParentIndex).rightRoot = linkedList .get(lastParentIndex * 2 + 2); &#125; for (int i = 0; i &lt; arr.length / 2 - 1; i++) &#123; linkedList.get(i).leftRoot = linkedList.get(i * 2 + 1); linkedList.get(i).rightRoot = linkedList.get(i * 2 + 2); &#125; 先把这个二叉树的值赋值到一个数组里，然后配合list； 最后对最后一个节点有无右节点判断 123456789101112131415static TreeNode invertTree(TreeNode treeNode) &#123; if (treeNode != null) &#123; TreeNode temp = treeNode.leftRoot; treeNode.leftRoot = treeNode.rightRoot; treeNode.rightRoot = temp; &#125; else &#123; return null; &#125; invertTree(treeNode.leftRoot); invertTree(treeNode.rightRoot); return treeNode;&#125; 这是转换方法。。很好理解哇 然后配合一个队列打印出来 1234567891011121314151617Queue&lt;TreeNode&gt; queue = new LinkedBlockingQueue&lt;&gt;();queue.add(linkedList.get(0));while (queue.peek() != null) &#123; TreeNode root = queue.poll(); System.out.println(root.getDate()); if (root.leftRoot != null) &#123; queue.add(root.leftRoot); &#125; if (root.rightRoot != null) &#123; queue.add(root.rightRoot); &#125;&#125;]]></content>

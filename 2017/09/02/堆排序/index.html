@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="数据结构---栈的介绍">
-<meta name="keywords" content="数据结构">
+<meta name="description" content="堆排序说简单不简单，说难不难，但是自己一直模棱两可的，虽然自己知道原理，但是一到自己写的时候就会想半天，还可能错了，之前阿里的面试就是，哎，所以这里在总结一下吧。自己从头到尾按着思路自己写一遍。">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构————栈">
-<meta property="og:url" content="http://yoursite.com/2017/08/07/数据结构————栈/index.html">
+<meta property="og:title" content="堆排序">
+<meta property="og:url" content="http://yoursite.com/2017/09/02/堆排序/index.html">
 <meta property="og:site_name" content="Tong Yang&#39;s Blog">
-<meta property="og:description" content="数据结构---栈的介绍">
-<meta property="og:updated_time" content="2017-08-14T08:43:59.165Z">
+<meta property="og:description" content="堆排序说简单不简单，说难不难，但是自己一直模棱两可的，虽然自己知道原理，但是一到自己写的时候就会想半天，还可能错了，之前阿里的面试就是，哎，所以这里在总结一下吧。自己从头到尾按着思路自己写一遍。">
+<meta property="og:updated_time" content="2017-09-02T06:57:13.355Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构————栈">
-<meta name="twitter:description" content="数据结构---栈的介绍">
+<meta name="twitter:title" content="堆排序">
+<meta name="twitter:description" content="堆排序说简单不简单，说难不难，但是自己一直模棱两可的，虽然自己知道原理，但是一到自己写的时候就会想半天，还可能错了，之前阿里的面试就是，哎，所以这里在总结一下吧。自己从头到尾按着思路自己写一遍。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>数据结构————栈 | Tong Yang&#39;s Blog</title>
+<title>堆排序 | Tong Yang&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -240,11 +240,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="article-数据结构————栈" class="article article-type-article" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="article-堆排序" class="article article-type-article" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/07/数据结构————栈/" class="article-date">
-      <time datetime="2017-08-07T04:26:01.000Z" itemprop="datePublished">2017-08-07</time>
+      <a href="/2017/09/02/堆排序/" class="article-date">
+      <time datetime="2017-09-02T03:24:40.000Z" itemprop="datePublished">2017-09-02</time>
 </a>
 
 
@@ -259,7 +259,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      数据结构————栈
+      堆排序
     </h1>
   
 
@@ -268,13 +268,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/数据结构/">数据结构</a>
+    <a class="article-category-link" href="/categories/算法/">算法</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -284,13 +284,32 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一种先入后出的数据结构</p>
-<h4 id="相关计算题"><a href="#相关计算题" class="headerlink" title="相关计算题"></a>相关计算题</h4><p>只用另一个栈和其他变量完成栈的排序</p>
-<p>思想：使用一个中间变量current，记第一个栈为stack，第二个辅助栈为lstake</p>
-<p>stack pop一个元素给current，和lstake的栈顶元素比较，当current小于栈顶元素直接push到栈顶，</p>
-<p>反之当大于栈顶元素时，一直pushlstake的元素到stake栈顶，直到lstake的栈顶元素大于current的值。</p>
-<p>一直重复直到stake的栈为空</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import java.util.Stack;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by 佟杨 on 2017/8/7.</div><div class="line"> */</div><div class="line">public class test &#123;</div><div class="line"></div><div class="line">    public static void main(String args[]) &#123;</div><div class="line"></div><div class="line">        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();</div><div class="line">        stack.push(1);</div><div class="line">        stack.push(5);</div><div class="line">        stack.push(3);</div><div class="line">        stack.push(2);</div><div class="line">        stack.push(9);</div><div class="line">        stack.push(6);</div><div class="line">        stack.push(7);</div><div class="line">        int current;</div><div class="line">        Stack&lt;Integer&gt; lstake = new Stack&lt;&gt;();</div><div class="line">        lstake.push(stack.pop());</div><div class="line">        while (!stack.empty()) &#123;</div><div class="line">            current = stack.pop();</div><div class="line">            while (!lstake.empty()&amp;&amp;current&gt;lstake.peek())&#123;</div><div class="line">                stack.push(lstake.pop());</div><div class="line">            &#125;</div><div class="line">                lstake.push(current);</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (int a : lstake) &#123;</div><div class="line"></div><div class="line">            System.out.print(a + &quot;,&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆排序其实就是利用堆的性质进行的选择排序而已~。</p>
+<p>然后堆其实就是一颗完全二叉树，这里区分一下，完全二叉树和满二叉树的区别。。别搞混了</p>
+<p>堆的性质：任一个节点都大于等于或者小于等于它左右子树的节点。</p>
+<p>分为大颈堆和小颈堆！顾名思义，大的的就是大于，小的就是小于。</p>
+<h3 id="数组与堆"><a href="#数组与堆" class="headerlink" title="数组与堆"></a>数组与堆</h3><p>我们的堆都是根据完全二叉树的性质来实现的一个数组。如果一个数组他满足完全二叉树的性质，那么这个数组的任意一个非叶子节点i那么他的左右孩子则为（如果存在的话）2i+1;和2i+2。当然这个是根根据我们数组从零开始的性质，如果我们把根当作1的话那么对应的左右孩子则为2i和2i+1;</p>
+<p>我们这里的例子都是从0开始的。因为和数组一起使用很方便。</p>
+<p>好了废话不逼逼现在开始</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>堆排序堆排序，虽然数组是二叉树的形式存放的，但是他还不是一个堆啊…所以第一步构建堆</p>
+<h4 id="构建堆"><a href="#构建堆" class="headerlink" title="构建堆"></a>构建堆</h4><p>首先找第一个非叶子节点~从他开始</p>
+<p>如果它比他的左右节点小则交换他们的位置，直到以它为根节点的子树满足大颈堆的性质，这样依次遍历，直到根节点。</p>
+<p>就这样一个堆就构建好啦</p>
+<p>首先需要一个保证堆的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">static void HeapAdjust(int[] arr, int i, int Size) &#123;</div><div class="line"></div><div class="line">    int leftchild = i * 2 + 1;//左孩子</div><div class="line">    int rightchild = i * 2 + 2;//右孩子</div><div class="line">    int max = i;//设置当前最大的节点为i；</div><div class="line">    if (i &lt;= Size / 2 - 1) &#123;   //判断当前节点i是否是非叶子节点</div><div class="line">        if (leftchild &lt; Size &amp;&amp; arr[leftchild] &gt; arr[max])//注意这里leftchild &lt; Size写在前面，下同</div><div class="line">                                                            // 因为短路原因，否则会产生数组越界</div><div class="line">            max = leftchild;</div><div class="line"></div><div class="line">        if (rightchild &lt; Size &amp;&amp; arr[rightchild] &gt; arr[max])//</div><div class="line">            max = rightchild;</div><div class="line"></div><div class="line">        if (i != max) &#123;     //如果有交换的话则交换掉</div><div class="line">            swap(arr, i, max); </div><div class="line">            HeapAdjust(arr, max, Size); //再次重新建堆因为这次交换后max可能是叶子节点也可能不是</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">static void buildHeap(int[] arr) &#123;</div><div class="line"></div><div class="line"></div><div class="line">    int size = arr.length;</div><div class="line"></div><div class="line">    for (int i = size / 2 - 1; i &gt;= 0; i--) &#123;</div><div class="line"></div><div class="line"></div><div class="line">        HeapAdjust(arr, i, size);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个是建堆方法，很简单吧，(int i = size / 2 - 1 第一个非叶子节点开始分别建堆</p>
+<p>然后就是排序了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">static void HeapSort(int arr[]) &#123;</div><div class="line">    buildHeap(arr);</div><div class="line">    int size = arr.length;</div><div class="line">    for (int i = size - 1; i &gt;= 0; i--) &#123;</div><div class="line"></div><div class="line">        swap(arr, 0, i);</div><div class="line">        HeapAdjust(arr, 0, i);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>先建堆，然后从最后一个值到一个值之间交换位置，再建堆，这样就排好序啦</p>
+<p>可能头有点晕，我刚开始也是很难理解的</p>
+<p>我，们在从头梳理一遍过程</p>
+<ul>
+<li>首先写好建堆的方法，方法逻辑大概如下，找到这三个节点的最大值，使得传入的父节点为最大的，然后如果节点产生了交换的话则再次递归一次</li>
+<li>然后就是建堆了，从第一个非叶子节点开始</li>
+<li>最后排序就是很简单的，从最后一个点到第一点一次和第一个点交换，建堆。</li>
+</ul>
+<p>注意：因为数组从0开始计算的所以第一个非叶子节点为 n/2-1而不是n/2;</p>
 
       
     </div>
@@ -299,13 +318,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/08/07/数据结构————栈/">数据结构————栈</a></p>
+        <p><span>本文标题:</span><a href="/2017/09/02/堆排序/">堆排序</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Tong Yang</a></p>
-        <p><span>发布时间:</span>2017-08-07, 12:26:01</p>
-        <p><span>最后更新:</span>2017-08-14, 16:43:59</p>
+        <p><span>发布时间:</span>2017-09-02, 11:24:40</p>
+        <p><span>最后更新:</span>2017-09-02, 14:57:13</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/08/07/数据结构————栈/" title="数据结构————栈">http://yoursite.com/2017/08/07/数据结构————栈/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/07/数据结构————栈/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/09/02/堆排序/" title="堆排序">http://yoursite.com/2017/09/02/堆排序/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/09/02/堆排序/　　作者: Tong Yang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -317,16 +336,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/08/08/计算机网络复习/">
-                    计算机网络复习
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/08/05/八大排序java实现/">
-                    八大排序java实现
+                <a href="/2017/08/31/sqlite和Android数据库/">
+                    sqlite和Android数据库
                 </a>
             </div>
         
@@ -338,7 +351,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#栈"><span class="toc-number">1.</span> <span class="toc-text">栈</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关计算题"><span class="toc-number">1.1.</span> <span class="toc-text">相关计算题</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#堆"><span class="toc-number">1.</span> <span class="toc-text">堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组与堆"><span class="toc-number">2.</span> <span class="toc-text">数组与堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆排序"><span class="toc-number">3.</span> <span class="toc-text">堆排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构建堆"><span class="toc-number">3.1.</span> <span class="toc-text">构建堆</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -374,7 +387,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"数据结构————栈　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"堆排序　| Tong Yang's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -408,15 +421,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/08/08/计算机网络复习/" title="上一篇: 计算机网络复习">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/08/05/八大排序java实现/" title="下一篇: 八大排序java实现">
+            <a href="/2017/08/31/sqlite和Android数据库/" title="下一篇: sqlite和Android数据库">
                 <i class="fa fa-angle-right"></i>
             </a>
         
